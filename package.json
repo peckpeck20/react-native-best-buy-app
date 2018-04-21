@@ -25,6 +25,7 @@
     "native-base": "^2.4.1",
     "react": "16.2.0",
     "react-native": "0.52.0",
+    "react-native-easy-grid": "^0.1.17",
     "react-navigation": "^1.5.11"
   }
 }

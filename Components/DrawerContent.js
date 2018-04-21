@@ -15,7 +15,8 @@ import {
   List,
   ListItem,
   Right,
-  Icon
+  Icon,
+  Button
 } from "native-base";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
@@ -39,6 +40,14 @@ export default class DrawerContent extends Component {
         </Header>
         <Content>
           {/* <DrawerItems {...props} /> */}
+          <Button iconLeft info>
+            <Icon type="Entypo" name="add-user" />
+            <Text>Sign Up</Text>
+          </Button>
+          <Button iconRight primary>
+            <Text>Login</Text>
+            <Icon ios="ios-send" android="md-send" />
+          </Button>
 
           <List>
             <ListItem onPress={() => navigation.navigate("Home")}>
