@@ -22,10 +22,12 @@ import LoginScreen from "./Screens/LoginScreen";
 import ProfileScreen from "./Screens/ProfileScreen";
 import CategoryScreen from "./Screens/CategoryScreen";
 import AboutScreen from "./Screens/AboutScreen";
+import { firebaseKey } from "./assets/constants";
+import DrawerContent from "./Components/DrawerContent";
 
 //init firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAal9VUwu1945LQTtIsCUIgtC0hBknebpw",
+  apiKey: firebaseKey,
   authDomain: "react-native-db-69e1b.firebaseapp.com",
   databaseURL: "https://react-native-db-69e1b.firebaseio.com",
   projectId: "react-native-db-69e1b",
@@ -71,36 +73,13 @@ export default class App extends React.Component {
   }
 }
 
-// const CustomDrawerContent = props => (
-//   <Container>
-//     <Header style={styles.drawerHeader}>
-//       <Body>
-//         <Image
-//           source={require("./assets/Images/logo.jpg")}
-//           style={styles.drawerImage}
-//         />
-//       </Body>
-//     </Header>
-//     <Content>
-//             <DrawerItems {...props} />
-//     </Content>
-//   </Container>
-// );
-const CustomDrawerContentComponent = props => (
-  <ScrollView>
-    <SafeAreaView
-      style={styles.container}
-      forceInset={{ top: "always", horizontal: "never" }}
-    >
-      <DrawerItems {...props} />
-    </SafeAreaView>
-  </ScrollView>
-);
-
 const AppDrawer = DrawerNavigator(
   {
     Home: {
-      screen: HomeScreen
+      screen: HomeScreen,
+      navigationOptions: {
+        tabBarLabel: "Settings"
+      }
     },
     Login: {
       screen: LoginScreen
@@ -117,17 +96,15 @@ const AppDrawer = DrawerNavigator(
   },
   {
     initialRouteName: "Category",
-    contentComponent: props => <CustomDrawerContentComponent {...props} />
-    // contentComponent: <CategoryScreen  />
-    // drawerOpenRoute: "DrawerOpen",
-    // drawerCloseRoute: "DrawerClose",
-    // drawerToggleRoute: "DrawerToggle"
+
+    contentComponent: props => <DrawerContent {...props} />
   }
 );
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
+
     // justifyContent: 'center',
     // alignItems: 'center'
   },
