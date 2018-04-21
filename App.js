@@ -24,6 +24,7 @@ import CategoryScreen from "./Screens/CategoryScreen";
 import AboutScreen from "./Screens/AboutScreen";
 import { firebaseKey } from "./assets/constants";
 import DrawerContent from "./Components/DrawerContent";
+import WatchListScreen from "./Screens/WatchListScreen";
 
 //init firebase
 const firebaseConfig = {
@@ -92,6 +93,9 @@ const AppDrawer = DrawerNavigator(
     },
     About: {
       screen: AboutScreen
+    },
+    WatchList: {
+      screen: WatchListScreen
     }
   },
   {

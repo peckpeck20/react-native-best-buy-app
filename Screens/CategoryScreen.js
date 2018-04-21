@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { KeyboardAvoidingView,View } from "react-native";
+import { KeyboardAvoidingView, View } from "react-native";
 import {
   Container,
   Text,
@@ -49,7 +49,7 @@ export default class CategoryScreen extends Component {
     const categoryCards = this.state.categoryData.map((item, i) => {
       return (
         <Card key={i}>
-          <CardItem>
+          <CardItem button onPress={() => alert(item.id)}>
             <Body>
               <Text>{item.name}</Text>
             </Body>
@@ -65,13 +65,9 @@ export default class CategoryScreen extends Component {
             title="Category"
             drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
           />
-          <View style={{backgroundColor:"green", flex:12.5}}>
-              {categoryCards}
-          </View>
-
+          <View style={{ flex: 12.5 }}>{categoryCards}</View>
         </Container>
       </KeyboardAvoidingView>
-
     );
   }
 }

@@ -23,8 +23,8 @@ export default class DrawerContent extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <Container>
-        <Header style={{ flex: 1, paddingTop: 24 }}>
+      <Container style={{ paddingTop: 24, flex: 1 }}>
+        <Header span>
           <Body>
             <Image
               source={require("../assets/Images/logo.jpg")}
@@ -62,6 +62,14 @@ export default class DrawerContent extends Component {
             <ListItem onPress={() => navigation.navigate("Profile")}>
               <Body>
                 <Text>My Profile</Text>
+              </Body>
+              <Right>
+                <Icon name="ios-arrow-forward" />
+              </Right>
+            </ListItem>
+            <ListItem onPress={() => navigation.navigate("WatchList")}>
+              <Body>
+                <Text>My WatchList</Text>
               </Body>
               <Right>
                 <Icon name="ios-arrow-forward" />
