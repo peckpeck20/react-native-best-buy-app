@@ -15,10 +15,11 @@ import {
   List,
   ListItem,
   Right,
+  Left,
   Icon,
   Button
 } from "native-base";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+// import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 export default class TestDrawer extends Component {
@@ -33,8 +34,6 @@ export default class TestDrawer extends Component {
               height: 100,
               width: 100,
               borderRadius: 75
-
-              // left: "25%"
             }}
           />
         </Header>
@@ -54,7 +53,10 @@ export default class TestDrawer extends Component {
             <Row size={2}>
               <Col>
                 <List>
-                  <ListItem onPress={() => navigation.navigate("Home")}>
+                  <ListItem icon onPress={() => navigation.navigate("Home")}>
+                    <Left>
+                      <Icon type="Octicons" name="home" />
+                    </Left>
                     <Body>
                       <Text>Home</Text>
                     </Body>
@@ -63,7 +65,13 @@ export default class TestDrawer extends Component {
                     </Right>
                   </ListItem>
 
-                  <ListItem onPress={() => navigation.navigate("Category")}>
+                  <ListItem
+                    icon
+                    onPress={() => navigation.navigate("Category")}
+                  >
+                    <Left>
+                      <Icon type="FontAwesome" name="th-list" />
+                    </Left>
                     <Body>
                       <Text>Categories</Text>
                     </Body>
@@ -72,7 +80,25 @@ export default class TestDrawer extends Component {
                     </Right>
                   </ListItem>
 
-                  <ListItem onPress={() => navigation.navigate("Profile")}>
+                  <ListItem
+                    icon
+                    onPress={() => navigation.navigate("WatchList")}
+                  >
+                    <Left>
+                      <Icon type="Octicons" name="checklist" />
+                    </Left>
+                    <Body>
+                      <Text>My Watchlist</Text>
+                    </Body>
+                    <Right>
+                      <Icon name="ios-arrow-forward" />
+                    </Right>
+                  </ListItem>
+
+                  <ListItem icon onPress={() => navigation.navigate("Profile")}>
+                    <Left>
+                      <Icon type="FontAwesome" name="user-secret" />
+                    </Left>
                     <Body>
                       <Text>My Profile</Text>
                     </Body>
@@ -80,14 +106,21 @@ export default class TestDrawer extends Component {
                       <Icon name="ios-arrow-forward" />
                     </Right>
                   </ListItem>
-                  <ListItem onPress={() => navigation.navigate("WatchList")}>
+
+                  <ListItem icon onPress={() => navigation.navigate("About")}>
+                    <Left>
+                      <Icon type="Octicons" name="info" />
+                    </Left>
                     <Body>
-                      <Text>My WatchList</Text>
+                      <Text>About</Text>
                     </Body>
                     <Right>
                       <Icon name="ios-arrow-forward" />
                     </Right>
                   </ListItem>
+
+                  {/*
+
 
                   <ListItem onPress={() => navigation.navigate("About")}>
                     <Body>
@@ -96,7 +129,7 @@ export default class TestDrawer extends Component {
                     <Right>
                       <Icon name="ios-arrow-forward" />
                     </Right>
-                  </ListItem>
+                  </ListItem> */}
                 </List>
               </Col>
             </Row>
