@@ -1,12 +1,20 @@
 import React, { Component } from "react";
-import { H1, H2, Container } from "native-base";
+import { H1, H2, Container, Content } from "native-base";
+import styles from "../assets/styling";
+import NavBar from "../Components/NavBar";
 
 class AboutScreen extends Component {
   render() {
     return (
-      <Container style={{ flex: 1 }}>
-        <H1>Made by </H1>
-        <H2>Jose Zapata</H2>
+      <Container style={styles.container}>
+        <NavBar
+          title="Login"
+          drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
+        />
+        <Content>
+          <H1>Made by </H1>
+          <H2>Jose Zapata</H2>
+        </Content>
       </Container>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Alert } from "react-native";
 import * as firebase from "firebase";
 import {
   Container,
@@ -167,9 +168,82 @@ class LoginScreen extends Component {
         />
         <Content>
           <Grid>
-            <Row size={2}>
+            <Row
+              size={2}
+              style={{
+                padding: 20
+              }}
+            >
               <Col>
                 <Form>
+                  <Item floatingLabel>
+                    <Label>Email</Label>
+                    <Input
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      onChangeText={email => this.setState({ email })}
+                    />
+                  </Item>
+
+                  <Item floatingLabel>
+                    <Label>Password</Label>
+                    <Input
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      onChangeText={password => this.setState({ password })}
+                    />
+                  </Item>
+                </Form>
+              </Col>
+            </Row>
+            <Row
+              style={{
+                padding: 60
+              }}
+            >
+              <Col size={1} />
+              <Col size={2}>
+                <Button rounded onPress={() => navigation.navigate("Login")}>
+                  <Text>Login</Text>
+                  <Icon ios="ios-send" android="md-send" />
+                </Button>
+              </Col>
+              <Col size={1} />
+            </Row>
+
+            <Row size={1}>
+              <Col size={1} />
+              <Col size={2}>
+                <H1 style={{ padding: 30 }}>One Click</H1>
+
+                <Button block iconLeft onPress={() => this.loginWithFacebook()}>
+                  <Icon type="FontAwesome" name="facebook-official" />
+                  <Text>Facebook Login</Text>
+                </Button>
+                <H1 style={{ padding: 20 }} />
+                <Button
+                  block
+                  iconLeft
+                  danger
+                  onPress={() => {
+                    this.signInWithGoogleAsync();
+                  }}
+                >
+                  <Icon type="FontAwesome" name="google-plus" />
+                  <Text>Google Login</Text>
+                </Button>
+              </Col>
+              <Col size={1} />
+            </Row>
+          </Grid>
+        </Content>
+      </Container>
+    );
+  }
+}
+
+{
+  /* <Form>
                   <Item floatingLabel>
                     <Label>Email</Label>
                     <Input
@@ -192,36 +266,7 @@ class LoginScreen extends Component {
                 <Button rounded onPress={() => navigation.navigate("Login")}>
                   <Text>Login</Text>
                   <Icon ios="ios-send" android="md-send" />
-                </Button>
-              </Col>
-            </Row>
-            <Row size={1} style={{ backgroundColor: "green" }}>
-              <Col>
-                <H1>Or</H1>
-
-                <Button block iconLeft onPress={() => this.loginWithFacebook()}>
-                  <Icon type="FontAwesome" name="facebook-official" />
-                  <Text>Login with Facebook</Text>
-                </Button>
-
-                <Button
-                  block
-                  iconLeft
-                  danger
-                  onPress={() => {
-                    this.signInWithGoogleAsync();
-                  }}
-                >
-                  <Icon type="FontAwesome" name="google-plus" />
-                  <Text>Google Login</Text>
-                </Button>
-              </Col>
-            </Row>
-          </Grid>
-        </Content>
-      </Container>
-    );
-  }
+                </Button> */
 }
 
 export default LoginScreen;
