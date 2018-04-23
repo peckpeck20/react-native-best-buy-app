@@ -203,7 +203,12 @@ class LoginScreen extends Component {
             >
               <Col size={1} />
               <Col size={2}>
-                <Button rounded onPress={() => navigation.navigate("Login")}>
+                <Button
+                  rounded
+                  onPress={() =>
+                    this.logInUser(this.state.email, this.state.password)
+                  }
+                >
                   <Text>Login</Text>
                   <Icon ios="ios-send" android="md-send" />
                 </Button>
@@ -240,33 +245,6 @@ class LoginScreen extends Component {
       </Container>
     );
   }
-}
-
-{
-  /* <Form>
-                  <Item floatingLabel>
-                    <Label>Email</Label>
-                    <Input
-                      autoCorrect={false}
-                      autoCapitalize="none"
-                      onChangeText={email => this.setState({ email })}
-                    />
-                  </Item>
-
-                  <Item floatingLabel>
-                    <Label>Password</Label>
-                    <Input
-                      autoCorrect={false}
-                      autoCapitalize="none"
-                      onChangeText={password => this.setState({ password })}
-                    />
-                  </Item>
-                </Form>
-
-                <Button rounded onPress={() => navigation.navigate("Login")}>
-                  <Text>Login</Text>
-                  <Icon ios="ios-send" android="md-send" />
-                </Button> */
 }
 
 export default LoginScreen;

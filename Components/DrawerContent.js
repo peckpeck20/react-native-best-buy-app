@@ -22,7 +22,7 @@ import {
 // import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-export default class TestDrawer extends Component {
+export default class DrawerContent extends Component {
   render() {
     const { navigation } = this.props;
     return (

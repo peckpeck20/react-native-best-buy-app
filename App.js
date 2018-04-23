@@ -25,7 +25,7 @@ import CategoryScreen from "./Screens/CategoryScreen";
 import AboutScreen from "./Screens/AboutScreen";
 import { firebaseKey } from "./assets/constants";
 import DrawerContent from "./Components/DrawerContent";
-// import TestDrawer from "./Components/Tester";
+
 import WatchListScreen from "./Screens/WatchListScreen";
 
 //init firebase
@@ -104,7 +104,7 @@ const AppDrawer = DrawerNavigator(
     }
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "SignUp",
     contentComponent: props => <DrawerContent {...props} />
   }
 );
