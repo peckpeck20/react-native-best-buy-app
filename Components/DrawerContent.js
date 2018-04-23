@@ -39,12 +39,12 @@ export default class TestDrawer extends Component {
         </Header>
         <Content>
           <Grid>
-            <Row size={1} style={{ backgroundColor: "#635DB0" }}>
-              <Button full info>
+            <Row size={1}>
+              <Button full info onPress={() => navigation.navigate("SignUp")}>
                 <Icon type="Entypo" name="add-user" />
                 <Text>Sign Up</Text>
               </Button>
-              <Button full primary>
+              <Button full primary onPress={() => navigation.navigate("Login")}>
                 <Text>Login</Text>
                 <Icon ios="ios-send" android="md-send" />
               </Button>
@@ -118,18 +118,6 @@ export default class TestDrawer extends Component {
                       <Icon name="ios-arrow-forward" />
                     </Right>
                   </ListItem>
-
-                  {/*
-
-
-                  <ListItem onPress={() => navigation.navigate("About")}>
-                    <Body>
-                      <Text>About</Text>
-                    </Body>
-                    <Right>
-                      <Icon name="ios-arrow-forward" />
-                    </Right>
-                  </ListItem> */}
                 </List>
               </Col>
             </Row>

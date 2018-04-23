@@ -1,7 +1,20 @@
 import React, { Component } from "react";
-import { Button, KeyboardAvoidingView, View,Image } from "react-native";
 import * as firebase from "firebase";
-import { Container, Text, Form, Item, Label, Input, Alert } from "native-base";
+import {
+  Container,
+  Header,
+  Content,
+  Text,
+  Button,
+  Icon,
+  Form,
+  Item,
+  Label,
+  Input,
+  H1,
+  H2
+} from "native-base";
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 import { fbKey, androidID, iosID } from "../assets/constants";
 import styles from "../assets/styling";
@@ -135,82 +148,78 @@ class LoginScreen extends Component {
   }
 
   render() {
-    const loggedIn = this.state.loggedIn;
+    // const loggedIn = this.state.loggedIn;
 
-    const button = loggedIn ? (
-      <Button title="logout" color="red" onPress={this.signOut} />
-    ) : (
-      <Button
-        title="login "
-        onPress={() => this.logInUser(this.state.email, this.state.password)}
-      />
-    );
+    // const button = loggedIn ? (
+    //   <Button title="logout" color="red" onPress={this.signOut} />
+    // ) : (
+    //   <Button
+    //     title="login "
+    //     onPress={() => this.logInUser(this.state.email, this.state.password)}
+    //   />
+    // );
 
     return (
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-        <Container style={styles.container}>
-          <NavBar
-            title="Login"
-            drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
-          />
+      <Container style={styles.container}>
+        <NavBar
+          title="Login"
+          drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
+        />
+        <Content>
+          <Grid>
+            <Row size={2}>
+              <Col>
+                <Form>
+                  <Item floatingLabel>
+                    <Label>Email</Label>
+                    <Input
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      onChangeText={email => this.setState({ email })}
+                    />
+                  </Item>
 
-          <View style={{ flex: 12}}>
-          <Image
-            style={{
-              flex: 1,
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-              justifyContent: 'center',
-            }}
-            source={require("../assets/Images/signin.jpg")}
-          />
-          </View>
-          <View style={{ flex: 2, backgroundColor: "blue" }}>
-          {/* <Image> */}
-          </View>
-          {/* <Form>
-            <Item floatingLabel>
-              <Label>Email</Label>
-              <Input
-                autoCorrect={false}
-                autoCapitalize="none"
-                onChangeText={email => this.setState({ email })}
-              />
-            </Item>
+                  <Item floatingLabel>
+                    <Label>Password</Label>
+                    <Input
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      onChangeText={password => this.setState({ password })}
+                    />
+                  </Item>
+                </Form>
 
-            <Item floatingLabel>
-              <Label>Password</Label>
-              <Input
-                autoCorrect={false}
-                autoCapitalize="none"
-                onChangeText={password => this.setState({ password })}
-              />
-            </Item>
-            
-            {button}
-            <Button
-              title="Sign up"
-              onPress={() =>
-                this.signUpUser(this.state.email, this.state.password)
-              }
-            />
-            <Button
-              title="FB"
-              color="black"
-              onPress={() => this.loginWithFacebook()}
-            />
+                <Button rounded onPress={() => navigation.navigate("Login")}>
+                  <Text>Login</Text>
+                  <Icon ios="ios-send" android="md-send" />
+                </Button>
+              </Col>
+            </Row>
+            <Row size={1} style={{ backgroundColor: "green" }}>
+              <Col>
+                <H1>Or</H1>
 
-            <Button
-              title="Google"
-              color="green"
-              onPress={() => {
-                this.signInWithGoogleAsync();
-              }}
-            />
-          </Form> */}
-        </Container>
-      </KeyboardAvoidingView>
+                <Button block iconLeft onPress={() => this.loginWithFacebook()}>
+                  <Icon type="FontAwesome" name="facebook-official" />
+                  <Text>Login with Facebook</Text>
+                </Button>
+
+                <Button
+                  block
+                  iconLeft
+                  danger
+                  onPress={() => {
+                    this.signInWithGoogleAsync();
+                  }}
+                >
+                  <Icon type="FontAwesome" name="google-plus" />
+                  <Text>Google Login</Text>
+                </Button>
+              </Col>
+            </Row>
+          </Grid>
+        </Content>
+      </Container>
     );
   }
 }

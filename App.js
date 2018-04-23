@@ -19,6 +19,7 @@ import { DrawerNavigator, DrawerItems, SafeAreaView } from "react-navigation";
 //custom
 import HomeScreen from "./Screens/HomeScreen";
 import LoginScreen from "./Screens/LoginScreen";
+import SignUpScreen from "./Screens/SignUpScreen";
 import ProfileScreen from "./Screens/ProfileScreen";
 import CategoryScreen from "./Screens/CategoryScreen";
 import AboutScreen from "./Screens/AboutScreen";
@@ -78,13 +79,16 @@ export default class App extends React.Component {
 const AppDrawer = DrawerNavigator(
   {
     Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        tabBarLabel: "Settings"
-      }
+      screen: HomeScreen
+      // navigationOptions: {
+      //   tabBarLabel: "Settings"
+      // }
     },
     Login: {
       screen: LoginScreen
+    },
+    SignUp: {
+      screen: SignUpScreen
     },
     Profile: {
       screen: ProfileScreen
@@ -100,10 +104,8 @@ const AppDrawer = DrawerNavigator(
     }
   },
   {
-    initialRouteName: "Category",
-
+    initialRouteName: "Login",
     contentComponent: props => <DrawerContent {...props} />
-    // contentComponent: props => <TestDrawer {...props} />
   }
 );
 
