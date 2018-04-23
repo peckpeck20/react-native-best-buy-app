@@ -49,7 +49,11 @@ export default class HomeScreen extends Component {
                 />
                 <Icon
                   name="ios-cart-outline"
-                  onPress={() => this.props.navigation.navigate("DrawerToggle")}
+                  onPress={() =>
+                    this.props.navigation.navigate("SearchScreen", {
+                      searchQuery: this.state.searchTxt
+                    })
+                  }
                 />
               </Row>
             </Row>

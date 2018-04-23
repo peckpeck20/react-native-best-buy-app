@@ -6,6 +6,8 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 class SearchScreen extends Component {
   render() {
+    const { params } = this.props.navigation.state;
+
     return (
       <Container style={styles.container}>
         <NavBar
@@ -16,9 +18,7 @@ class SearchScreen extends Component {
           <Grid>
             <Row>
               <Col>
-                <H1>Made by </H1>
-                <H2>Jose Zapata</H2>
-                <H2>2018</H2>
+                <H2>Search Query = {params.searchQuery}</H2>
               </Col>
             </Row>
             <Row />
