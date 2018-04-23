@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Button, Image, ScrollView } from "react-native";
+import { StyleSheet } from "react-native";
 import * as Expo from "expo";
 //packages
 import * as firebase from "firebase";
@@ -17,16 +17,16 @@ import {
 } from "native-base";
 import { DrawerNavigator, DrawerItems, SafeAreaView } from "react-navigation";
 //custom
+import DrawerContent from "./Components/DrawerContent";
 import HomeScreen from "./Screens/HomeScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import SignUpScreen from "./Screens/SignUpScreen";
 import ProfileScreen from "./Screens/ProfileScreen";
 import CategoryScreen from "./Screens/CategoryScreen";
+import WatchListScreen from "./Screens/WatchListScreen";
+import SearchScreen from "./Screens/SearchScreen";
 import AboutScreen from "./Screens/AboutScreen";
 import { firebaseKey } from "./assets/constants";
-import DrawerContent from "./Components/DrawerContent";
-
-import WatchListScreen from "./Screens/WatchListScreen";
 
 //init firebase
 const firebaseConfig = {
@@ -101,10 +101,13 @@ const AppDrawer = DrawerNavigator(
     },
     WatchList: {
       screen: WatchListScreen
+    },
+    SearchScreen: {
+      screen: SearchScreen
     }
   },
   {
-    initialRouteName: "SignUp",
+    initialRouteName: "Home",
     contentComponent: props => <DrawerContent {...props} />
   }
 );
