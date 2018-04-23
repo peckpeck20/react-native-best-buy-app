@@ -59,15 +59,13 @@ export default class CategoryScreen extends Component {
     });
 
     return (
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-        <Container style={styles.container}>
-          <NavBar
-            title="Category"
-            drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
-          />
-          <View style={{ flex: 12.5 }}>{categoryCards}</View>
-        </Container>
-      </KeyboardAvoidingView>
+      <Container style={styles.container}>
+        <NavBar
+          title="Category"
+          drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
+        />
+        <Content>{categoryCards}</Content>
+      </Container>
     );
   }
 }
