@@ -34,7 +34,7 @@ export default class CategoryScreen extends Component {
   }
 
   fetchCategories() {
-    const path = `https://api.bestbuy.com/v1/categories(id=abcat*)?apiKey=${bestBuyKey}&pageSize=10&show=id,name&format=json`;
+    const path = `https://api.bestbuy.com/v1/categories(id=abcat*)?apiKey=${bestBuyKey}&pageSize=100&show=id,name&format=json`;
     fetch(path)
       .then(res => res.json())
       .then(resData => {
