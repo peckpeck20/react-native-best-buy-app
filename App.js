@@ -108,7 +108,7 @@ const AppDrawer = DrawerNavigator(
     }
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Category",
     contentComponent: props => <DrawerContent {...props} />
   }
 );

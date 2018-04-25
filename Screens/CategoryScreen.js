@@ -16,37 +16,38 @@ import {
 
 import NavBar from "../Components/NavBar";
 import styles from "../assets/styling";
-import { bestBuyKey } from "../assets/constants";
+// import { bestBuyKey } from "../assets/constants";
+import { allCategories } from "../assets/categories";
 
 export default class CategoryScreen extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      categoryData: []
-    };
+    // this.state = {
+    //   categoryData: allCategories
+    // };
 
     //use this word inside function
-    this.fetchCategories = this.fetchCategories.bind(this);
+    // this.fetchCategories = this.fetchCategories.bind(this);
   }
-  componentDidMount() {
-    this.fetchCategories();
-  }
+  // componentDidMount() {
+  //   this.fetchCategories();
+  // }
 
-  fetchCategories() {
-    const path = `https://api.bestbuy.com/v1/categories(id=abcat*)?apiKey=${bestBuyKey}&pageSize=100&show=id,name&format=json`;
-    fetch(path)
-      .then(res => res.json())
-      .then(resData => {
-        this.setState({
-          categoryData: resData.categories
-        });
-        // console.log(resData.categories);
-      });
-  }
+  // fetchCategories() {
+  //   const path = `https://api.bestbuy.com/v1/categories(id=abcat*)?apiKey=${bestBuyKey}&pageSize=100&show=id,name&format=json`;
+  //   fetch(path)
+  //     .then(res => res.json())
+  //     .then(resData => {
+  //       this.setState({
+  //         categoryData: resData.categories
+  //       });
+  //       // console.log(resData.categories);
+  //     });
+  // }
 
   render() {
-    const categoryCards = this.state.categoryData.map((item, i) => {
+    const categoryCards = allCategories.map((item, i) => {
       return (
         <Card key={i}>
           <CardItem button onPress={() => alert(item.id)}>
