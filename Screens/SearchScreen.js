@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Image } from "react-native";
+import axios from "axios";
 import {
   Container,
   Header,
@@ -25,91 +26,97 @@ class SearchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchData: {}
+      searchData: [],
+      pageCount: 1,
+      totalPages: 0
     };
     //use this word inside function
     this.fetchItem = this.fetchItem.bind(this);
   }
 
   componentDidMount() {
-    let query = this.props.navigation.state.params.searchQuery;
-    // console.log(query);
-    this.fetchItem(query);
+    //get params as props from home screen search
+    const { params } = this.props.navigation.state;
 
-    // if ((searchQuery = !undefined || null)) {
-    //   console.log("====================================");
-    //   console.log("empty");
-    //   console.log("====================================");
-    // } else {
-    //   console.log("====================================");
-    //   console.log("full");
-    //   console.log("====================================");
-    // }
-
-    // if (query == undefined || null) {
-    //   console.log("====================================");
-    //   console.log("empy");
-    //   console.log("====================================");
-    // }
+    const query = params ? params.searchQuery : null;
+    if (query == null) {
+      console.log("query is empty");
+    } else {
+      this.fetchItem(query);
+    }
   }
 
   fetchItem(query) {
-    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=100&format=json`;
-    fetch(path)
-      .then(res => res.json())
-      .then(resData => {
+    const pageCount = this.state.pageCount;
+    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=10&page=${pageCount}&format=json`;
+    // fetch(path)
+    //   .then(res => res.json())
+    //   .then(resData => {
+    //     this.setState({
+    //       searchData: resData
+    //     });
+    //     // console.log(resData);
+    //   });
+
+    //   });
+
+    console.log("====================================");
+    console.log(path);
+    console.log("====================================");
+
+    axios
+      .get(path)
+      .then(response => {
         this.setState({
-          searchData: resData
+          searchData: response.data.products,
+          totalPages: response.data.totalPages
         });
-        // console.log(resData);
+        // console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
+
   render() {
-    const { params } = this.props.navigation.state;
+    const cardContent = this.state.searchData;
 
-    const cardContent = this.state.searchData.products;
-    console.log("====================================");
-    console.log(cardContent);
-    console.log("====================================");
-
-    // const itemCards = cardContent.map((item, i) => {
-    //   return (
-    //     <Card key={i}>
-    //       <CardItem>
-    //         <Left>
-    //           <Thumbnail source={{ uri: item.thumbnailImage }} />
-    //           <Body>
-    //             <Text>{item.name}</Text>
-    //             <Text>{item.salePrice}</Text>
-    //           </Body>
-    //         </Left>
-    //       </CardItem>
-    //       <CardItem cardBody>
-    //         <Image
-    //           source={{ uri: item.image }}
-    //           style={{ height: 200, width: null, flex: 1 }}
-    //         />
-    //       </CardItem>
-    //       <CardItem>
-    //         <Left>
-    //           <Button transparent>
-    //             <Icon active name="thumbs-up" />
-    //             <Text>12 Likes</Text>
-    //           </Button>
-    //         </Left>
-    //         <Body>
-    //           <Button transparent>
-    //             <Icon active name="chatbubbles" />
-    //             <Text>4 Comments</Text>
-    //           </Button>
-    //         </Body>
-    //         <Right>
-    //           <Text>11h ago</Text>
-    //         </Right>
-    //       </CardItem>
-    //     </Card>
-    //   );
-    // });
+    const itemCards = cardContent.map((item, i) => {
+      return (
+        <Card key={i}>
+          <CardItem>
+            <Left>
+              {/* <Thumbnail source={{uri: '' }} /> */}
+              <Body>
+                <Text>{item.name}</Text>
+                <Text note>{item.salePrice}</Text>
+              </Body>
+            </Left>
+          </CardItem>
+          <CardItem cardBody>
+            {/* <Image source={{uri: 'Image URL'}} style={{height: 200, width: null, flex: 1}}/> */}
+            <Text>{item.salePrice}</Text>
+          </CardItem>
+          <CardItem>
+            <Left>
+              <Button transparent>
+                <Icon active name="thumbs-up" />
+                <Text>12 Likes</Text>
+              </Button>
+            </Left>
+            <Body>
+              <Button transparent>
+                <Icon active name="chatbubbles" />
+                <Text>4 Comments</Text>
+              </Button>
+            </Body>
+            <Right>
+              <Text>11h ago</Text>
+            </Right>
+          </CardItem>
+        </Card>
+      );
+    });
 
     return (
       <Container style={styles.container}>
@@ -118,15 +125,16 @@ class SearchScreen extends Component {
           drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
         />
         <Content>
-          <Grid>
+          {/* <Grid>
             <Row>
               <Col>
-                {/* <H2>Search Query = {params.searchQuery}</H2> */}
-                {/* {this.state.searchData.products} */}
+
+                
               </Col>
             </Row>
             <Row />
-          </Grid>
+          </Grid> */}
+          {itemCards}
         </Content>
       </Container>
     );
