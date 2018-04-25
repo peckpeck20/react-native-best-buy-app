@@ -25,7 +25,7 @@ class SearchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchData: []
+      searchData: {}
     };
     //use this word inside function
     this.fetchItem = this.fetchItem.bind(this);
@@ -67,21 +67,26 @@ class SearchScreen extends Component {
   render() {
     const { params } = this.props.navigation.state;
 
-    // const itemCards = this.state.searchData.products.map((item, i) => {
+    const cardContent = this.state.searchData.products;
+    console.log("====================================");
+    console.log(cardContent);
+    console.log("====================================");
+
+    // const itemCards = cardContent.map((item, i) => {
     //   return (
-    //     <Card>
+    //     <Card key={i}>
     //       <CardItem>
     //         <Left>
-    //           <Thumbnail source={{ uri: "Image URL" }} />
+    //           <Thumbnail source={{ uri: item.thumbnailImage }} />
     //           <Body>
-    //             <Text>NativeBase</Text>
-    //             <Text note>GeekyAnts</Text>
+    //             <Text>{item.name}</Text>
+    //             <Text>{item.salePrice}</Text>
     //           </Body>
     //         </Left>
     //       </CardItem>
     //       <CardItem cardBody>
     //         <Image
-    //           source={{ uri: "Image URL" }}
+    //           source={{ uri: item.image }}
     //           style={{ height: 200, width: null, flex: 1 }}
     //         />
     //       </CardItem>

@@ -26,7 +26,7 @@ import CategoryScreen from "./Screens/CategoryScreen";
 import WatchListScreen from "./Screens/WatchListScreen";
 import SearchScreen from "./Screens/SearchScreen";
 import AboutScreen from "./Screens/AboutScreen";
-import { firebaseKey } from "./assets/constants";
+import { firebaseKey, bestBuyKey } from "./assets/constants";
 
 //init firebase
 const firebaseConfig = {
@@ -37,8 +37,8 @@ const firebaseConfig = {
   storageBucket: "react-native-db-69e1b.appspot.com"
   // messagingSenderId: "420654183697"
 };
-
 firebase.initializeApp(firebaseConfig);
+//init bestbuy api
 
 export default class App extends React.Component {
   constructor(props) {
@@ -57,6 +57,7 @@ export default class App extends React.Component {
 
   componentWillMount() {
     this.loadFonts();
+    console.log("hello");
   }
 
   async loadFonts() {
