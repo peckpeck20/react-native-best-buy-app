@@ -17,12 +17,6 @@ import AdvancedSearchBar from "../Components/AdvancedSearchBar";
 import { SearchBar } from "react-native-elements";
 
 export default class HomeScreen extends Component {
-  // static NavigationOptions = {
-  //   drawerIcon: (
-  //     <Icon style={{ height: 24, width: 24 }} type="FontAwesome" name="home" />
-  //   )
-  // };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +33,7 @@ export default class HomeScreen extends Component {
 
         <Content>
           <Grid>
-            <Row style={{ backgroundColor: "#635DB7", height: 55 }}>
+            <Row style={{ backgroundColor: "#635DB7", padding: 5 }}>
               <Row>
                 <Icon
                   name="menu"
@@ -65,13 +59,13 @@ export default class HomeScreen extends Component {
                   }
                   rounded
                   style={{
-                    width: 330,
+                    width: 320,
                     height: 50,
                     padding: 5,
                     backgroundColor: "white"
                   }}
                 >
-                  <Input placeholder="Icon Textbox" disabled />
+                  <Input placeholder="I'm looking for.." disabled />
                   <Icon active name="search" />
                 </Item>
 
@@ -86,9 +80,9 @@ export default class HomeScreen extends Component {
                 />
               </Row>
             </Row>
-            <Row>
+            {/* <Row>
               <AdvancedSearchBar />
-            </Row>
+            </Row> */}
           </Grid>
         </Content>
       </Container>

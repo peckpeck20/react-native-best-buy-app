@@ -24,6 +24,8 @@ import SignUpScreen from "./Screens/SignUpScreen";
 import ProfileScreen from "./Screens/ProfileScreen";
 import CategoryScreen from "./Screens/CategoryScreen";
 import WatchListScreen from "./Screens/WatchListScreen";
+import ResultScreen from "./Screens/ResultScreen";
+
 import SearchScreen from "./Screens/SearchScreen";
 import AboutScreen from "./Screens/AboutScreen";
 import { firebaseKey, bestBuyKey } from "./assets/constants";
@@ -81,9 +83,6 @@ const AppDrawer = DrawerNavigator(
   {
     Home: {
       screen: HomeScreen
-      // navigationOptions: {
-      //   tabBarLabel: "Settings"
-      // }
     },
     Login: {
       screen: LoginScreen
@@ -102,6 +101,9 @@ const AppDrawer = DrawerNavigator(
     },
     WatchList: {
       screen: WatchListScreen
+    },
+    ResultScreen: {
+      screen: ResultScreen
     },
     SearchScreen: {
       screen: SearchScreen
