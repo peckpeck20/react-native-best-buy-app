@@ -48,17 +48,7 @@ class SearchScreen extends Component {
 
   fetchItem(query) {
     const pageCount = this.state.pageCount;
-    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=10&page=${pageCount}&format=json`;
-    // fetch(path)
-    //   .then(res => res.json())
-    //   .then(resData => {
-    //     this.setState({
-    //       searchData: resData
-    //     });
-    //     // console.log(resData);
-    //   });
-
-    //   });
+    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=50&page=${pageCount}&format=json`;
 
     console.log("====================================");
     console.log(path);
@@ -83,10 +73,10 @@ class SearchScreen extends Component {
 
     const itemCards = cardContent.map((item, i) => {
       return (
-        <Card key={i}>
+        <Card key={i} style={{ flex: 0 }}>
           <CardItem>
             <Left>
-              {/* <Thumbnail source={{uri: '' }} /> */}
+              <Thumbnail source={{ uri: item.thumbnailImage }} />
               <Body>
                 <Text>{item.name}</Text>
                 <Text note>{item.salePrice}</Text>
@@ -94,7 +84,10 @@ class SearchScreen extends Component {
             </Left>
           </CardItem>
           <CardItem cardBody>
-            {/* <Image source={{uri: 'Image URL'}} style={{height: 200, width: null, flex: 1}}/> */}
+            <Image
+              source={{ uri: item.image }}
+              style={{ height: 150, width: 150, flex: 1 }}
+            />
             <Text>{item.salePrice}</Text>
           </CardItem>
           <CardItem>

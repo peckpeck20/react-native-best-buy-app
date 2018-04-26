@@ -108,7 +108,7 @@ const AppDrawer = DrawerNavigator(
     }
   },
   {
-    initialRouteName: "Category",
+    initialRouteName: "Home",
     contentComponent: props => <DrawerContent {...props} />
   }
 );
@@ -116,9 +116,6 @@ const AppDrawer = DrawerNavigator(
 const styles = StyleSheet.create({
   container: {
     flex: 1
-
-    // justifyContent: 'center',
-    // alignItems: 'center'
   },
   drawerHeader: {
     height: 150,

@@ -35,6 +35,7 @@ export default class HomeScreen extends Component {
                 <Icon
                   name="menu"
                   onPress={() => this.props.navigation.navigate("DrawerToggle")}
+                  style={{ color: "white", padding: 10 }}
                 />
                 <SearchBar
                   round
@@ -43,7 +44,7 @@ export default class HomeScreen extends Component {
                   onChangeText={searchTxt => this.setState({ searchTxt })}
                   onClear={() => this.setState({ searchTxt: "" })}
                   onCancel={() => this.setState({ searchTxt: "" })}
-                  containerStyle={{ width: 350, height: 50 }}
+                  containerStyle={{ width: 330, height: 50 }}
                   placeholder="Search Products"
                   icon={{ type: "font-awesome", name: "search" }}
                 />
@@ -54,6 +55,7 @@ export default class HomeScreen extends Component {
                       searchQuery: this.state.searchTxt
                     })
                   }
+                  style={{ color: "white", padding: 10 }}
                 />
               </Row>
             </Row>
