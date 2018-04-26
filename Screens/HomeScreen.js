@@ -1,9 +1,18 @@
 import React, { Component } from "react";
 import { KeyboardAvoidingView, Text } from "react-native";
-import { Container, Content, Icon, Button, Header } from "native-base";
+import {
+  Container,
+  Content,
+  Icon,
+  Button,
+  Header,
+  Item,
+  Input
+} from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
+import AdvancedSearchBar from "../Components/AdvancedSearchBar";
 // import SearchBar from "../Components/SearchBar";
 import { SearchBar } from "react-native-elements";
 
@@ -37,7 +46,7 @@ export default class HomeScreen extends Component {
                   onPress={() => this.props.navigation.navigate("DrawerToggle")}
                   style={{ color: "white", padding: 10 }}
                 />
-                <SearchBar
+                {/* <SearchBar
                   round
                   clearIcon
                   showLoading
@@ -47,7 +56,25 @@ export default class HomeScreen extends Component {
                   containerStyle={{ width: 330, height: 50 }}
                   placeholder="Search Products"
                   icon={{ type: "font-awesome", name: "search" }}
-                />
+                /> */}
+                <Item
+                  onPress={() =>
+                    this.props.navigation.navigate("SearchScreen", {
+                      searchQuery: this.state.searchTxt
+                    })
+                  }
+                  rounded
+                  style={{
+                    width: 330,
+                    height: 50,
+                    padding: 5,
+                    backgroundColor: "white"
+                  }}
+                >
+                  <Input placeholder="Icon Textbox" disabled />
+                  <Icon active name="search" />
+                </Item>
+
                 <Icon
                   name="ios-cart-outline"
                   onPress={() =>
@@ -59,7 +86,9 @@ export default class HomeScreen extends Component {
                 />
               </Row>
             </Row>
-            <Row style={{ backgroundColor: "#00CE9F" }} />
+            <Row>
+              <AdvancedSearchBar />
+            </Row>
           </Grid>
         </Content>
       </Container>

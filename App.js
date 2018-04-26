@@ -57,7 +57,7 @@ export default class App extends React.Component {
 
   componentWillMount() {
     this.loadFonts();
-    console.log("hello");
+    console.log("App started ");
   }
 
   async loadFonts() {
