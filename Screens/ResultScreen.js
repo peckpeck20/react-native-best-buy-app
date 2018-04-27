@@ -78,7 +78,7 @@ class ResultScreen extends Component {
         <Card key={i} style={{ flex: 0 }}>
           <CardItem>
             <Left>
-              <Thumbnail source={{ uri: item.thumbnailImage }} />
+              <Thumbnail source={{ uri: item.image }} />
               <Body>
                 <Text>{item.name}</Text>
                 <Text note>{item.salePrice}</Text>
@@ -86,10 +86,10 @@ class ResultScreen extends Component {
             </Left>
           </CardItem>
           <CardItem cardBody>
-            <Image
+            {/* <Image
               source={{ uri: item.image }}
               style={{ height: 150, width: 150, flex: 1 }}
-            />
+            /> */}
             <Text>{item.salePrice}</Text>
           </CardItem>
           <CardItem>

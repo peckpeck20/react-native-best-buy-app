@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { View } from "react-native";
+import * as firebase from "firebase";
 import { NavigationActions } from "react-navigation";
 import { Image } from "react-native";
 import {
@@ -23,8 +25,60 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 export default class DrawerContent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: false
+    };
+
+    //use this word inside function
+    this.signOut = this.signOut.bind(this);
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user != null) {
+    //     console.log(`User is uthenticated! ${user}`);
+    //     this.setState({
+    //       isLoggedIn: true
+    //     });
+    //   } else {
+    //     this.setState({
+    //       isLoggedIn: false
+    //     });
+    //   }
+    // });
+  }
+
+  signOut() {
+    firebase
+      .auth()
+      .signOut()
+      .then(
+        () => {
+          console.log("Signed Out");
+          this.setState({ isLoggedIn: false });
+        },
+        function(error) {
+          console.error("Sign Out Error", error);
+        }
+      );
+  }
+  // componentDidMount() {
+  //   // Listen for authentication state to change.
+  //   firebase.auth().onAuthStateChanged(user => {
+  //     if (user != null) {
+  //       console.log(`User is uthenticated! ${user}`);
+  //       this.setState({
+  //         isLoggedIn: true
+  //       });
+  //     }
+  //   });
+  // }
   render() {
     const { navigation } = this.props;
+
+    const { loggedIn } = this.state;
+
+    // console.log(this.state.isLoggedIn);
+
     return (
       <Container style={{ paddingTop: 24 }}>
         <Header span style={{ paddingTop: 15 }}>
@@ -39,7 +93,8 @@ export default class DrawerContent extends Component {
         </Header>
         <Content>
           <Grid>
-            <Row size={1}>
+            <Row>
+              {/* {loggedIn ? <Text>Log out</Text> : <Text>Logged In</Text>} */}
               <Button full info onPress={() => navigation.navigate("SignUp")}>
                 <Icon type="Entypo" name="add-user" />
                 <Text>Sign Up</Text>
@@ -120,6 +175,16 @@ export default class DrawerContent extends Component {
                   </ListItem>
                 </List>
               </Col>
+            </Row>
+            <Row style={{ paddingTop: 20 }}>
+              <Col size={1} />
+              <Col size={2}>
+                <Button rounded danger onPress={this.signOut}>
+                  <Icon type="FontAwesome" name="sign-out" />
+                  <Text>Log out</Text>
+                </Button>
+              </Col>
+              <Col size={1} />
             </Row>
           </Grid>
         </Content>

@@ -22,12 +22,6 @@ export default class AdvancedSearchBar extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    console.log("====================================");
-    console.log(this.props.nav);
-    console.log("====================================");
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -41,9 +35,10 @@ export default class AdvancedSearchBar extends Component {
             this.searchHeader = searchHeader;
           }}
           onSearch={event => {
-            console.log("====================================");
-            console.log(event.nativeEvent.text);
-            console.log("====================================");
+            // console.log("====================================");
+            // console.log(event.nativeEvent.text);
+            // console.log("====================================");
+
             //takes navigation passed from parent props
             this.props.nav.navigate("ResultScreen", {
               searchQuery: event.nativeEvent.text
