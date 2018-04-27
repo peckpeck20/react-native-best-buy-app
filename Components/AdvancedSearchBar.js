@@ -18,10 +18,6 @@ const styles = StyleSheet.create({
 });
 
 export default class AdvancedSearchBar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <View style={styles.container}>

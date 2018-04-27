@@ -48,8 +48,8 @@ class ResultScreen extends Component {
 
   fetchItem(query) {
     const pageCount = this.state.pageCount;
-    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=50&page=${pageCount}&format=json`;
-
+    // const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=50&page=${pageCount}&format=json`;
+    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=name.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,shippingCost&pageSize=30&page=${pageCount}&format=json`;
     console.log("====================================");
     console.log(path);
     console.log("====================================");
@@ -67,6 +67,24 @@ class ResultScreen extends Component {
         console.log(error);
       });
   }
+  //creates number of stars based on input
+  starRating(num) {
+    // const num = num;
+    let total = [];
+
+    for (var i = 0; i < num; i++) {
+      total.push(
+        <Icon
+          key={num}
+          style={{ color: "red", fontSize: 15 }}
+          active
+          name="star"
+          type="MaterialIcons"
+        />
+      );
+    }
+    return total;
+  }
 
   render() {
     const cardContent = this.state.searchData;
@@ -76,28 +94,28 @@ class ResultScreen extends Component {
     const itemCards = cardContent.map((item, i) => {
       return (
         <Card key={i} style={{ flex: 0 }}>
-          <CardItem>
+          <CardItem bordered>
             <Left>
-              <Thumbnail source={{ uri: item.image }} />
+              <Thumbnail large square source={{ uri: item.image }} />
               <Body>
                 <Text>{item.name}</Text>
-                <Text note>{item.salePrice}</Text>
+                <Text note>{item.manufacturer}</Text>
               </Body>
             </Left>
           </CardItem>
-          <CardItem cardBody>
-            {/* <Image
-              source={{ uri: item.image }}
-              style={{ height: 150, width: 150, flex: 1 }}
-            /> */}
-            <Text>{item.salePrice}</Text>
+
+          <CardItem footer>
+            <Text> $ {item.salePrice}</Text>
           </CardItem>
+          <CardItem footer>
+            <Text note>{item.shippingCost}</Text>
+          </CardItem>
+
           <CardItem>
             <Left>
-              <Button transparent>
-                <Icon active name="thumbs-up" />
-                <Text>12 Likes</Text>
-              </Button>
+              {this.starRating(item.customerReviewAverage)}
+
+              <Text>Orders {item.customerReviewCount}</Text>
             </Left>
             <Body>
               <Button transparent>
@@ -106,7 +124,7 @@ class ResultScreen extends Component {
               </Button>
             </Body>
             <Right>
-              <Text>11h ago</Text>
+              <Text>Save % {item.percentSavings}</Text>
             </Right>
           </CardItem>
         </Card>
