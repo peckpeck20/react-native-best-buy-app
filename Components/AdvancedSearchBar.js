@@ -50,9 +50,10 @@ export default class AdvancedSearchBar extends Component {
               );
               const data = await response.json();
               return data[1];
-            } else {
-              return [];
             }
+            // else {
+            //   return [];
+            // }
           }}
         />
       </View>

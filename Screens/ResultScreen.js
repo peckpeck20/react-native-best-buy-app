@@ -67,24 +67,66 @@ class ResultScreen extends Component {
         console.log(error);
       });
   }
+
   //creates number of stars based on input
   starRating(num) {
-    // const num = num;
-    let total = [];
-
-    for (var i = 0; i < num; i++) {
-      total.push(
+    if (num == null) {
+      return (
         <Icon
           key={num}
           style={{ color: "red", fontSize: 15 }}
-          active
-          name="star"
+          name="star-border"
           type="MaterialIcons"
         />
       );
+    } else {
+      let total = [];
+      for (var i = 0; i < num; i++) {
+        total.push(
+          <Icon
+            key={num}
+            style={{ color: "red", fontSize: 15 }}
+            active
+            name="star"
+            type="MaterialIcons"
+          />
+        );
+      }
+      return total;
     }
-    return total;
   }
+
+  //if 0 then return free shipping
+  shipping(i) {
+    if (i == 0) {
+      return <Text>Free shipping</Text>;
+    } else {
+      return <Text note>Shipping : {i}</Text>;
+    }
+  }
+  //if the item is available return green icon
+checkItem(status){
+  if(status == true){
+return (
+  <Icon
+  style={{ color: "green", fontSize: 15 }}
+  active
+  name="check-circle-o"
+  type="FontAwesome"
+/>
+);
+  } else {
+    return (
+      <Icon
+      style={{ color: "red", fontSize: 15 }}
+      active
+      name="times-circle-o"
+      type="FontAwesome"
+    />
+    );
+  }
+}
+
 
   render() {
     const cardContent = this.state.searchData;
@@ -95,7 +137,7 @@ class ResultScreen extends Component {
       return (
         <Card key={i} style={{ flex: 0 }}>
           <CardItem bordered>
-            <Left>
+            <Left >
               <Thumbnail large square source={{ uri: item.image }} />
               <Body>
                 <Text>{item.name}</Text>
@@ -104,27 +146,33 @@ class ResultScreen extends Component {
             </Left>
           </CardItem>
 
-          <CardItem footer>
-            <Text> $ {item.salePrice}</Text>
+          <CardItem bordered footer>
+            <Left>
+              <Text> $ {item.salePrice}</Text>
+            </Left>
+            <Right>
+              {this.shipping(item.shippingCost)}
+              <Text>Save % {item.percentSavings}</Text>
+            </Right>
           </CardItem>
-          <CardItem footer>
-            <Text note>{item.shippingCost}</Text>
-          </CardItem>
+          {/* <CardItem footer></CardItem> */}
 
           <CardItem>
             <Left>
               {this.starRating(item.customerReviewAverage)}
 
-              <Text>Orders {item.customerReviewCount}</Text>
+              {/* <Text>Orders {item.customerReviewCount}</Text> */}
             </Left>
             <Body>
-              <Button transparent>
+              {/* <Button transparent>
                 <Icon active name="chatbubbles" />
                 <Text>4 Comments</Text>
-              </Button>
+              </Button> */}
             </Body>
             <Right>
-              <Text>Save % {item.percentSavings}</Text>
+            {this.checkItem(item.inStoreAvailability)}
+              
+              
             </Right>
           </CardItem>
         </Card>
