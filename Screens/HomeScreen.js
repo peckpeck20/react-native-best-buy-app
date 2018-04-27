@@ -15,6 +15,7 @@ import NavBar from "../Components/NavBar";
 import AdvancedSearchBar from "../Components/AdvancedSearchBar";
 // import SearchBar from "../Components/SearchBar";
 import { SearchBar } from "react-native-elements";
+import { width, height } from "../App";
 
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -25,15 +26,16 @@ export default class HomeScreen extends Component {
   }
 
   render() {
+    //calculate the width of the search bar
+    const calculatedWidth = Math.min(height, width) * 0.76;
     return (
       <Container style={styles.container}>
         {/* <SearchBar
           drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
         /> */}
-
         <Content>
           <Grid>
-            <Row style={{ backgroundColor: "#635DB7", padding: 5 }}>
+            <Row style={{ backgroundColor: "#3F51B5", padding: 5 }}>
               <Row>
                 <Icon
                   name="menu"
@@ -59,7 +61,7 @@ export default class HomeScreen extends Component {
                   }
                   rounded
                   style={{
-                    width: 320,
+                    width: calculatedWidth,
                     height: 50,
                     padding: 5,
                     backgroundColor: "white"

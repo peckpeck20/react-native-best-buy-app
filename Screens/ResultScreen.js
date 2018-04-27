@@ -45,7 +45,7 @@ class ResultScreen extends Component {
       this.fetchItem(query);
     }
   }
-
+  //gets all items based on user query
   fetchItem(query) {
     const pageCount = this.state.pageCount;
     // const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=50&page=${pageCount}&format=json`;
@@ -73,7 +73,6 @@ class ResultScreen extends Component {
     if (num == null) {
       return (
         <Icon
-          key={num}
           style={{ color: "red", fontSize: 15 }}
           name="star-border"
           type="MaterialIcons"
@@ -105,28 +104,27 @@ class ResultScreen extends Component {
     }
   }
   //if the item is available return green icon
-checkItem(status){
-  if(status == true){
-return (
-  <Icon
-  style={{ color: "green", fontSize: 15 }}
-  active
-  name="check-circle-o"
-  type="FontAwesome"
-/>
-);
-  } else {
-    return (
-      <Icon
-      style={{ color: "red", fontSize: 15 }}
-      active
-      name="times-circle-o"
-      type="FontAwesome"
-    />
-    );
+  checkItem(status) {
+    if (status == true) {
+      return (
+        <Icon
+          style={{ color: "green", fontSize: 15 }}
+          active
+          name="check-circle-o"
+          type="FontAwesome"
+        />
+      );
+    } else {
+      return (
+        <Icon
+          style={{ color: "red", fontSize: 15 }}
+          active
+          name="times-circle-o"
+          type="FontAwesome"
+        />
+      );
+    }
   }
-}
-
 
   render() {
     const cardContent = this.state.searchData;
@@ -137,7 +135,7 @@ return (
       return (
         <Card key={i} style={{ flex: 0 }}>
           <CardItem bordered>
-            <Left >
+            <Left>
               <Thumbnail large square source={{ uri: item.image }} />
               <Body>
                 <Text>{item.name}</Text>
@@ -169,11 +167,7 @@ return (
                 <Text>4 Comments</Text>
               </Button> */}
             </Body>
-            <Right>
-            {this.checkItem(item.inStoreAvailability)}
-              
-              
-            </Right>
+            <Right>{this.checkItem(item.inStoreAvailability)}</Right>
           </CardItem>
         </Card>
       );

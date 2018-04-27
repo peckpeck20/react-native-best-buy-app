@@ -93,19 +93,31 @@ export default class DrawerContent extends Component {
         </Header>
         <Content>
           <Grid>
-            <Row>
+            <Row size={1}>
               {/* {loggedIn ? <Text>Log out</Text> : <Text>Logged In</Text>} */}
-              <Button full info onPress={() => navigation.navigate("SignUp")}>
-                <Icon type="Entypo" name="add-user" />
-                <Text>Sign Up</Text>
-              </Button>
-              <Button full primary onPress={() => navigation.navigate("Login")}>
-                <Text>Login</Text>
-                <Icon ios="ios-send" android="md-send" />
-              </Button>
+              <Col>
+                <Button
+                  block
+                  info
+                  onPress={() => navigation.navigate("SignUp")}
+                >
+                  <Icon type="Entypo" name="add-user" />
+                  <Text>Sign Up</Text>
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  full
+                  primary
+                  onPress={() => navigation.navigate("Login")}
+                >
+                  <Text>Login</Text>
+                  <Icon ios="ios-send" android="md-send" />
+                </Button>
+              </Col>
             </Row>
 
-            <Row size={2}>
+            <Row size={3}>
               <Col>
                 <List>
                   <ListItem icon onPress={() => navigation.navigate("Home")}>

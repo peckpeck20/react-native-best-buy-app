@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 import * as Expo from "expo";
 //packages
 import * as firebase from "firebase";
+import { Dimensions } from "react-native";
+
 import {
   Body,
   Container,
@@ -30,6 +32,7 @@ import SearchScreen from "./Screens/SearchScreen";
 import AboutScreen from "./Screens/AboutScreen";
 import { firebaseKey, bestBuyKey } from "./assets/constants";
 
+export const { width, height } = Dimensions.get("screen");
 //init firebase
 const firebaseConfig = {
   apiKey: firebaseKey,
@@ -40,14 +43,14 @@ const firebaseConfig = {
   // messagingSenderId: "420654183697"
 };
 firebase.initializeApp(firebaseConfig);
-//init bestbuy api
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      appReady: false
+      appReady: false,
+      user: {}
     };
 
     //use this word inside function
@@ -59,6 +62,21 @@ export default class App extends React.Component {
 
   componentWillMount() {
     this.loadFonts();
+    // Listen for authentication state to change.
+    firebase.auth().onAuthStateChanged(user => {
+      if (user != null) {
+        this.setState({
+          user
+        });
+        console.log("User is authentificated!");
+      } else {
+        console.log("Guest online");
+        this.setState({
+          user: {}
+        });
+      }
+      // Do other things
+    });
     console.log("App started ");
   }
 
@@ -111,7 +129,8 @@ const AppDrawer = DrawerNavigator(
   },
   {
     initialRouteName: "Home",
-    contentComponent: props => <DrawerContent {...props} />
+    contentComponent: props => <DrawerContent {...props} />,
+    drawerWidth: Math.min(height, width) * 0.7 // calculates 70% of the smaller side of the screen.
   }
 );
 
