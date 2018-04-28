@@ -167,7 +167,9 @@ class ResultScreen extends Component {
                 <Text>4 Comments</Text>
               </Button> */}
             </Body>
-            <Right>{this.checkItem(item.inStoreAvailability)}</Right>
+            <Right>
+               {this.checkItem(item.inStoreAvailability)}
+            </Right>
           </CardItem>
         </Card>
       );
