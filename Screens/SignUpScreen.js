@@ -225,7 +225,7 @@ class SignUpScreen extends Component {
                   <H1 style={{ padding: 10 }} />
                   <Button
                     rounded
-                    disabled
+                    success
                     onPress={() =>
                       this.signUpUser(this.state.email, this.state.password)
                     }
