@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image } from "react-native";
+import { Image,ActivityIndicator } from "react-native";
 import axios from "axios";
 import {
   Container,
@@ -130,6 +130,9 @@ class ResultScreen extends Component {
     const cardContent = this.state.searchData;
     //get params as props from home screen search
     const { params } = this.props.navigation.state;
+    if(!cardContent){
+      return <ActivityIndicator size="large" color="#0000ff" />
+    }
 
     const itemCards = cardContent.map((item, i) => {
       return (

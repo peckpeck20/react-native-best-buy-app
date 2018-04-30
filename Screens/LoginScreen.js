@@ -62,10 +62,11 @@ class LoginScreen extends Component {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then(user => {
-          this.setState({ user, loggedIn: true });
-          // console.log(user);
-        });
+        // .then(user => {
+        //   this.setState({ user, loggedIn: true });
+        // });
+        .then(user => console.log(user));
+
       console.log("logged in with email");
     } catch (error) {
       console.log(error.toString());
@@ -91,6 +92,7 @@ class LoginScreen extends Component {
   }
 
   async loginWithFacebook() {
+    const { navigate } = this.props.navigation;
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
       fbKey,
       { permissions: ["public_profile"] }
@@ -103,10 +105,7 @@ class LoginScreen extends Component {
         .auth()
         .signInWithCredential(credential)
         .then(user => {
-          this.setState({
-            user,
-            loggedIn: true
-          });
+          navigate("Profile", { user: user });
         })
         .catch(error => {
           console.log(error);
@@ -116,6 +115,7 @@ class LoginScreen extends Component {
 
   async signInWithGoogleAsync() {
     try {
+      const { navigate } = this.props.navigation;
       const result = await Expo.Google.logInAsync({
         androidClientId: androidID,
         iosClientId: iosID,
@@ -127,19 +127,17 @@ class LoginScreen extends Component {
           result.idToken,
           result.accessToken
         );
-        console.log(credential);
-        firebase.auth().signInWithCredential(credential);
-
-        this.setState({
-          loggedIn: true
-        });
-        //   .then(data => {
-        //     console.log("G-login - SUCCESS", data);
-        //   })
-        //   .catch(error => {
-        //     console.log("ERROR", error);
-        //   });
-        // return result.accessToken;
+        // console.log(credential);
+        firebase
+          .auth()
+          .signInWithCredential(credential)
+          .then(user => {
+            //redirect to profile
+            navigate("Profile", { user: user });
+          })
+          .catch(error => {
+            console.log(error);
+          });
       } else {
         Alert.alert("Login not sucessfull, try again :(");
       }
@@ -149,17 +147,6 @@ class LoginScreen extends Component {
   }
 
   render() {
-    // const loggedIn = this.state.loggedIn;
-
-    // const button = loggedIn ? (
-    //   <Button title="logout" color="red" onPress={this.signOut} />
-    // ) : (
-    //   <Button
-    //     title="login "
-    //     onPress={() => this.logInUser(this.state.email, this.state.password)}
-    //   />
-    // );
-
     return (
       <Container style={styles.container}>
         <NavBar
