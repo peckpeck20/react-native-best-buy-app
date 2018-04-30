@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { KeyboardAvoidingView, Text, ScrollView } from "react-native";
+import { KeyboardAvoidingView, Text, ScrollView, Image } from "react-native";
 import axios from "axios";
 import {
   Container,
@@ -18,13 +18,15 @@ import {
   Thumbnail
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
+import { Rating } from "react-native-elements";
+
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
 import AdvancedSearchBar from "../Components/AdvancedSearchBar";
-// import SearchBar from "../Components/SearchBar";
-import { SearchBar } from "react-native-elements";
 import { width, height } from "../App";
 import { bestBuyKey } from "../assets/constants";
+// import SearchBar from "../Components/SearchBar";
+// import { SearchBar } from "react-native-elements";
 
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -32,18 +34,18 @@ export default class HomeScreen extends Component {
     this.state = {
       // searchTxt: ""
       trendingItems: [],
-      trendLoaded: false
+      trendLoaded: false,
+      popularItems: []
     };
 
     //use this word inside function
     this.getTrendItems = this.getTrendItems.bind(this);
+    this.getPopularItems = this.getPopularItems.bind(this);
   }
 
   componentDidMount() {
     this.getTrendItems();
-    console.log("====================================");
-    console.log("loaded");
-    console.log("====================================");
+    this.getPopularItems();
   }
 
   getTrendItems() {
@@ -53,6 +55,21 @@ export default class HomeScreen extends Component {
       .then(response => {
         this.setState({
           trendingItems: response.data.results
+        });
+        // console.log(response.data.results);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  getPopularItems() {
+    const popularPath = `https://api.bestbuy.com/beta/products/mostViewed?apiKey=${bestBuyKey}`;
+    axios
+      .get(popularPath)
+      .then(response => {
+        this.setState({
+          popularItems: response.data.results
         });
         // console.log(response.data.results);
       })
@@ -97,23 +114,55 @@ export default class HomeScreen extends Component {
     const trendCards = trendData.map((item, i) => {
       return (
         <Card key={i}>
-          <CardItem>
+          <CardItem bordered>
             <Left>
               <Thumbnail square source={{ uri: item.images.standard }} />
             </Left>
             <Body />
             <Right>
-              <Text style={{ color: "red" }}>Now : {item.prices.current} </Text>
+              <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
               <Text note style={{ textDecorationLine: "line-through" }}>
-                MSRP : {item.prices.regular}{" "}
+                MSRP $ {item.prices.regular}
               </Text>
             </Right>
           </CardItem>
-          <CardItem>
+
+          <CardItem bordered footer>
             <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
             <Body />
             <Right>
               <Text>Orders {item.customerReviews.count}</Text>
+            </Right>
+          </CardItem>
+        </Card>
+      );
+    });
+
+    const popularData = this.state.popularItems;
+
+    const popularCards = popularData.map((item, i) => {
+      return (
+        <Card key={i}>
+          <CardItem header bordered>
+            <Text>{item.names.title}</Text>
+          </CardItem>
+
+          <CardItem cardBody bordered>
+            <Image
+              source={{ uri: item.images.standard }}
+              style={{ height: 250, width: null, flex: 1 }}
+              resizeMode="contain"
+            />
+          </CardItem>
+          <CardItem bordered footer>
+            <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
+            <Body>
+              <Text note style={{ textDecorationLine: "line-through" }}>
+                MSRP $ {item.prices.regular}
+              </Text>
+            </Body>
+            <Right>
+              <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
             </Right>
           </CardItem>
         </Card>
@@ -170,21 +219,44 @@ export default class HomeScreen extends Component {
                   //     searchQuery: this.state.searchTxt
                   //   })
                   // }
-                  style={{ color: "white", padding: 10 }}
+                  style={{ color: "white", padding: 15 }}
                 />
               </Row>
             </Row>
             <Row>
+              <H1 style={{ padding: 15 }}>Trending now</H1>
+              <Icon
+                name="md-trending-up"
+                type="Ionicons"
+                style={{
+                  fontSize: 50,
+                  padding: 10,
+                  color: "blue"
+                }}
+              />
+            </Row>
+            <Row>
               <Col>
-                <H1>Trending now</H1>
-                <ScrollView horizontal={true} bounces styles={{ padding: 40 }}>
+                <ScrollView horizontal={true} bounces>
                   {trendCards}
                 </ScrollView>
               </Col>
             </Row>
-            {/* <Row>
-              <AdvancedSearchBar />
-            </Row> */}
+            <Row>
+              <H1 style={{ padding: 15 }}>Most Popular</H1>
+              <Icon
+                name="thumbs-o-up"
+                type="FontAwesome"
+                style={{
+                  fontSize: 50,
+                  padding: 10,
+                  color: "blue"
+                }}
+              />
+            </Row>
+            <Row>
+              <Col>{popularCards}</Col>
+            </Row>
           </Grid>
         </Content>
       </Container>

@@ -49,7 +49,7 @@ class ResultScreen extends Component {
   fetchItem(query) {
     const pageCount = this.state.pageCount;
     // const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=50&page=${pageCount}&format=json`;
-    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=name.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,shippingCost&pageSize=30&page=${pageCount}&format=json`;
+    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,shippingCost&pageSize=30&page=${pageCount}&format=json`;
     console.log("====================================");
     console.log(path);
     console.log("====================================");
@@ -136,12 +136,19 @@ class ResultScreen extends Component {
         <Card key={i} style={{ flex: 0 }}>
           <CardItem bordered>
             <Left>
-              <Thumbnail large square source={{ uri: item.image }} />
+              {/* <Thumbnail large square source={{ uri: item.image }} /> */}
               <Body>
                 <Text>{item.name}</Text>
                 <Text note>{item.manufacturer}</Text>
               </Body>
             </Left>
+          </CardItem>
+          <CardItem cardBody bordered>
+            <Image
+              source={{ uri: item.image }}
+              style={{ height: 250, width: null, flex: 1 }}
+              resizeMode="contain"
+            />
           </CardItem>
 
           <CardItem bordered footer>
@@ -167,9 +174,7 @@ class ResultScreen extends Component {
                 <Text>4 Comments</Text>
               </Button> */}
             </Body>
-            <Right>
-               {this.checkItem(item.inStoreAvailability)}
-            </Right>
+            <Right>{this.checkItem(item.inStoreAvailability)}</Right>
           </CardItem>
         </Card>
       );
