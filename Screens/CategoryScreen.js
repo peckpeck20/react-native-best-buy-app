@@ -69,7 +69,14 @@ export default class CategoryScreen extends Component {
     const categoryCards = categoryData.map((item, i) => {
       return (
         <Card key={i}>
-          <CardItem button onPress={() => alert(item.id)}>
+          <CardItem
+            button
+            onPress={() =>
+              this.props.navigation.navigate("ResultScreen", {
+                categoryQuery: item.id
+              })
+            }
+          >
             <Body>
               <Text>{item.name}</Text>
             </Body>

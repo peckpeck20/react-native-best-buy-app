@@ -35,6 +35,7 @@ class ResultScreen extends Component {
     };
     //use this word inside function
     this.fetchItem = this.fetchItem.bind(this);
+    this.fetchItemsByCategory = this.fetchItemsByCategory.bind(this);
   }
 
   componentDidMount() {
@@ -42,10 +43,21 @@ class ResultScreen extends Component {
     const { params } = this.props.navigation.state;
 
     const query = params ? params.searchQuery : null;
+
     if (query == null) {
-      console.log("query is empty");
+      console.log("item query empty");
     } else {
+      console.log("items fetched");
       this.fetchItem(query);
+    }
+
+    const queryC = params ? params.categoryQuery : null;
+
+    if (queryC == null) {
+      console.log("CAT query not found");
+    } else {
+      console.log("items by cat fetched");
+      this.fetchItemsByCategory(queryC);
     }
   }
   //gets all items based on user query
@@ -53,9 +65,9 @@ class ResultScreen extends Component {
     const pageCount = this.state.pageCount;
     // const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=50&page=${pageCount}&format=json`;
     const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
-    console.log("====================================");
-    console.log(path);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log(path);
+    // console.log("====================================");
 
     axios
       .get(path)
@@ -65,6 +77,27 @@ class ResultScreen extends Component {
           totalPages: response.data.totalPages
         });
         // console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  fetchItemsByCategory(query) {
+    const pageCount = this.state.pageCount;
+    const path = `https://api.bestbuy.com/v1/products((categoryPath.id=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
+    console.log("====================================");
+    console.log("category path" + path);
+    console.log("====================================");
+
+    axios
+      .get(path)
+      .then(response => {
+        this.setState({
+          searchData: response.data.products,
+          totalPages: response.data.totalPages
+        });
+        console.log(response);
       })
       .catch(error => {
         console.log(error);
@@ -133,9 +166,9 @@ class ResultScreen extends Component {
     const cardContent = this.state.searchData;
     //get params as props from home screen search
     const { params } = this.props.navigation.state;
-    if (!cardContent) {
-      return <ActivityIndicator size="large" color="#0000ff" />;
-    }
+    // if (!cardContent) {
+    //   return <ActivityIndicator size="large" color="#0000ff" />;
+    // }
 
     const itemCards = cardContent.map((item, i) => {
       return (
