@@ -128,7 +128,7 @@ const AppDrawer = DrawerNavigator(
     }
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Login",
     contentComponent: props => <DrawerContent {...props} />,
     drawerWidth: Math.min(height, width) * 0.7 // calculates 70% of the smaller side of the screen.
   }

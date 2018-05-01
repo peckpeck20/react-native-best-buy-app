@@ -191,7 +191,13 @@ export default class DrawerContent extends Component {
             <Row style={{ paddingTop: 20 }}>
               <Col size={1} />
               <Col size={2}>
-                <Button rounded danger onPress={this.signOut}>
+                <Button
+                  rounded
+                  danger
+                  onPress={() => {
+                    this.signOut();
+                  }}
+                >
                   <Icon type="FontAwesome" name="sign-out" />
                   <Text>Log out</Text>
                 </Button>

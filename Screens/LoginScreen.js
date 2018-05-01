@@ -80,10 +80,10 @@ class LoginScreen extends Component {
       .then(
         () => {
           console.log("Signed Out");
-          this.setState({
-            user: {},
-            loggedIn: false
-          });
+          // this.setState({
+          //   user: {},
+          //   loggedIn: false
+          // });
         },
         function(error) {
           console.error("Sign Out Error", error);
@@ -223,6 +223,16 @@ class LoginScreen extends Component {
                 >
                   <Icon type="FontAwesome" name="google-plus" />
                   <Text>Google Login</Text>
+                </Button>
+
+                <Button
+                  success
+                  block
+                  onPress={() => {
+                    this.signOut();
+                  }}
+                >
+                  <Text>Signout</Text>
                 </Button>
               </Col>
               <Col size={1} />
