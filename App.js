@@ -45,6 +45,13 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
+//init db
+// Get a reference to the database service
+// var database = firebase.database();
+
+// console.log("====================================");
+// console.log(database);
+// console.log("====================================");
 export default class App extends React.Component {
   constructor(props) {
     super(props);

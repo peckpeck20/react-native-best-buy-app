@@ -225,7 +225,7 @@ class LoginScreen extends Component {
                   <Text>Google Login</Text>
                 </Button>
 
-                <Button
+                {/* <Button
                   success
                   block
                   onPress={() => {
@@ -233,7 +233,7 @@ class LoginScreen extends Component {
                   }}
                 >
                   <Text>Signout</Text>
-                </Button>
+                </Button> */}
               </Col>
               <Col size={1} />
             </Row>

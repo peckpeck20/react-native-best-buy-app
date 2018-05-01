@@ -16,7 +16,8 @@ import {
   Right,
   H1,
   H2,
-  Title
+  Title,
+  Alert
 } from "native-base";
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
@@ -51,7 +52,7 @@ class ResultScreen extends Component {
   fetchItem(query) {
     const pageCount = this.state.pageCount;
     // const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=50&page=${pageCount}&format=json`;
-    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,shippingCost&pageSize=30&page=${pageCount}&format=json`;
+    const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
     console.log("====================================");
     console.log(path);
     console.log("====================================");
@@ -139,9 +140,16 @@ class ResultScreen extends Component {
     const itemCards = cardContent.map((item, i) => {
       return (
         <Card key={i} style={{ flex: 0 }}>
-          <CardItem bordered>
+          <CardItem
+            bordered
+            button
+            onPress={() =>
+              this.props.navigation.navigate("ShowCaseScreen", {
+                serialNumber: item.sku
+              })
+            }
+          >
             <Left>
-              {/* <Thumbnail large square source={{ uri: item.image }} /> */}
               <Body>
                 <Text>{item.name}</Text>
                 <Text note>{item.manufacturer}</Text>
@@ -173,12 +181,7 @@ class ResultScreen extends Component {
 
               {/* <Text>Orders {item.customerReviewCount}</Text> */}
             </Left>
-            <Body>
-              {/* <Button transparent>
-                <Icon active name="chatbubbles" />
-                <Text>4 Comments</Text>
-              </Button> */}
-            </Body>
+            <Body />
             <Right>{this.checkItem(item.inStoreAvailability)}</Right>
           </CardItem>
         </Card>
@@ -191,18 +194,7 @@ class ResultScreen extends Component {
           title="Search Result"
           goBack={() => this.props.navigation.goBack()}
         />
-        <Content>
-          {/* <Grid>
-            <Row>
-              <Col>
-
-                
-              </Col>
-            </Row>
-            <Row />
-          </Grid> */}
-          {itemCards}
-        </Content>
+        <Content>{itemCards}</Content>
       </Container>
     );
   }

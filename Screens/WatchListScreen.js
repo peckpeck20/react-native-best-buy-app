@@ -38,7 +38,7 @@ export default class WatchListScreen extends Component {
       `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=${mLabKey}`
     ),
       {
-        item
+        item: item
       };
   }
 
@@ -56,10 +56,13 @@ export default class WatchListScreen extends Component {
           drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
         />
         <Content>
-          <Grid>
-            <Col style={{ backgroundColor: "#635DB7", height: 200 }} />
-            <Col style={{ backgroundColor: "#00CE9F", height: 200 }} />
-          </Grid>
+          {/* <Grid>
+          <Row>
+            <Col>
+            
+            </Col>
+          </Row>
+          </Grid> */}
         </Content>
       </Container>
     );

@@ -22,6 +22,8 @@ import {
 } from "native-base";
 
 import { Col, Row, Grid } from "react-native-easy-grid";
+
+import { mLabKey } from "../assets/constants";
 import NavBar from "../Components/NavBar";
 import styles from "../assets/styling";
 import { bestBuyKey } from "../assets/constants";
@@ -57,6 +59,16 @@ class ShowCaseScreen extends Component {
       });
   }
 
+  //post item to cart - db
+  postItem(item) {
+    axios.post(
+      `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=${mLabKey}`
+    ),
+      {
+        item
+      };
+  }
+
   componentDidMount() {
     //get params as props from home screen search
     const { params } = this.props.navigation.state;
@@ -73,6 +85,7 @@ class ShowCaseScreen extends Component {
     // const { params } = this.props.navigation.state;
 
     const item = this.state.searchData;
+    console.log(item);
 
     return (
       <Container style={styles.container}>
@@ -130,12 +143,15 @@ class ShowCaseScreen extends Component {
                 <Button
                   transparent
                   textStyle={{ color: "#87838B" }}
-                  onPress={() =>
-                    this.props.navigation.navigate("ShoppingCart", {
-                      serialNumber: item.sku,
-                      item: item
-                    })
-                  }
+                  // onPress={() =>
+                  //   this.props.navigation.navigate("ShoppingCart", {
+                  //     serialNumber: item.sku,
+                  //     item: item
+                  //   })
+                  // }
+                  onPress={() => {
+                    this.postItem(item.name);
+                  }}
                 >
                   <Icon name="cart-arrow-down" type="FontAwesome" />
                   <Text>Buy</Text>
