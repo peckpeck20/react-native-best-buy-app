@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image,ActivityIndicator } from "react-native";
+import { Image, ActivityIndicator } from "react-native";
 import axios from "axios";
 import {
   Container,
@@ -15,12 +15,14 @@ import {
   Body,
   Right,
   H1,
-  H2
+  H2,
+  Title
 } from "native-base";
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { bestBuyKey } from "../assets/constants";
+import HeaderBack from "../Components/HeaderBack";
 
 class ResultScreen extends Component {
   constructor(props) {
@@ -130,8 +132,8 @@ class ResultScreen extends Component {
     const cardContent = this.state.searchData;
     //get params as props from home screen search
     const { params } = this.props.navigation.state;
-    if(!cardContent){
-      return <ActivityIndicator size="large" color="#0000ff" />
+    if (!cardContent) {
+      return <ActivityIndicator size="large" color="#0000ff" />;
     }
 
     const itemCards = cardContent.map((item, i) => {
@@ -185,9 +187,9 @@ class ResultScreen extends Component {
 
     return (
       <Container style={styles.container}>
-        <NavBar
-          title={params.searchQuery}
-          drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
+        <HeaderBack
+          title="Search Result"
+          goBack={() => this.props.navigation.goBack()}
         />
         <Content>
           {/* <Grid>

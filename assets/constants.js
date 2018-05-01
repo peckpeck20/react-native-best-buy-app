@@ -11,5 +11,5 @@ export const bestBuyKey = "jABsZM6DZ6C4QtIUYB45rhgF";
 
 export const firebaseKey = "AIzaSyAal9VUwu1945LQTtIsCUIgtC0hBknebpw";
 
-export const mLab =
+export const mLabKey =
   "api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=ZbCTh2u8e_Wch17ozpVWnhe_ASXIT3ia";

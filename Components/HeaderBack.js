@@ -1,0 +1,31 @@
+import React, { Component } from "react";
+import {
+  Header,
+  Title,
+  Left,
+  Right,
+  Body,
+  Icon,
+  Text,
+  Button
+} from "native-base";
+class HeaderBack extends Component {
+  render() {
+    return (
+      <Header>
+        <Left>
+          <Button transparent onPress={() => this.props.goBack()}>
+            <Icon name="arrow-back" type="MaterialIcons" />
+            <Text />
+          </Button>
+        </Left>
+        <Body>
+          <Title>{this.props.title}</Title>
+        </Body>
+        <Right />
+      </Header>
+    );
+  }
+}
+
+export default HeaderBack;

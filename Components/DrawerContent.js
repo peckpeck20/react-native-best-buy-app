@@ -162,12 +162,15 @@ export default class DrawerContent extends Component {
                     </Right>
                   </ListItem>
 
-                  <ListItem icon onPress={() => navigation.navigate("Profile")}>
+                  <ListItem
+                    icon
+                    onPress={() => navigation.navigate("ShoppingCart")}
+                  >
                     <Left>
-                      <Icon type="FontAwesome" name="user-secret" />
+                      <Icon type="Feather" name="shopping-cart" />
                     </Left>
                     <Body>
-                      <Text>My Profile</Text>
+                      <Text>My Cart</Text>
                     </Body>
                     <Right>
                       <Icon name="ios-arrow-forward" />

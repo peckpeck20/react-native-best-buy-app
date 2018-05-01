@@ -27,9 +27,10 @@ import ProfileScreen from "./Screens/ProfileScreen";
 import CategoryScreen from "./Screens/CategoryScreen";
 import WatchListScreen from "./Screens/WatchListScreen";
 import ResultScreen from "./Screens/ResultScreen";
-
+import ShowCaseScreen from "./Screens/ShowCaseScreen";
 import SearchScreen from "./Screens/SearchScreen";
 import AboutScreen from "./Screens/AboutScreen";
+import ShoppingCartScreen from "./Screens/ShoppingCartScreen";
 import { firebaseKey, bestBuyKey } from "./assets/constants";
 
 export const { width, height } = Dimensions.get("screen");
@@ -120,15 +121,21 @@ const AppDrawer = DrawerNavigator(
     WatchList: {
       screen: WatchListScreen
     },
+    ShoppingCart: {
+      screen: ShoppingCartScreen
+    },
     ResultScreen: {
       screen: ResultScreen
     },
     SearchScreen: {
       screen: SearchScreen
+    },
+    ShowCaseScreen: {
+      screen: ShowCaseScreen
     }
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "Home",
     contentComponent: props => <DrawerContent {...props} />,
     drawerWidth: Math.min(height, width) * 0.7 // calculates 70% of the smaller side of the screen.
   }

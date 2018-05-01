@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { KeyboardAvoidingView, Text, ScrollView, Image } from "react-native";
+import { ScrollView, Image } from "react-native";
 import axios from "axios";
 import {
   Container,
@@ -15,7 +15,9 @@ import {
   Right,
   Body,
   CardItem,
-  Thumbnail
+  Thumbnail,
+  Alert,
+  Text
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Rating } from "react-native-elements";
@@ -113,8 +115,17 @@ export default class HomeScreen extends Component {
 
     const trendCards = trendData.map((item, i) => {
       return (
-        <Card key={i}>
-          <CardItem bordered>
+        <Card key={i} style={{ flex: 0 }}>
+          <CardItem
+            bordered
+            button
+            onPress={() =>
+              this.props.navigation.navigate("ShowCaseScreen", {
+                serialNumber: item.sku
+                // item: item
+              })
+            }
+          >
             <Left>
               <Thumbnail square source={{ uri: item.images.standard }} />
             </Left>
@@ -142,7 +153,7 @@ export default class HomeScreen extends Component {
 
     const popularCards = popularData.map((item, i) => {
       return (
-        <Card key={i}>
+        <Card key={i} style={{ flex: 0 }}>
           <CardItem header bordered>
             <Text>{item.names.title}</Text>
           </CardItem>
@@ -154,12 +165,37 @@ export default class HomeScreen extends Component {
               resizeMode="contain"
             />
           </CardItem>
+          <CardItem bordered>
+            <Left />
+            <Body>
+              <Button
+                full
+                rounded
+                onPress={() =>
+                  this.props.navigation.navigate("ShowCaseScreen", {
+                    serialNumber: item.sku
+                    // item: item
+                  })
+                }
+              >
+                <Text>Info</Text>
+              </Button>
+            </Body>
+            <Right />
+          </CardItem>
           <CardItem bordered footer>
             <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
             <Body>
               <Text note style={{ textDecorationLine: "line-through" }}>
                 MSRP $ {item.prices.regular}
               </Text>
+              {/* <Button transparent onPress={() => alert(item.sku)}>
+                <Icon
+                  style={{ fontSize: 40 }}
+                  type="SimpleLineIcons"
+                  name="info"
+                />
+              </Button> */}
             </Body>
             <Right>
               <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
