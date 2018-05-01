@@ -61,10 +61,12 @@ class ShowCaseScreen extends Component {
 
   //post item to cart - db
   postItem(title, picture, price, sku) {
-    axios.post(
-      `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=${mLabKey}`,
-      { title, picture, price, sku }
-    );
+    axios
+      .post(
+        `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=${mLabKey}`,
+        { title, picture, price, sku }
+      )
+      .then(() => this.props.navigation.navigate("ShoppingCart"));
   }
 
   componentDidMount() {

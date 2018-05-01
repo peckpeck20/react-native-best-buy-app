@@ -46,12 +46,11 @@ class ShoppingCartScreen extends Component {
   }
 
   deleteItem(id) {
-    axios.delete(
-      `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=${mLabKey}`,
-      { id }
-    );
-
-    this.getWatchlist();
+    axios
+      .delete(
+        `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile/${id}?apiKey=${mLabKey}`
+      )
+      .then(() => this.getWatchlist());
   }
 
   updateItem(id) {
@@ -85,24 +84,32 @@ class ShoppingCartScreen extends Component {
             </Body>
           </CardItem>
           <CardItem footer>
-            <Text style={{ color: "red" }}> $ {item.price} </Text>
-            <Button
-              transparent
-              textStyle={{ color: "#87838B" }}
-              // onPress={() =>
-              //   this.props.navigation.navigate("ShoppingCart", {
-              //     serialNumber: item.sku,
-              //     item: item
-              //   })
-              // }
-              onPress={() => {
-                Alert(item.id);
-                // this.deleteItem(item._id.$oid);
-              }}
-            >
-              <Icon name="cart-arrow-down" type="FontAwesome" />
-              <Text>Delete</Text>
-            </Button>
+            <Left>
+              <Text style={{ color: "red" }}> $ {item.price} </Text>
+            </Left>
+            <Body>
+              <Button rounded success>
+                {/* <Icon
+                  name="MaterialCommunityIcons
+"
+                  type="square-inc-cash"
+                /> */}
+                <Text>Buy</Text>
+              </Button>
+            </Body>
+            <Right>
+              <Button
+                rounded
+                danger
+                textStyle={{ color: "#87838B" }}
+                onPress={() => {
+                  this.deleteItem(item._id.$oid);
+                }}
+              >
+                {/* <Icon name="MaterialCommunityIcons" type="delete-circle" /> */}
+                <Text>Delete</Text>
+              </Button>
+            </Right>
           </CardItem>
         </Card>
       );

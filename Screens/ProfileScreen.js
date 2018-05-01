@@ -12,7 +12,10 @@ import {
   Body,
   Right,
   Thumbnail,
-  Icon
+  Icon,
+  Button,
+  Item,
+  Input
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Avatar } from "react-native-elements";
@@ -58,14 +61,6 @@ export default class ProfileScreen extends Component {
           <Grid>
             <Row>
               <Col>
-                {/* <Avatar
-                  medium
-                  rounded
-                  source={{ uri: params.user.providerData[0].photoURL }}
-                  onPress={() => console.log("Works!")}
-                  activeOpacity={0.7}
-                />
-                <H1>{params.user.displayName}</H1> */}
                 <List>
                   <ListItem avatar>
                     <Left>
@@ -86,7 +81,7 @@ export default class ProfileScreen extends Component {
                     </Text>
                   </ListItem>
 
-                  <ListItem icon>
+                  {/* <ListItem icon>
                     <Left>
                       <Icon name="home" />
                     </Left>
@@ -107,8 +102,29 @@ export default class ProfileScreen extends Component {
                     <Right>
                       <Icon type="SimpleLineIcons" name="pencil" />
                     </Right>
-                  </ListItem>
+                  </ListItem> */}
+                  <Item>
+                    <Icon active name="home" />
+                    <Input placeholder="Address" />
+                  </Item>
+
+                  <Item>
+                    <Icon active type="SimpleLineIcons" name="pencil" />
+                    <Input placeholder="Phone Number" />
+                  </Item>
                 </List>
+              </Col>
+            </Row>
+            <Row style={{ padding: 40 }}>
+              <Col>
+                <Button
+                  rounded
+                  full
+                  success
+                  onPress={() => this.props.navigation.navigate("Home")}
+                >
+                  <Text>Save</Text>
+                </Button>
               </Col>
             </Row>
             <Row />
