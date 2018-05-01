@@ -17,7 +17,8 @@ import {
   CardItem,
   Thumbnail,
   Alert,
-  Text
+  Text,
+  Spinner
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { Rating } from "react-native-elements";
@@ -37,7 +38,8 @@ export default class HomeScreen extends Component {
       // searchTxt: ""
       trendingItems: [],
       trendLoaded: false,
-      popularItems: []
+      popularItems: [],
+      popularLoaded: false
     };
 
     //use this word inside function
@@ -63,6 +65,10 @@ export default class HomeScreen extends Component {
       .catch(error => {
         console.log(error);
       });
+
+    this.setState({
+      trendLoaded: true
+    });
   }
 
   getPopularItems() {
@@ -78,6 +84,10 @@ export default class HomeScreen extends Component {
       .catch(error => {
         console.log(error);
       });
+
+    this.setState({
+      popularLoaded: true
+    });
   }
 
   //creates number of stars based on input
@@ -205,11 +215,14 @@ export default class HomeScreen extends Component {
       );
     });
 
+    const popularLoaded = this.state.popularLoaded;
+    const trendLoaded = this.state.trendLoaded;
+
+    // if (popularLoaded || trendLoaded == false) {
+    //   return <Spinner color="green" />;
+    // } else {
     return (
       <Container style={styles.container}>
-        {/* <SearchBar
-          drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
-        /> */}
         <Content>
           <Grid>
             <Row style={{ backgroundColor: "#3F51B5", padding: 5 }}>
@@ -220,16 +233,16 @@ export default class HomeScreen extends Component {
                   style={{ color: "white", padding: 10 }}
                 />
                 {/* <SearchBar
-                  round
-                  clearIcon
-                  showLoading
-                  onChangeText={searchTxt => this.setState({ searchTxt })}
-                  onClear={() => this.setState({ searchTxt: "" })}
-                  onCancel={() => this.setState({ searchTxt: "" })}
-                  containerStyle={{ width: 330, height: 50 }}
-                  placeholder="Search Products"
-                  icon={{ type: "font-awesome", name: "search" }}
-                /> */}
+                round
+                clearIcon
+                showLoading
+                onChangeText={searchTxt => this.setState({ searchTxt })}
+                onClear={() => this.setState({ searchTxt: "" })}
+                onCancel={() => this.setState({ searchTxt: "" })}
+                containerStyle={{ width: 330, height: 50 }}
+                placeholder="Search Products"
+                icon={{ type: "font-awesome", name: "search" }}
+              /> */}
                 <Item
                   onPress={() =>
                     this.props.navigation.navigate("SearchScreen", {
@@ -299,3 +312,4 @@ export default class HomeScreen extends Component {
     );
   }
 }
+//}

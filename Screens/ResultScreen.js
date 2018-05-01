@@ -82,7 +82,7 @@ class ResultScreen extends Component {
         console.log(error);
       });
   }
-
+  //gets all items based on category
   fetchItemsByCategory(query) {
     const pageCount = this.state.pageCount;
     const path = `https://api.bestbuy.com/v1/products((categoryPath.id=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;

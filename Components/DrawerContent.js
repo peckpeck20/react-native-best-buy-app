@@ -147,7 +147,7 @@ export default class DrawerContent extends Component {
                     </Right>
                   </ListItem>
 
-                  <ListItem
+                  {/* <ListItem
                     icon
                     onPress={() => navigation.navigate("WatchList")}
                   >
@@ -160,7 +160,7 @@ export default class DrawerContent extends Component {
                     <Right>
                       <Icon name="ios-arrow-forward" />
                     </Right>
-                  </ListItem>
+                  </ListItem> */}
 
                   <ListItem
                     icon

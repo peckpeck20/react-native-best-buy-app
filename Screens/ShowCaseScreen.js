@@ -40,7 +40,7 @@ class ShowCaseScreen extends Component {
 
   //gets item based on serial #y
   fetchItem(query) {
-    const path = `https://api.bestbuy.com/v1/products(sku=${query})?apiKey=${bestBuyKey}&sort=bestSellingRank.asc&show=addToCartUrl,bestSellingRank,color,condition,customerReviewAverage,customerReviewCount,description,details.name,details.value,dollarSavings,features.feature,freeShipping,frequentlyPurchasedWith.sku,image,includedItemList.includedItem,inStoreAvailability,inStoreAvailabilityText,longDescription,manufacturer,mobileUrl,modelNumber,name,onlineAvailability,onlineAvailabilityText,onSale,percentSavings,preowned,regularPrice,relatedProducts.sku,salePrice,shipping,shippingCost,shortDescription,sku,thumbnailImage,type,upc,url&format=json`;
+    const path = `https://api.bestbuy.com/v1/products(sku=${query})?apiKey=${bestBuyKey}&sort=bestSellingRank.asc&show=bestSellingRank,color,condition,customerReviewAverage,customerReviewCount,description,details.name,details.value,dollarSavings,features.feature,freeShipping,frequentlyPurchasedWith.sku,image,includedItemList.includedItem,inStoreAvailability,inStoreAvailabilityText,longDescription,manufacturer,mobileUrl,modelNumber,name,onlineAvailability,onlineAvailabilityText,onSale,percentSavings,preowned,regularPrice,relatedProducts.sku,salePrice,shipping,shippingCost,shortDescription,sku,thumbnailImage,type,upc,url&format=json`;
 
     console.log("====================================");
     console.log(path);
@@ -60,13 +60,11 @@ class ShowCaseScreen extends Component {
   }
 
   //post item to cart - db
-  postItem(item) {
+  postItem(title, picture, price, sku) {
     axios.post(
-      `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=${mLabKey}`
-    ),
-      {
-        item
-      };
+      `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=${mLabKey}`,
+      { title, picture, price, sku }
+    );
   }
 
   componentDidMount() {
@@ -127,12 +125,12 @@ class ShowCaseScreen extends Component {
                 <Button
                   transparent
                   textStyle={{ color: "#87838B" }}
-                  onPress={() =>
-                    this.props.navigation.navigate("WatchList", {
-                      serialNumber: item.sku,
-                      item: item
-                    })
-                  }
+                  // onPress={() =>
+                  //   this.props.navigation.navigate("WatchList", {
+                  //     serialNumber: item.sku,
+                  //     item: item
+                  //   })
+                  // }
                 >
                   <Icon name="ios-add-circle" type="Ionicons" />
                   <Text>Watch</Text>
@@ -150,7 +148,12 @@ class ShowCaseScreen extends Component {
                   //   })
                   // }
                   onPress={() => {
-                    this.postItem(item.name);
+                    this.postItem(
+                      item.name,
+                      item.thumbnailImage,
+                      item.salePrice,
+                      item.sku
+                    );
                   }}
                 >
                   <Icon name="cart-arrow-down" type="FontAwesome" />
