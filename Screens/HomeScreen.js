@@ -55,19 +55,18 @@ export default class HomeScreen extends Component {
     // this.getPopularItems();
 
     axios.all([this.getTrendItems(), this.getPopularItems()]).then(
-      axios
-        .spread(function(trend, popular) {
-          // Both requests are now complete
-          let trendingItems = trend.data.results;
-          let popularItems = popular.data.results;
+      axios.spread((trend, popular) => {
+        // Both requests are now complete
+        let trendingItems = trend.data.results;
+        let popularItems = popular.data.results;
 
-          this.setState({
-            trendingItems,
-            popularItems
-          });
-        })
-        .bind(this)
+        this.setState({
+          trendingItems,
+          popularItems
+        });
+      })
     );
+    this.setState({ isReady: true });
   }
 
   getTrendItems() {
@@ -135,7 +134,7 @@ export default class HomeScreen extends Component {
 
   render() {
     //loader
-    if (!this.state.popularLoaded || !this.state.trendLoaded) {
+    if (!this.state.isReady) {
       return <AppLoading />;
     }
     //calculate the width of the search bar
