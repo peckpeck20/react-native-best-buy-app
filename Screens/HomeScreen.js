@@ -47,45 +47,59 @@ export default class HomeScreen extends Component {
     //use this word inside function
     this.getTrendItems = this.getTrendItems.bind(this);
     this.getPopularItems = this.getPopularItems.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
-    this.getTrendItems();
-    this.getPopularItems();
+    // this.getTrendItems();
+    // this.getPopularItems();
+
+    axios.all([this.getTrendItems(), this.getPopularItems()]).then(
+      axios
+        .spread(function(trend, popular) {
+          // Both requests are now complete
+          let trendingItems = trend.data.results;
+          let popularItems = popular.data.results;
+
+          this.setState({
+            trendingItems,
+            popularItems
+          });
+        })
+        .bind(this)
+    );
   }
 
-  async getTrendItems() {
+  getTrendItems() {
     const trendingPath = `https://api.bestbuy.com/beta/products/trendingViewed?apiKey=${bestBuyKey}`;
-    await axios
-      .get(trendingPath)
-      .then(response => {
-        this.setState({
-          trendingItems: response.data.results
-        });
-        // console.log(response.data.results);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    return axios.get(trendingPath);
+    // .then(response => {
+    //   this.setState({
+    //     trendingItems: response.data.results
+    //   });
+    //   // console.log(response.data.results);
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    // });
 
     this.setState({
       trendLoaded: true
     });
   }
 
-  async getPopularItems() {
+  getPopularItems() {
     const popularPath = `https://api.bestbuy.com/beta/products/mostViewed?apiKey=${bestBuyKey}`;
-    await axios
-      .get(popularPath)
-      .then(response => {
-        this.setState({
-          popularItems: response.data.results
-        });
-        // console.log(response.data.results);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    return axios.get(popularPath);
+    // .then(response => {
+    //   this.setState({
+    //     popularItems: response.data.results
+    //   });
+    //   // console.log(response.data.results);
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    // });
 
     this.setState({
       popularLoaded: true
