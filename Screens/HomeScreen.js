@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ScrollView, Image } from "react-native";
+import { Asset, AppLoading } from "expo";
 import axios from "axios";
 import {
   Container,
@@ -39,7 +40,8 @@ export default class HomeScreen extends Component {
       trendingItems: [],
       trendLoaded: false,
       popularItems: [],
-      popularLoaded: false
+      popularLoaded: false,
+      isReady: false
     };
 
     //use this word inside function
@@ -52,9 +54,9 @@ export default class HomeScreen extends Component {
     this.getPopularItems();
   }
 
-  getTrendItems() {
+  async getTrendItems() {
     const trendingPath = `https://api.bestbuy.com/beta/products/trendingViewed?apiKey=${bestBuyKey}`;
-    axios
+    await axios
       .get(trendingPath)
       .then(response => {
         this.setState({
@@ -71,9 +73,9 @@ export default class HomeScreen extends Component {
     });
   }
 
-  getPopularItems() {
+  async getPopularItems() {
     const popularPath = `https://api.bestbuy.com/beta/products/mostViewed?apiKey=${bestBuyKey}`;
-    axios
+    await axios
       .get(popularPath)
       .then(response => {
         this.setState({
@@ -118,6 +120,10 @@ export default class HomeScreen extends Component {
   }
 
   render() {
+    //loader
+    if (!this.state.popularLoaded || !this.state.trendLoaded) {
+      return <AppLoading />;
+    }
     //calculate the width of the search bar
     const calculatedWidth = Math.min(height, width) * 0.76;
 

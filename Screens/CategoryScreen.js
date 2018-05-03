@@ -38,7 +38,7 @@ export default class CategoryScreen extends Component {
     this.fetchCategories();
   }
 
-  fetchCategories() {
+  async fetchCategories() {
     const pageCount = this.state.pageCount;
     const path = `https://api.bestbuy.com/v1/categories(id=abcat*)?apiKey=${bestBuyKey}&pageSize=50&page=${pageCount}&show=id,name&format=json`;
     // fetch(path)
@@ -50,7 +50,7 @@ export default class CategoryScreen extends Component {
     //     // console.log(resData.categories);
     //   });
 
-    axios
+    await axios
       .get(path)
       .then(response => {
         this.setState({

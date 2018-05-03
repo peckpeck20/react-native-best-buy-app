@@ -39,14 +39,14 @@ class ShowCaseScreen extends Component {
   }
 
   //gets item based on serial #y
-  fetchItem(query) {
+  async fetchItem(query) {
     const path = `https://api.bestbuy.com/v1/products(sku=${query})?apiKey=${bestBuyKey}&sort=bestSellingRank.asc&show=bestSellingRank,color,condition,customerReviewAverage,customerReviewCount,description,details.name,details.value,dollarSavings,features.feature,freeShipping,frequentlyPurchasedWith.sku,image,includedItemList.includedItem,inStoreAvailability,inStoreAvailabilityText,longDescription,manufacturer,mobileUrl,modelNumber,name,onlineAvailability,onlineAvailabilityText,onSale,percentSavings,preowned,regularPrice,relatedProducts.sku,salePrice,shipping,shippingCost,shortDescription,sku,thumbnailImage,type,upc,url&format=json`;
 
     console.log("====================================");
     console.log(path);
     console.log("====================================");
 
-    axios
+    await axios
       .get(path)
       .then(response => {
         this.setState({

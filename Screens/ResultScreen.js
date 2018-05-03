@@ -61,7 +61,7 @@ class ResultScreen extends Component {
     }
   }
   //gets all items based on user query
-  fetchItem(query) {
+  async fetchItem(query) {
     const pageCount = this.state.pageCount;
     // const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewAverage.asc&show=name,regularPrice,salePrice,customerReviewAverage,freeShipping,shipping,thumbnailImage,image&pageSize=50&page=${pageCount}&format=json`;
     const path = `https://api.bestbuy.com/v1/products((search=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
@@ -69,7 +69,7 @@ class ResultScreen extends Component {
     // console.log(path);
     // console.log("====================================");
 
-    axios
+    await axios
       .get(path)
       .then(response => {
         this.setState({
@@ -83,14 +83,14 @@ class ResultScreen extends Component {
       });
   }
   //gets all items based on category
-  fetchItemsByCategory(query) {
+  async fetchItemsByCategory(query) {
     const pageCount = this.state.pageCount;
     const path = `https://api.bestbuy.com/v1/products((categoryPath.id=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
     console.log("====================================");
     console.log("category path" + path);
     console.log("====================================");
 
-    axios
+    await axios
       .get(path)
       .then(response => {
         this.setState({

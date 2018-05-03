@@ -35,8 +35,8 @@ class ShoppingCartScreen extends Component {
 
     // this.deleteItem(0);
   }
-  getWatchlist() {
-    axios
+  async getWatchlist() {
+    await axios
       .get(
         `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=${mLabKey}`
       )
