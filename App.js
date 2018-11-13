@@ -1,4 +1,7 @@
 import React from "react";
+import { createStore,compose } from "redux";
+import allReducers from './reducers';
+import {Provider} from 'react-redux';
 import { StyleSheet } from "react-native";
 import * as Expo from "expo";
 //packages
@@ -33,6 +36,7 @@ import AboutScreen from "./Screens/AboutScreen";
 import ShoppingCartScreen from "./Screens/ShoppingCartScreen";
 import { firebaseKey, bestBuyKey } from "./assets/constants";
 
+
 export const { width, height } = Dimensions.get("screen");
 //init firebase
 const firebaseConfig = {
@@ -51,7 +55,14 @@ firebase.initializeApp(firebaseConfig);
 
 // console.log("====================================");
 // console.log(database);
-// console.log("====================================");
+// const composeEnhancers = (
+// 	__DEV__ &&
+// 	typeof (window) !== 'undefined' &&
+// 	window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//   ) || compose;
+// const enhancer = composeEnhancers(...enhancers);
+const store = createStore(allReducers);
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -85,7 +96,8 @@ export default class App extends React.Component {
       }
       // Do other things
     });
-    console.log("App started ");
+    console.log("App started succesfully");
+    console.log(store.getState())
   }
 
   async loadFonts() {
@@ -101,7 +113,9 @@ export default class App extends React.Component {
     if (!this.state.appReady) {
       return <Expo.AppLoading />;
     }
-    return <AppDrawer />;
+    return <Provider store={allReducers}>
+            <AppDrawer />
+          </Provider>;
   }
 }
 
