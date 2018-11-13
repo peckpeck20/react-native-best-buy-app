@@ -258,16 +258,14 @@ export default class HomeScreen extends Component {
                   <Input placeholder="I'm looking for.." disabled />
                   <Icon active name="search" />
                 </Item>
+                <Button
+                  onPress={() => this.props.navigation.navigate('ShoppingCart')}>
+                  <Icon
+                    name="ios-cart-outline"
+                    style={{ color: "white"}}
+                  />
+                </Button>
 
-                <Icon
-                  name="ios-cart-outline"
-                  // onPress={() =>
-                  //   this.props.navigation.navigate("SearchScreen", {
-                  //     searchQuery: this.state.searchTxt
-                  //   })
-                  // }
-                  style={{ color: "white", padding: 15 }}
-                />
               </Row>
             </Row>
             <Row>

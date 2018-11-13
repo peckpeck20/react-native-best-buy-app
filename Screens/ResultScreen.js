@@ -225,7 +225,7 @@ class ResultScreen extends Component {
       <Container style={styles.container}>
         <HeaderBack
           title="Search Result"
-          goBack={() => this.props.navigation.goBack()}
+          goBack={() => this.props.navigation.navigate('HomeScreen')}
         />
         <Content>{itemCards}</Content>
       </Container>

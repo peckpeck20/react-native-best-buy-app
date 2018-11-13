@@ -72,8 +72,6 @@ export default class DrawerContent extends Component {
 
     const { loggedIn } = this.state;
 
-    // console.log(this.state.isLoggedIn);
-
     return (
       <Container style={{ paddingTop: 24 }}>
         <Header span style={{ paddingTop: 15 }}>

@@ -1,7 +1,8 @@
 import React from "react";
+import { Dimensions } from "react-native";
 import { DrawerNavigator } from "react-navigation";
 //custom
-import {height,width} from '../App';
+const { width, height } = Dimensions.get("screen");
 import DrawerContent from "../Components/DrawerContent";
 import HomeScreen from "../Screens/HomeScreen";
 import LoginScreen from "../Screens/LoginScreen";
