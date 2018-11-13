@@ -1,17 +1,12 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+
 import * as firebase from "firebase";
-import { NavigationActions } from "react-navigation";
+
 import { Image } from "react-native";
 import {
   Body,
   Container,
   Text,
-  Form,
-  Item,
-  Label,
-  Input,
-  Alert,
   Header,
   Content,
   List,
@@ -21,7 +16,7 @@ import {
   Icon,
   Button
 } from "native-base";
-// import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 export default class DrawerContent extends Component {
@@ -56,7 +51,7 @@ export default class DrawerContent extends Component {
           console.log("Signed Out");
           this.setState({ isLoggedIn: false });
         },
-        function(error) {
+        function (error) {
           console.error("Sign Out Error", error);
         }
       );

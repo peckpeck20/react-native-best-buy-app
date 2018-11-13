@@ -1,40 +1,12 @@
 import React from "react";
-import { createStore,compose } from "redux";
-import allReducers from './reducers';
-import {Provider} from 'react-redux';
 import { StyleSheet } from "react-native";
 import * as Expo from "expo";
 //packages
 import * as firebase from "firebase";
 import { Dimensions } from "react-native";
 
-import {
-  Body,
-  Container,
-  Text,
-  Form,
-  Item,
-  Label,
-  Input,
-  Alert,
-  Header,
-  Content
-} from "native-base";
-import { DrawerNavigator, DrawerItems, SafeAreaView } from "react-navigation";
-//custom
-import DrawerContent from "./Components/DrawerContent";
-import HomeScreen from "./Screens/HomeScreen";
-import LoginScreen from "./Screens/LoginScreen";
-import SignUpScreen from "./Screens/SignUpScreen";
-import ProfileScreen from "./Screens/ProfileScreen";
-import CategoryScreen from "./Screens/CategoryScreen";
-import WatchListScreen from "./Screens/WatchListScreen";
-import ResultScreen from "./Screens/ResultScreen";
-import ShowCaseScreen from "./Screens/ShowCaseScreen";
-import SearchScreen from "./Screens/SearchScreen";
-import AboutScreen from "./Screens/AboutScreen";
-import ShoppingCartScreen from "./Screens/ShoppingCartScreen";
-import { firebaseKey, bestBuyKey } from "./assets/constants";
+import { firebaseKey } from "./assets/constants";
+import ParentProvider from "./redux/ParentProvider";
 
 
 export const { width, height } = Dimensions.get("screen");
@@ -61,7 +33,7 @@ firebase.initializeApp(firebaseConfig);
 // 	window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 //   ) || compose;
 // const enhancer = composeEnhancers(...enhancers);
-const store = createStore(allReducers);
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -97,7 +69,6 @@ export default class App extends React.Component {
       // Do other things
     });
     console.log("App started succesfully");
-    console.log(store.getState())
   }
 
   async loadFonts() {
@@ -113,54 +84,11 @@ export default class App extends React.Component {
     if (!this.state.appReady) {
       return <Expo.AppLoading />;
     }
-    return <Provider store={allReducers}>
-            <AppDrawer />
-          </Provider>;
+    return <ParentProvider/>
   }
 }
 
-const AppDrawer = DrawerNavigator(
-  {
-    Home: {
-      screen: HomeScreen
-    },
-    Login: {
-      screen: LoginScreen
-    },
-    SignUp: {
-      screen: SignUpScreen
-    },
-    Profile: {
-      screen: ProfileScreen
-    },
-    Category: {
-      screen: CategoryScreen
-    },
-    About: {
-      screen: AboutScreen
-    },
-    WatchList: {
-      screen: WatchListScreen
-    },
-    ShoppingCart: {
-      screen: ShoppingCartScreen
-    },
-    ResultScreen: {
-      screen: ResultScreen
-    },
-    SearchScreen: {
-      screen: SearchScreen
-    },
-    ShowCaseScreen: {
-      screen: ShowCaseScreen
-    }
-  },
-  {
-    initialRouteName: "Home",
-    contentComponent: props => <DrawerContent {...props} />,
-    drawerWidth: Math.min(height, width) * 0.7 // calculates 70% of the smaller side of the screen.
-  }
-);
+
 
 const styles = StyleSheet.create({
   container: {

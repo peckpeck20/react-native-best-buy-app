@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { ScrollView, Image } from "react-native";
-import { Asset, AppLoading } from "expo";
+import { AppLoading } from "expo";
 import axios from "axios";
 import {
   Container,
   Content,
   Icon,
   Button,
-  Header,
   Item,
   Input,
   H1,
@@ -17,20 +16,13 @@ import {
   Body,
   CardItem,
   Thumbnail,
-  Alert,
   Text,
-  Spinner
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { Rating } from "react-native-elements";
-
 import styles from "../assets/styling";
-import NavBar from "../Components/NavBar";
-import AdvancedSearchBar from "../Components/AdvancedSearchBar";
 import { width, height } from "../App";
 import { bestBuyKey } from "../assets/constants";
-// import SearchBar from "../Components/SearchBar";
-// import { SearchBar } from "react-native-elements";
+
 
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -107,7 +99,7 @@ export default class HomeScreen extends Component {
       for (var i = 0; i < num; i++) {
         total.push(
           <Icon
-            key={num}
+            key={i}
             style={{ color: "red", fontSize: 15 }}
             active
             name="star"

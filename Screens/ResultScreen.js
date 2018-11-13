@@ -119,7 +119,7 @@ class ResultScreen extends Component {
       for (var i = 0; i < num; i++) {
         total.push(
           <Icon
-            key={num}
+            key={i}
             style={{ color: "red", fontSize: 15 }}
             active
             name="star"

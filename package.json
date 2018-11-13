@@ -32,6 +32,7 @@
     "react-native-search-header": "^0.2.6",
     "react-navigation": "^1.5.11",
     "react-redux": "^5.1.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.5"
   }
 }
