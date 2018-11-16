@@ -48,23 +48,13 @@ export const initialFetch = () => {
     //2 api resquest in 1
     axios.all([getTrendItems(),getPopularItems()])
     .then(axios.spread((trendResult,popularResult) => {
-
       let trends = trendResult.data.results;
       let populars = popularResult.data.results;
       dispatch(getAllDataSuccess(trends,populars));
-      // console.log(trendResult.data.results);
-      // console.log(populars);
-
-    }));
-
-    // axios.get(trendingPath)
-    // .then(response => {
-    //   dispatch(getAllDataSuccess(response.data.results));
-    // })
-    
-    // .catch((error) =>{
-    //   dispatch(getAllDataFail(error));
-    // })
+    }))
+    .catch((error) =>{
+      dispatch(getAllDataFail(error));
+    });
   }
 }
 

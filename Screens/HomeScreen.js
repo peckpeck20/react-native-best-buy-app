@@ -1,16 +1,12 @@
 import React, { Component } from "react";
+import { ScrollView, Image } from "react-native";
 import { connect } from 'react-redux';
 import { initialFetch } from '../redux/reducers/InitialLoad';
-import { ScrollView, Image } from "react-native";
-import { AppLoading } from "expo";
-import axios from "axios";
 import {
   Container,
   Content,
   Icon,
   Button,
-  Item,
-  Input,
   H1,
   Card,
   Left,
@@ -22,69 +18,18 @@ import {
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import styles from "../assets/styling";
-import { width, height } from "../App";
-import { bestBuyKey } from "../assets/constants";
+import Loader from "../Components/Loader";
+import HomeNavBar from "../Components/HomeNavBar";
+
 
 
 class HomeScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // searchTxt: ""
-      trendingItems: [],
-      trendLoaded: false,
-      popularItems: [],
-      popularLoaded: false,
-      isReady: false
-    };
-
-    //use this word inside function
-    this.getTrendItems = this.getTrendItems.bind(this);
-    this.getPopularItems = this.getPopularItems.bind(this);
-  }
 
   componentDidMount() {
-    this.getTrendItems();
-    this.getPopularItems();
-    this.props.initialFetch();
-  }
-
-  async getTrendItems() {
-    const trendingPath = `https://api.bestbuy.com/beta/products/trendingViewed?apiKey=${bestBuyKey}`;
-    await axios
-      .get(trendingPath)
-      .then(response => {
-        this.setState({
-          trendingItems: response.data.results
-        });
-        // console.log(response.data.results);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    this.setState({
-      trendLoaded: true
-    });
-  }
-
-  async getPopularItems() {
-    const popularPath = `https://api.bestbuy.com/beta/products/mostViewed?apiKey=${bestBuyKey}`;
-    await axios
-      .get(popularPath)
-      .then(response => {
-        this.setState({
-          popularItems: response.data.results
-        });
-        // console.log(response.data.results);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    this.setState({
-      popularLoaded: true
-    });
+    //if items haven't been fetch then run fetch otherwise do nothing
+    if(this.props.initialLoad.allItemsReady != true){
+      this.props.initialFetch();
+    }
   }
 
   //creates number of stars based on input
@@ -115,54 +60,47 @@ class HomeScreen extends Component {
   }
 
   render() {
-    //loader
-    if (!this.state.popularLoaded || !this.state.trendLoaded) {
-      return <AppLoading />;
-    }
-    //calculate the width of the search bar
-    const calculatedWidth = Math.min(height, width) * 0.76;
+    const {initialLoad} = this.props;
 
-    const trendData = this.state.trendingItems;
+    if(initialLoad.allItemsReady === true) {
 
-    const trendCards = trendData.map((item, i) => {
-      return (
-        <Card key={i} style={{ flex: 0 }}>
-          <CardItem
-            bordered
-            button
-            onPress={() =>
-              this.props.navigation.navigate("ShowCaseScreen", {
-                serialNumber: item.sku
-                // item: item
-              })
-            }
-          >
-            <Left>
-              <Thumbnail square source={{ uri: item.images.standard }} />
-            </Left>
-            <Body />
-            <Right>
-              <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
-              <Text note style={{ textDecorationLine: "line-through" }}>
-                MSRP $ {item.prices.regular}
-              </Text>
-            </Right>
-          </CardItem>
+      var trendCards = initialLoad.trendItems.map((item, i) => {
+        return (
+          <Card key={i} style={{ flex: 0 }}>
+            <CardItem
+              bordered
+              button
+              onPress={() =>
+                this.props.navigation.navigate("ShowCaseScreen", {
+                  serialNumber: item.sku
+                  // item: item
+                })
+              }
+            >
+              <Left>
+                <Thumbnail square source={{ uri: item.images.standard }} />
+              </Left>
+              <Body />
+              <Right>
+                <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
+                <Text note style={{ textDecorationLine: "line-through" }}>
+                  MSRP $ {item.prices.regular}
+                </Text>
+              </Right>
+            </CardItem>
 
-          <CardItem bordered footer>
-            <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
-            <Body />
-            <Right>
-              <Text>Orders {item.customerReviews.count}</Text>
-            </Right>
-          </CardItem>
-        </Card>
-      );
-    });
+            <CardItem bordered footer>
+              <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
+              <Body />
+              <Right>
+                <Text>Orders {item.customerReviews.count}</Text>
+              </Right>
+            </CardItem>
+          </Card>
+        );
+      });
 
-    const popularData = this.state.popularItems;
-
-    const popularCards = popularData.map((item, i) => {
+    var popularCards = initialLoad.popularItems.map((item, i) => {
       return (
         <Card key={i} style={{ flex: 0 }}>
           <CardItem header bordered>
@@ -215,62 +153,17 @@ class HomeScreen extends Component {
         </Card>
       );
     });
+    };
 
-    const popularLoaded = this.state.popularLoaded;
-    const trendLoaded = this.state.trendLoaded;
 
-    // if (popularLoaded || trendLoaded == false) {
-    //   return <Spinner color="green" />;
-    // } else {
+
     return (
+      !initialLoad.allItemsReady ? <Loader/> :      
       <Container style={styles.container}>
         <Content>
           <Grid>
-            <Row style={{ backgroundColor: "#3F51B5", padding: 5 }}>
-              <Row>
-                <Icon
-                  name="menu"
-                  onPress={() => this.props.navigation.navigate("DrawerToggle")}
-                  style={{ color: "white", padding: 10 }}
-                />
-                {/* <SearchBar
-                round
-                clearIcon
-                showLoading
-                onChangeText={searchTxt => this.setState({ searchTxt })}
-                onClear={() => this.setState({ searchTxt: "" })}
-                onCancel={() => this.setState({ searchTxt: "" })}
-                containerStyle={{ width: 330, height: 50 }}
-                placeholder="Search Products"
-                icon={{ type: "font-awesome", name: "search" }}
-              /> */}
-                <Item
-                  onPress={() =>
-                    this.props.navigation.navigate("SearchScreen", {
-                      searchQuery: this.state.searchTxt
-                    })
-                  }
-                  rounded
-                  style={{
-                    width: calculatedWidth,
-                    height: 50,
-                    padding: 5,
-                    backgroundColor: "white"
-                  }}
-                >
-                  <Input placeholder="I'm looking for.." disabled />
-                  <Icon active name="search" />
-                </Item>
-                <Button
-                  onPress={() => this.props.navigation.navigate('ShoppingCart')}>
-                  <Icon
-                    name="ios-cart-outline"
-                    style={{ color: "white"}}
-                  />
-                </Button>
+          <HomeNavBar handleNav={ this.props.navigation}/>
 
-              </Row>
-            </Row>
             <Row>
               <H1 style={{ padding: 15 }}>Trending now</H1>
               <Icon
