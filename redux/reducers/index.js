@@ -4,5 +4,5 @@ import userReducer from './userReducer';
 
 export default combineReducers({
   user: userReducer,
-  load: initialLoad
+  initialLoad: initialLoad
 })

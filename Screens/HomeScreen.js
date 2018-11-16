@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { initialFetch } from '../redux/reducers/InitialLoad';
 import { ScrollView, Image } from "react-native";
 import { AppLoading } from "expo";
 import axios from "axios";
@@ -24,7 +26,7 @@ import { width, height } from "../App";
 import { bestBuyKey } from "../assets/constants";
 
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,6 +46,7 @@ export default class HomeScreen extends Component {
   componentDidMount() {
     this.getTrendItems();
     this.getPopularItems();
+    this.props.initialFetch();
   }
 
   async getTrendItems() {
@@ -308,4 +311,7 @@ export default class HomeScreen extends Component {
     );
   }
 }
-//}
+
+const mapStateToProps = state => ({initialLoad: state.initialLoad});
+
+export default connect(mapStateToProps,{initialFetch})(HomeScreen);

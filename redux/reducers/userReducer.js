@@ -45,6 +45,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case REQUEST_LOGIN:
       return {
+        ...state,
         loggingIn: true
       };
     // return state
