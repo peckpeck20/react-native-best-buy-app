@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, Image } from "react-native";
+import { ScrollView, Image,RefreshControl } from "react-native";
 import { connect } from 'react-redux';
 import { initialFetch } from '../redux/reducers/InitialLoad';
 import {
@@ -24,10 +24,22 @@ import HomeNavBar from "../Components/HomeNavBar";
 
 
 class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+    };
+  }
+
+  _onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.props.initialFetch();
+    this.setState({ refreshing: false });
+  }
 
   componentDidMount() {
     //if items haven't been fetch then run fetch otherwise do nothing
-    if(this.props.initialLoad.allItemsReady != true){
+    if (this.props.initialLoad.allItemsReady != true) {
       this.props.initialFetch();
     }
   }
@@ -60,9 +72,9 @@ class HomeScreen extends Component {
   }
 
   render() {
-    const {initialLoad} = this.props;
+    const { initialLoad } = this.props;
 
-    if(initialLoad.allItemsReady === true) {
+    if (initialLoad.allItemsReady === true) {
 
       var trendCards = initialLoad.trendItems.map((item, i) => {
         return (
@@ -100,111 +112,116 @@ class HomeScreen extends Component {
         );
       });
 
-    var popularCards = initialLoad.popularItems.map((item, i) => {
-      return (
-        <Card key={i} style={{ flex: 0 }}>
-          <CardItem header bordered>
-            <Text>{item.names.title}</Text>
-          </CardItem>
+      var popularCards = initialLoad.popularItems.map((item, i) => {
+        return (
+          <Card key={i} style={{ flex: 0 }}>
+            <CardItem header bordered>
+              <Text>{item.names.title}</Text>
+            </CardItem>
 
-          <CardItem cardBody bordered>
-            <Image
-              source={{ uri: item.images.standard }}
-              style={{ height: 250, width: null, flex: 1 }}
-              resizeMode="contain"
-            />
-          </CardItem>
-          <CardItem bordered>
-            <Left />
-            <Body>
-              <Button
-                full
-                rounded
-                onPress={() =>
-                  this.props.navigation.navigate("ShowCaseScreen", {
-                    serialNumber: item.sku
-                    // item: item
-                  })
-                }
-              >
-                <Text>Info</Text>
-              </Button>
-            </Body>
-            <Right />
-          </CardItem>
-          <CardItem bordered footer>
-            <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
-            <Body>
-              <Text note style={{ textDecorationLine: "line-through" }}>
-                MSRP $ {item.prices.regular}
-              </Text>
-              {/* <Button transparent onPress={() => alert(item.sku)}>
+            <CardItem cardBody bordered>
+              <Image
+                source={{ uri: item.images.standard }}
+                style={{ height: 250, width: null, flex: 1 }}
+                resizeMode="contain"
+              />
+            </CardItem>
+            <CardItem bordered>
+              <Left />
+              <Body>
+                <Button
+                  full
+                  rounded
+                  onPress={() =>
+                    this.props.navigation.navigate("ShowCaseScreen", {
+                      serialNumber: item.sku
+                      // item: item
+                    })
+                  }
+                >
+                  <Text>Info</Text>
+                </Button>
+              </Body>
+              <Right />
+            </CardItem>
+            <CardItem bordered footer>
+              <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
+              <Body>
+                <Text note style={{ textDecorationLine: "line-through" }}>
+                  MSRP $ {item.prices.regular}
+                </Text>
+                {/* <Button transparent onPress={() => alert(item.sku)}>
                 <Icon
                   style={{ fontSize: 40 }}
                   type="SimpleLineIcons"
                   name="info"
                 />
               </Button> */}
-            </Body>
-            <Right>
-              <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
-            </Right>
-          </CardItem>
-        </Card>
-      );
-    });
+              </Body>
+              <Right>
+                <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
+              </Right>
+            </CardItem>
+          </Card>
+        );
+      });
     };
-
-
-
+    
     return (
-      !initialLoad.allItemsReady ? <Loader/> :      
-      <Container style={styles.container}>
-        <Content>
-          <Grid>
-          <HomeNavBar handleNav={ this.props.navigation}/>
+      !initialLoad.allItemsReady ? <Loader /> :
+        <Container style={styles.container}>
+          <Content
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh}
+              />
+            }
+          >
+            <Grid>
+              <HomeNavBar handleNav={this.props.navigation} />
 
-            <Row>
-              <H1 style={{ padding: 15 }}>Trending now</H1>
-              <Icon
-                name="md-trending-up"
-                type="Ionicons"
-                style={{
-                  fontSize: 50,
-                  padding: 10,
-                  color: "blue"
-                }}
-              />
-            </Row>
-            <Row>
-              <Col>
-                <ScrollView horizontal={true} bounces>
-                  {trendCards}
-                </ScrollView>
-              </Col>
-            </Row>
-            <Row>
-              <H1 style={{ padding: 15 }}>Most Popular</H1>
-              <Icon
-                name="thumbs-o-up"
-                type="FontAwesome"
-                style={{
-                  fontSize: 50,
-                  padding: 10,
-                  color: "blue"
-                }}
-              />
-            </Row>
-            <Row>
-              <Col>{popularCards}</Col>
-            </Row>
-          </Grid>
-        </Content>
-      </Container>
+              <Row>
+                <H1 style={{ padding: 15 }}>Trending now</H1>
+                <Icon
+                  name="md-trending-up"
+                  type="Ionicons"
+                  style={{
+                    fontSize: 50,
+                    padding: 10,
+                    color: "blue"
+                  }}
+                />
+              </Row>
+              <Row>
+                <Col>
+                  <ScrollView horizontal={true} bounces>
+                    {trendCards}
+                  </ScrollView>
+                </Col>
+              </Row>
+              <Row>
+                <H1 style={{ padding: 15 }}>Most Popular</H1>
+                <Icon
+                  name="thumbs-o-up"
+                  type="FontAwesome"
+                  style={{
+                    fontSize: 50,
+                    padding: 10,
+                    color: "blue"
+                  }}
+                />
+              </Row>
+              <Row>
+                <Col>{popularCards}</Col>
+              </Row>
+            </Grid>
+          </Content>
+        </Container>
     );
   }
 }
 
-const mapStateToProps = state => ({initialLoad: state.initialLoad});
+const mapStateToProps = state => ({ initialLoad: state.initialLoad });
 
-export default connect(mapStateToProps,{initialFetch})(HomeScreen);
+export default connect(mapStateToProps, { initialFetch })(HomeScreen);
