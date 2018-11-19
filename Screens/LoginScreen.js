@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { Alert } from "react-native";
+import {connect} from 'react-redux';
+
+import { fbKey, androidID, iosID } from "../assets/constants";
 import * as firebase from "firebase";
+import {requestLogin,loginSuccess} from '../redux/reducers/userModule';
+
 import {
   Container,
   Header,
@@ -17,7 +22,7 @@ import {
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-import { fbKey, androidID, iosID } from "../assets/constants";
+
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
 
@@ -34,7 +39,7 @@ class LoginScreen extends Component {
     //use this word inside function
     this.signUpUser = this.signUpUser.bind(this);
     this.logInUser = this.logInUser.bind(this);
-    this.loginWithFacebook = this.loginWithFacebook.bind(this);
+    // this.loginWithFacebook = this.loginWithFacebook.bind(this);
     this.signOut = this.signOut.bind(this);
   }
 
@@ -92,6 +97,8 @@ class LoginScreen extends Component {
   }
 
   async loginWithFacebook() {
+    this.props.requestLogin();
+
     const { navigate } = this.props.navigation;
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
       fbKey,
@@ -104,12 +111,14 @@ class LoginScreen extends Component {
       firebase
         .auth()
         .signInWithCredential(credential)
-        .then(user => {
-          navigate("Profile", { user: user });
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        .then(user =>this.props.loginSuccess(user))
+        // .then(user => {
+        //   loginSuccess(user);
+        //   // navigate("Profile", { user: user });
+        // })
+        // .catch(error => {
+        //   console.log(error);
+        // });
     }
   }
 
@@ -225,7 +234,7 @@ class LoginScreen extends Component {
                   <Text>Google Login</Text>
                 </Button>
 
-                {/* <Button
+                <Button
                   success
                   block
                   onPress={() => {
@@ -233,7 +242,7 @@ class LoginScreen extends Component {
                   }}
                 >
                   <Text>Signout</Text>
-                </Button> */}
+                </Button>
               </Col>
               <Col size={1} />
             </Row>
@@ -243,5 +252,5 @@ class LoginScreen extends Component {
     );
   }
 }
-
-export default LoginScreen;
+const mapStateToProps = state => ({ user: state.user });
+export default connect(mapStateToProps,{requestLogin,loginSuccess})(LoginScreen);

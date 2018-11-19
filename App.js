@@ -10,6 +10,7 @@ import ParentProvider from "./redux/ParentProvider";
 
 
 export const { width, height } = Dimensions.get("screen");
+
 //init firebase
 const firebaseConfig = {
   apiKey: firebaseKey,
@@ -19,40 +20,19 @@ const firebaseConfig = {
   storageBucket: "react-native-db-69e1b.appspot.com"
   // messagingSenderId: "420654183697"
 };
-firebase.initializeApp(firebaseConfig);
-
-//init db
-// Get a reference to the database service
-// var database = firebase.database();
-
-// console.log("====================================");
-// console.log(database);
-// const composeEnhancers = (
-// 	__DEV__ &&
-// 	typeof (window) !== 'undefined' &&
-// 	window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-//   ) || compose;
-// const enhancer = composeEnhancers(...enhancers);
-
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       appReady: false,
-      user: {}
+      user:'',
     };
-
-    //use this word inside function
-    // this.signUpUser = this.signUpUser.bind(this);
-    // this.logInUser = this.logInUser.bind(this);
-    // this.loginWithFacebook = this.loginWithFacebook.bind(this);
-    // this.signOut = this.signOut.bind(this);
   }
 
   componentWillMount() {
     this.loadFonts();
+    firebase.initializeApp(firebaseConfig);
     // Listen for authentication state to change.
     firebase.auth().onAuthStateChanged(user => {
       if (user != null) {
@@ -66,7 +46,7 @@ export default class App extends React.Component {
           user: {}
         });
       }
-      // Do other things
+      //   // Do other things
     });
     console.log("App started succesfully");
   }

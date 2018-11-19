@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Image } from "react-native";
 
 import { connect } from 'react-redux';
+import {logout} from '../../redux/reducers/userModule';
 import * as firebase from "firebase";
 
 import {
@@ -31,18 +32,6 @@ class DrawerContent extends Component {
 
     //use this word inside function
     this.signOut = this.signOut.bind(this);
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if (user != null) {
-    //     console.log(`User is uthenticated! ${user}`);
-    //     this.setState({
-    //       isLoggedIn: true
-    //     });
-    //   } else {
-    //     this.setState({
-    //       isLoggedIn: false
-    //     });
-    //   }
-    // });
   }
 
   signOut() {
@@ -51,8 +40,7 @@ class DrawerContent extends Component {
       .signOut()
       .then(
         () => {
-          console.log("Signed Out");
-          this.setState({ isLoggedIn: false });
+          this.props.logout()
         },
         function (error) {
           console.error("Sign Out Error", error);
@@ -192,4 +180,4 @@ class DrawerContent extends Component {
 
 const mapStateToProps = state => ({ user: state.user });
 
-export default connect(mapStateToProps)(DrawerContent);
+export default connect(mapStateToProps,{logout})(DrawerContent);

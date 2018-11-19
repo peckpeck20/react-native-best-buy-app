@@ -1,8 +1,14 @@
+import firebase from "firebase";
+import axios from 'axios';
+import { bestBuyKey } from '../../assets/constants';
+import { fbKey, androidID, iosID } from "../../assets/constants";
+
 // Initial state
 const initialState = {
   auth: false,
   loggingIn: false,
   user: '',
+  error: null
 };
 
 //Actions
@@ -39,6 +45,34 @@ export const login = () => {
     dispatch(loginSuccess({ test: 'user' }));
   }
 };
+
+// export const loginWithFacebook = (dispatch) => {
+
+
+//   return dispatch => {
+    
+//     dispatch(requestLogin());
+//     // const { navigate } = this.props.navigation;
+//     let { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
+//       fbKey,
+//       { permissions: ["public_profile"] }
+//     );
+//     if (type == "success") {
+//       const credential = firebase.auth.FacebookAuthProvider.credential(token);
+
+//       firebase
+//         .auth()
+//         .signInWithCredential(credential)
+//         .then(user => {
+//           console.log(user)
+//           // dispatch(loginSuccess(user));
+//         })
+//         .catch(error => {
+//           console.log(error);
+//         });
+//     }
+//   }
+// }
 
 //Reducer
 export default function UserStateReducer(state = initialState, action = {}) {
