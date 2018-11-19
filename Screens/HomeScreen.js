@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { ScrollView, Image,RefreshControl } from "react-native";
 import { connect } from 'react-redux';
+
 import { initialFetch } from '../redux/reducers/InitialLoad';
+import {starRating} from '../assets/GenerateStarRating';
 import {
   Container,
   Content,
@@ -19,6 +21,7 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 import styles from "../assets/styling";
 import Loader from "../Components/Loader";
+import BubbleLoader from "../Components/BubbleLoader";
 import HomeNavBar from "../Components/HomeNavBar";
 
 
@@ -44,32 +47,7 @@ class HomeScreen extends Component {
     }
   }
 
-  //creates number of stars based on input
-  starRating(num) {
-    if (num == null) {
-      return (
-        <Icon
-          style={{ color: "red", fontSize: 15 }}
-          name="star-border"
-          type="MaterialIcons"
-        />
-      );
-    } else {
-      let total = [];
-      for (var i = 0; i < num; i++) {
-        total.push(
-          <Icon
-            key={i}
-            style={{ color: "red", fontSize: 15 }}
-            active
-            name="star"
-            type="MaterialIcons"
-          />
-        );
-      }
-      return total;
-    }
-  }
+
 
   render() {
     const { initialLoad } = this.props;
@@ -102,7 +80,10 @@ class HomeScreen extends Component {
             </CardItem>
 
             <CardItem bordered footer>
-              <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
+              <Left>
+              {starRating(item.customerReviews.averageScore)}
+              
+              </Left>
               <Body />
               <Right>
                 <Text>Orders {item.customerReviews.count}</Text>
@@ -145,7 +126,9 @@ class HomeScreen extends Component {
               <Right />
             </CardItem>
             <CardItem bordered footer>
-              <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
+              <Left>
+              {starRating(item.customerReviews.averageScore)}
+              </Left>
               <Body>
                 <Text note style={{ textDecorationLine: "line-through" }}>
                   MSRP $ {item.prices.regular}
@@ -168,7 +151,7 @@ class HomeScreen extends Component {
     };
     
     return (
-      !initialLoad.allItemsReady ? <Loader /> :
+      !initialLoad.allItemsReady ? <Loader/> :
         <Container style={styles.container}>
           <Content
             refreshControl={

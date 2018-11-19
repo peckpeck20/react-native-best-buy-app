@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Image, ActivityIndicator } from "react-native";
+
+import {starRating} from '../assets/GenerateStarRating';
 import axios from "axios";
 import {
   Container,
@@ -104,32 +106,7 @@ class ResultScreen extends Component {
       });
   }
 
-  //creates number of stars based on input
-  starRating(num) {
-    if (num == null) {
-      return (
-        <Icon
-          style={{ color: "red", fontSize: 15 }}
-          name="star-border"
-          type="MaterialIcons"
-        />
-      );
-    } else {
-      let total = [];
-      for (var i = 0; i < num; i++) {
-        total.push(
-          <Icon
-            key={i}
-            style={{ color: "red", fontSize: 15 }}
-            active
-            name="star"
-            type="MaterialIcons"
-          />
-        );
-      }
-      return total;
-    }
-  }
+
 
   //if 0 then return free shipping
   shipping(i) {
@@ -210,7 +187,7 @@ class ResultScreen extends Component {
 
           <CardItem>
             <Left>
-              {this.starRating(item.customerReviewAverage)}
+              {starRating(item.customerReviewAverage)}
 
               {/* <Text>Orders {item.customerReviewCount}</Text> */}
             </Left>

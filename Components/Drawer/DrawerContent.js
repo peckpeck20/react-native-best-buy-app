@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { Image } from "react-native";
 
+import { connect } from 'react-redux';
 import * as firebase from "firebase";
 
-import { Image } from "react-native";
 import {
   Body,
   Container,
@@ -16,10 +17,12 @@ import {
   Icon,
   Button
 } from "native-base";
-
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-export default class DrawerContent extends Component {
+import GuestOptions from "./GuestOptions";
+import UserOptions from "./UserOptions";
+
+class DrawerContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,15 +71,13 @@ export default class DrawerContent extends Component {
   //   });
   // }
   render() {
-    const { navigation } = this.props;
-
-    const { loggedIn } = this.state;
+    const { navigation, user } = this.props;
 
     return (
       <Container style={{ paddingTop: 24 }}>
         <Header span style={{ paddingTop: 15 }}>
           <Image
-            source={require("../assets/Images/logo.jpg")}
+            source={require("../../assets/Images/logo.jpg")}
             style={{
               height: 100,
               width: 100,
@@ -86,30 +87,9 @@ export default class DrawerContent extends Component {
         </Header>
         <Content>
           <Grid>
-            <Row size={1}>
-              {/* {loggedIn ? <Text>Log out</Text> : <Text>Logged In</Text>} */}
-              <Col>
-                <Button
-                  block
-                  info
-                  onPress={() => navigation.navigate("SignUp")}
-                >
-                  <Icon type="Entypo" name="add-user" />
-                  <Text>Sign Up</Text>
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  full
-                  primary
-                  onPress={() => navigation.navigate("Login")}
-                >
-                  <Text>Login</Text>
-                  <Icon ios="ios-send" android="md-send" />
-                </Button>
-              </Col>
-            </Row>
-
+            {user.auth ?
+              <UserOptions handleNav={navigation} /> :
+              <GuestOptions handleNav={navigation} />}
             <Row size={3}>
               <Col>
                 <List>
@@ -187,16 +167,19 @@ export default class DrawerContent extends Component {
             <Row style={{ paddingTop: 20 }}>
               <Col size={1} />
               <Col size={2}>
-                <Button
-                  rounded
-                  danger
-                  onPress={() => {
-                    this.signOut();
-                  }}
-                >
-                  <Icon type="FontAwesome" name="sign-out" />
-                  <Text>Log out</Text>
-                </Button>
+                {user.auth ?
+                  <Button
+                    rounded
+                    danger
+                    onPress={() => {
+                      this.signOut();
+                    }}
+                  >
+                    <Icon type="FontAwesome" name="sign-out" />
+                    <Text>Log out</Text>
+                  </Button>
+                  :
+                  null}
               </Col>
               <Col size={1} />
             </Row>
@@ -207,4 +190,6 @@ export default class DrawerContent extends Component {
   }
 }
 
-// export default DrawerContent;
+const mapStateToProps = state => ({ user: state.user });
+
+export default connect(mapStateToProps)(DrawerContent);

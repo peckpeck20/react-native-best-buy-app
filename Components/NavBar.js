@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import {
-  Container,
-  Content,
   Icon,
-  Button,
   Left,
   Right,
   Header,

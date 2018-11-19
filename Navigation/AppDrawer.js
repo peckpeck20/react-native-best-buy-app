@@ -3,7 +3,7 @@ import { Dimensions } from "react-native";
 import { DrawerNavigator } from "react-navigation";
 //custom
 const { width, height } = Dimensions.get("screen");
-import DrawerContent from "../Components/DrawerContent";
+import DrawerContent from "../Components/Drawer/DrawerContent";
 import HomeScreen from "../Screens/HomeScreen";
 import LoginScreen from "../Screens/LoginScreen";
 import SignUpScreen from "../Screens/SignUpScreen";
