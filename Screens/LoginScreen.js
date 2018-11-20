@@ -94,6 +94,41 @@ class LoginScreen extends Component {
     }
   };
 
+  async signInWithGoogleAsync() {
+    try {
+      const { navigate } = this.props.navigation;
+      const result = await Expo.Google.logInAsync({
+        androidClientId: androidID,
+        iosClientId: iosID,
+        scopes: ["profile", "email"]
+      });
+
+      if (result.type === "success") {
+        const credential = firebase.auth.GoogleAuthProvider.credential(
+          result.idToken,
+          result.accessToken
+        );
+        // console.log(credential);
+        firebase
+          .auth()
+          .signInWithCredential(credential)
+          .then(user => {
+            this.props.loginSuccess(user);
+          })
+          .catch(error => {
+            this.props.loginFail(error);
+          });
+        navigate("Home");
+      } else {
+        Alert.alert("Login not sucessfull, try again.");
+      }
+
+      
+    } catch (e) {
+      this.props.loginFail(e.toString());
+    }
+  }
+
 
 
 
@@ -166,7 +201,7 @@ class LoginScreen extends Component {
                   <Text>Facebook Login</Text>
                 </Button>
                 <H1 style={{ padding: 20 }} />
-                {/* <Button
+                <Button
                   block
                   iconLeft
                   danger
@@ -176,7 +211,7 @@ class LoginScreen extends Component {
                 >
                   <Icon type="FontAwesome" name="google-plus" />
                   <Text>Google Login</Text>
-                </Button> */}
+                </Button>
 
                 <Button
                   success
