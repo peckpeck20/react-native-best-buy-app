@@ -16,6 +16,8 @@ const REQUEST_LOGIN = 'REQUEST_LOGIN';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAIL = 'LOGIN_FAIL';
 const LOGOUT = 'LOGOUT';
+const REQUEST_SIGNUP = 'REQUEST_SIGNUP';
+const LOGIN_SIGNUP = 'LOGIN_SIGNUP';
 
 //Action creators
 export const requestLogin = () => ({
@@ -27,8 +29,9 @@ export const loginSuccess = (user) => ({
   user: user
 });
 
-export const loginFail = () => ({
-  type: LOGIN_FAIL
+export const loginFail = (error) => ({
+  type: LOGIN_FAIL,
+  error:error
 });
 
 export const logout = () => ({
@@ -46,33 +49,6 @@ export const login = () => {
   }
 };
 
-// export const loginWithFacebook = (dispatch) => {
-
-
-//   return dispatch => {
-    
-//     dispatch(requestLogin());
-//     // const { navigate } = this.props.navigation;
-//     let { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
-//       fbKey,
-//       { permissions: ["public_profile"] }
-//     );
-//     if (type == "success") {
-//       const credential = firebase.auth.FacebookAuthProvider.credential(token);
-
-//       firebase
-//         .auth()
-//         .signInWithCredential(credential)
-//         .then(user => {
-//           console.log(user)
-//           // dispatch(loginSuccess(user));
-//         })
-//         .catch(error => {
-//           console.log(error);
-//         });
-//     }
-//   }
-// }
 
 //Reducer
 export default function UserStateReducer(state = initialState, action = {}) {
@@ -100,7 +76,8 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case LOGIN_FAIL:
       return {
         ...state,
-        loggingIn: false
+        loggingIn: false,
+        error : action.error
       };
 
     case LOGOUT:
