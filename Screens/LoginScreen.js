@@ -39,7 +39,7 @@ class LoginScreen extends Component {
 
 
 
-  signOut =()=> {
+  signOut = () => {
     firebase
       .auth()
       .signOut()
@@ -88,7 +88,7 @@ class LoginScreen extends Component {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(user => this.props.loginSuccess(user));
-        navigate("Home");
+      navigate("Home");
     } catch (error) {
       this.props.loginFail(error.toString());
     }
@@ -116,16 +116,14 @@ class LoginScreen extends Component {
             this.props.loginSuccess(user);
           })
           .catch(error => {
-            this.props.loginFail(error);
+            console.log(error);
           });
         navigate("Home");
       } else {
         Alert.alert("Login not sucessfull, try again.");
       }
-
-      
     } catch (e) {
-      this.props.loginFail(e.toString());
+      console.log(e.toString());
     }
   }
 
