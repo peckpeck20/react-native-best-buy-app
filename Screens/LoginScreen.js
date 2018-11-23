@@ -8,7 +8,6 @@ import { requestLogin, loginSuccess, loginFail } from '../redux/reducers/userMod
 
 import {
   Container,
-  Header,
   Content,
   Text,
   Button,
@@ -18,7 +17,6 @@ import {
   Label,
   Input,
   H1,
-  H2
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 

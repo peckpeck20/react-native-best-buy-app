@@ -52,7 +52,7 @@ export const AppDrawer = DrawerNavigator(
     }
   },
   {
-    initialRouteName: "SearchScreen",
+    initialRouteName: "Home",
     contentComponent: props => <DrawerContent {...props} />,
     drawerWidth: Math.min(height, width) * 0.7 // calculates 70% of the smaller side of the screen.
   }

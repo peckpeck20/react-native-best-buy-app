@@ -21,7 +21,7 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 import styles from "../assets/styling";
 import Loader from "../Components/Loader";
-import BubbleLoader from "../Components/BubbleLoader";
+// // import BubbleLoader from "../Components/BubbleLoader";
 import HomeNavBar from "../Components/HomeNavBar";
 
 
@@ -161,11 +161,11 @@ class HomeScreen extends Component {
               />
             }
           >
-            <Grid>
+            <Grid >
               <HomeNavBar handleNav={this.props.navigation} />
 
-              <Row>
-                <H1 style={{ padding: 15 }}>Trending now</H1>
+              <Row >
+                <H1 style={styles.title}>Trending now</H1>
                 <Icon
                   name="md-trending-up"
                   type="Ionicons"
@@ -177,14 +177,14 @@ class HomeScreen extends Component {
                 />
               </Row>
               <Row>
-                <Col>
+                <Col style={styles.content}>
                   <ScrollView horizontal={true} bounces>
                     {trendCards}
                   </ScrollView>
                 </Col>
               </Row>
               <Row>
-                <H1 style={{ padding: 15 }}>Most Popular</H1>
+                <H1 style={styles.title}>Most Popular</H1>
                 <Icon
                   name="thumbs-o-up"
                   type="FontAwesome"
@@ -195,7 +195,7 @@ class HomeScreen extends Component {
                   }}
                 />
               </Row>
-              <Row>
+              <Row style={styles.content}>
                 <Col>{popularCards}</Col>
               </Row>
             </Grid>

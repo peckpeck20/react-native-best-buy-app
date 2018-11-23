@@ -14,7 +14,7 @@ class HeaderBack extends Component {
     return (
       <Header>
         <Left>
-          <Button transparent onPress={() => this.props.goBack()}>
+          <Button transparent onPress={() => this.props.nav.navigate("Home")}>
             <Icon name="arrow-back" type="MaterialIcons" />
             <Text />
           </Button>

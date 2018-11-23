@@ -2,37 +2,30 @@ import React, { Component } from "react";
 import { Image } from "react-native";
 import axios from "axios";
 import {
-  Header,
   Container,
   Button,
   Icon,
   Text,
-  Form,
-  Item,
-  Label,
-  Input,
-  Alert,
   Content,
   Card,
   CardItem,
   Body,
   Left,
   Right,
-  Title
 } from "native-base";
-
-import { Col, Row, Grid } from "react-native-easy-grid";
-
 import { mLabKey } from "../assets/constants";
-import NavBar from "../Components/NavBar";
+
 import styles from "../assets/styling";
 import { bestBuyKey } from "../assets/constants";
 import HeaderBack from "../Components/HeaderBack";
 
+// //import { Col, Row, Grid } from "react-native-easy-grid";
+// // import NavBar from "../Components/NavBar";
+
 class ShowCaseScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchData: {} };
+    this.state = { searchData: {}, isReady : false };
 
     //use this word inside function
     this.fetchItem = this.fetchItem.bind(this);
