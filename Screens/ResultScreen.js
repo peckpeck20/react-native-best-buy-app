@@ -1,31 +1,25 @@
 import React, { Component } from "react";
-import { Image, ActivityIndicator } from "react-native";
+import { Image } from "react-native";
 
-import {starRating} from '../assets/GenerateStarRating';
+import { starRating } from '../assets/GenerateStarRating';
 import axios from "axios";
 import {
   Container,
-  Header,
   Content,
   Card,
   CardItem,
-  Thumbnail,
   Text,
-  Button,
   Icon,
   Left,
   Body,
   Right,
-  H1,
-  H2,
-  Title,
-  Alert
 } from "native-base";
 import styles from "../assets/styling";
-import NavBar from "../Components/NavBar";
-import { Col, Row, Grid } from "react-native-easy-grid";
+// import NavBar from "../Components/NavBar";
+// import { Col, Row, Grid } from "react-native-easy-grid";
 import { bestBuyKey } from "../assets/constants";
 import HeaderBack from "../Components/HeaderBack";
+import Loader from "../Components/Loader";
 
 class ResultScreen extends Component {
   constructor(props) {
@@ -33,7 +27,8 @@ class ResultScreen extends Component {
     this.state = {
       searchData: [],
       pageCount: 1,
-      totalPages: 0
+      totalPages: 0,
+      isReady: false
     };
     //use this word inside function
     this.fetchItem = this.fetchItem.bind(this);
@@ -43,24 +38,33 @@ class ResultScreen extends Component {
   componentDidMount() {
     //get params as props from home screen search
     const { params } = this.props.navigation.state;
+    // console.log(params.searchQuery);
+    this.fetchItem(params.searchQuery);
+    console.log("items by cat fetched");
+    // if(params.searchQuery == null){
+    //   console.log('empty query')
+    // }else{
+    //   console.log('aaa')
+    // }
 
-    const query = params ? params.searchQuery : null;
+    // const query = params ? params.searchQuery : null;
 
-    if (query == null) {
-      console.log("item query empty");
-    } else {
-      console.log("items fetched");
-      this.fetchItem(query);
-    }
+    // if (query === null) {
+    //   console.log("item query empty");
+    // } else {
+    //   this.fetchItem(query);
+    //   console.log("items fetched");
+    // }
 
-    const queryC = params ? params.categoryQuery : null;
+    // const queryC = params ? params.categoryQuery : null;
 
-    if (queryC == null) {
-      console.log("CAT query not found");
-    } else {
-      console.log("items by cat fetched");
-      this.fetchItemsByCategory(queryC);
-    }
+    // if (queryC == null) {
+    //   console.log("CAT query not found");
+    // } else {
+    //   this.fetchItemsByCategory(queryC);
+    //   console.log("items by cat fetched");
+
+    // }
   }
   //gets all items based on user query
   async fetchItem(query) {
@@ -76,9 +80,10 @@ class ResultScreen extends Component {
       .then(response => {
         this.setState({
           searchData: response.data.products,
-          totalPages: response.data.totalPages
+          totalPages: response.data.totalPages,
+          isReady: true
         });
-        // console.log(response);
+        console.log("items by cat fetched");
       })
       .catch(error => {
         console.log(error);
@@ -140,14 +145,12 @@ class ResultScreen extends Component {
   }
 
   render() {
-    const cardContent = this.state.searchData;
-    //get params as props from home screen search
-    const { params } = this.props.navigation.state;
-    // if (!cardContent) {
-    //   return <ActivityIndicator size="large" color="#0000ff" />;
-    // }
+    // const cardContent = this.state.searchData;
+    const { isReady, searchData } = this.state
+    // //get params as props from home screen search
+    // // const { params } = this.props.navigation.state;
 
-    const itemCards = cardContent.map((item, i) => {
+    const itemCards = searchData.map((item, i) => {
       return (
         <Card key={i} style={{ flex: 0 }}>
           <CardItem
@@ -204,7 +207,7 @@ class ResultScreen extends Component {
           title="Search Result"
           goBack={() => this.props.navigation.navigate('HomeScreen')}
         />
-        <Content>{itemCards}</Content>
+        {!isReady ? <Loader /> : <Content>{itemCards}</Content>}
       </Container>
     );
   }

@@ -7,6 +7,8 @@ import { Dimensions } from "react-native";
 
 import { firebaseKey } from "./assets/constants";
 import ParentProvider from "./redux/ParentProvider";
+import store from './redux/store';
+import {loginSuccess} from './redux/reducers/userModule';
 
 
 export const { width, height } = Dimensions.get("screen");
@@ -26,7 +28,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       appReady: false,
-      user:'',
+      // user:'',
     };
   }
 
@@ -36,17 +38,11 @@ export default class App extends React.Component {
     // Listen for authentication state to change.
     firebase.auth().onAuthStateChanged(user => {
       if (user != null) {
-        this.setState({
-          user
-        });
+        store.dispatch(loginSuccess(user));
         console.log("User is authentificated!");
       } else {
         console.log("Guest online");
-        this.setState({
-          user: {}
-        });
       }
-      //   // Do other things
     });
     console.log("App started succesfully");
   }
