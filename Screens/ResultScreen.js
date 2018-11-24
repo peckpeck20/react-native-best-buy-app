@@ -15,11 +15,9 @@ import {
   Right,
 } from "native-base";
 import styles from "../assets/styling";
-// import NavBar from "../Components/NavBar";
-// import { Col, Row, Grid } from "react-native-easy-grid";
 import { bestBuyKey } from "../assets/constants";
 import HeaderBack from "../Components/HeaderBack";
-import Loader from "../Components/Loader";
+import LottieView from 'lottie-react-native';
 
 class ResultScreen extends Component {
   constructor(props) {
@@ -38,34 +36,10 @@ class ResultScreen extends Component {
   componentDidMount() {
     //get params as props from home screen search
     const { params } = this.props.navigation.state;
-    // console.log(params.searchQuery);
     this.fetchItem(params.searchQuery);
-    console.log("items by cat fetched");
-    // if(params.searchQuery == null){
-    //   console.log('empty query')
-    // }else{
-    //   console.log('aaa')
-    // }
-
-    // const query = params ? params.searchQuery : null;
-
-    // if (query === null) {
-    //   console.log("item query empty");
-    // } else {
-    //   this.fetchItem(query);
-    //   console.log("items fetched");
-    // }
-
-    // const queryC = params ? params.categoryQuery : null;
-
-    // if (queryC == null) {
-    //   console.log("CAT query not found");
-    // } else {
-    //   this.fetchItemsByCategory(queryC);
-    //   console.log("items by cat fetched");
-
-    // }
   }
+
+
   //gets all items based on user query
   async fetchItem(query) {
     const pageCount = this.state.pageCount;
@@ -90,26 +64,26 @@ class ResultScreen extends Component {
       });
   }
   //gets all items based on category
-  async fetchItemsByCategory(query) {
-    const pageCount = this.state.pageCount;
-    const path = `https://api.bestbuy.com/v1/products((categoryPath.id=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
-    console.log("====================================");
-    console.log("category path" + path);
-    console.log("====================================");
+  // async fetchItemsByCategory(query) {
+  //   const pageCount = this.state.pageCount;
+  //   const path = `https://api.bestbuy.com/v1/products((categoryPath.id=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
+  //   console.log("====================================");
+  //   console.log("category path" + path);
+  //   console.log("====================================");
 
-    await axios
-      .get(path)
-      .then(response => {
-        this.setState({
-          searchData: response.data.products,
-          totalPages: response.data.totalPages
-        });
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  //   await axios
+  //     .get(path)
+  //     .then(response => {
+  //       this.setState({
+  //         searchData: response.data.products,
+  //         totalPages: response.data.totalPages
+  //       });
+  //       console.log(response);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
 
 
 
@@ -207,7 +181,12 @@ class ResultScreen extends Component {
           title="Search Result"
           nav={this.props.navigation}
         />
-        {!isReady ? <Loader /> : <Content>{itemCards}</Content>}
+        {!isReady ? <LottieView
+          source={require('../assets/animation/cart.json')}
+          autoPlay
+          loop
+          style={styles.background}
+        /> : <Content>{itemCards}</Content>}
       </Container>
     );
   }

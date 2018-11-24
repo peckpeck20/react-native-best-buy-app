@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
   },
   title: {
     padding: 15
+  },
+  background: {
+    backgroundColor : '#00ffff',
   }
 });
 
