@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LottieView from 'lottie-react-native';
+import styles from '../../assets/styling.js';
 
 export default class SpaceLoader extends Component {
   render() {
@@ -8,7 +9,7 @@ export default class SpaceLoader extends Component {
           source={require('../../assets/animation/space.json')}
           autoPlay
           loop
-          style={{backgroundColor: 'Cyan'}}
+          style={styles.background}
         />
     );
   }

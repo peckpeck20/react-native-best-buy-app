@@ -34,7 +34,7 @@ class AboutScreen extends Component {
       //   loop
       //   style={styles.background}
       // />
-      <SpaceLoader/>
+      <SpaceLoader cacheStrategy={"strong"}/>
 
 
 

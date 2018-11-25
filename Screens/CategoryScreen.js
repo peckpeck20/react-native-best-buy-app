@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import { KeyboardAvoidingView, View } from "react-native";
 import axios from "axios";
 import {
   Container,
   Text,
-  Form,
-  Item,
-  Label,
-  Input,
-  Alert,
   Content,
   Card,
   CardItem,
@@ -18,6 +12,7 @@ import {
 import NavBar from "../Components/NavBar";
 import styles from "../assets/styling";
 import { bestBuyKey } from "../assets/constants";
+import SpinBubble from "../Components/Loaders/SpinBubble";
 
 // import { allCategories } from "../assets/categories";
 
@@ -28,7 +23,8 @@ export default class CategoryScreen extends Component {
     this.state = {
       categoryData: [],
       pageCount: 1,
-      totalPages: 0
+      totalPages: 0,
+      isReady: false,
     };
 
     //use this word inside function
@@ -40,32 +36,26 @@ export default class CategoryScreen extends Component {
 
   async fetchCategories() {
     const pageCount = this.state.pageCount;
-    const path = `https://api.bestbuy.com/v1/categories(id=abcat*)?apiKey=${bestBuyKey}&pageSize=50&page=${pageCount}&show=id,name&format=json`;
-    // fetch(path)
-    //   .then(res => res.json())
-    //   .then(resData => {
-    //     this.setState({
-    //       categoryData: resData.categories
-    //     });
-    //     // console.log(resData.categories);
-    //   });
+    const path = `https://api.bestbuy.com/v1/categories(id=abcat*)?apiKey=${bestBuyKey}&pageSize=20&page=${pageCount}&show=id,name&format=json`;
 
     await axios
       .get(path)
       .then(response => {
         this.setState({
           categoryData: response.data.categories,
-          totalPages: response.data.totalPages
+          totalPages: response.data.totalPages,
+          isReady: true
         });
         // console.log(response.data.categories);
       })
       .catch(error => {
         console.log(error);
       });
+ 
   }
 
   render() {
-    const categoryData = this.state.categoryData;
+    const { categoryData, isReady } = this.state;
     const categoryCards = categoryData.map((item, i) => {
       return (
         <Card key={i}>
@@ -91,7 +81,7 @@ export default class CategoryScreen extends Component {
           title="Category"
           drawerOpen={() => this.props.navigation.navigate("DrawerToggle")}
         />
-        <Content>{categoryCards}</Content>
+        {!isReady ? <SpinBubble /> : <Content>{categoryCards}</Content>}
       </Container>
     );
   }

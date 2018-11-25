@@ -35,15 +35,15 @@ export const initialFetch = () => {
 
   const popularPath = `https://api.bestbuy.com/beta/products/mostViewed?apiKey=${bestBuyKey}`;
 
-  const getTrendItems = () => (
-    axios.get(trendingPath)
+  const getTrendItems = async () => (
+   await axios.get(trendingPath)
   );
 
-  const getPopularItems = () => (
-    axios.get(popularPath)
+  const getPopularItems = async () => (
+    await axios.get(popularPath)
   );
 
-  return (dispatch,getState) => {
+  return (dispatch) => {
     dispatch(getInitialData());
     //2 api resquest in 1
     axios.all([getTrendItems(),getPopularItems()])

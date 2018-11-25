@@ -30,13 +30,15 @@ class ResultScreen extends Component {
     };
     //use this word inside function
     this.fetchItem = this.fetchItem.bind(this);
-    // this.fetchItemsByCategory = this.fetchItemsByCategory.bind(this);
+    this.fetchItemsByCategory = this.fetchItemsByCategory.bind(this);
   }
 
   componentDidMount() {
     //get params as props from home screen search
     const { params } = this.props.navigation.state;
-    this.fetchItem(params.searchQuery);
+    console.log(params)
+    
+    // this.fetchItem(params.searchQuery);
   }
 
 
@@ -64,26 +66,26 @@ class ResultScreen extends Component {
       });
   }
   //gets all items based on category
-  // async fetchItemsByCategory(query) {
-  //   const pageCount = this.state.pageCount;
-  //   const path = `https://api.bestbuy.com/v1/products((categoryPath.id=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
-  //   console.log("====================================");
-  //   console.log("category path" + path);
-  //   console.log("====================================");
+  async fetchItemsByCategory(query) {
+    const pageCount = this.state.pageCount;
+    const path = `https://api.bestbuy.com/v1/products((categoryPath.id=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
+    console.log("====================================");
+    console.log("category path" + path);
+    console.log("====================================");
 
-  //   await axios
-  //     .get(path)
-  //     .then(response => {
-  //       this.setState({
-  //         searchData: response.data.products,
-  //         totalPages: response.data.totalPages
-  //       });
-  //       console.log(response);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
+    await axios
+      .get(path)
+      .then(response => {
+        this.setState({
+          searchData: response.data.products,
+          totalPages: response.data.totalPages
+        });
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
 
 
