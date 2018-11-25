@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from "react-native";
 import { Bubbles } from 'react-native-loader';
 
-
-
-
 export default class BubbleLoader extends Component {
   render() {
     return (
@@ -14,8 +11,6 @@ export default class BubbleLoader extends Component {
     );
   }
 }
-
-
 
 const styles = StyleSheet.create({
   container: {

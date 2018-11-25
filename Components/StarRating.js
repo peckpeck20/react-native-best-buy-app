@@ -1,17 +1,20 @@
 import React from 'react';
+import {
+  Icon,
+} from "native-base";
 
-const StarRating = (num) => {
-  if (num == null) {
+const StarRating = (props) => {
+  if (props.num == null) {
     return (
       <Icon
-        style={{ color: "red", fontSize: 15 }}
+        style={{ color: "black", fontSize: 15 }}
         name="star-border"
         type="MaterialIcons"
       />
     );
   } else {
     let total = [];
-    for (var i = 0; i < num; i++) {
+    for (var i = 0; i < props.num; i++) {
       total.push(
         <Icon
           key={i}

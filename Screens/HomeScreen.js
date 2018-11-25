@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { ScrollView, Image,RefreshControl } from "react-native";
+import { ScrollView, Image, RefreshControl } from "react-native";
 import { connect } from 'react-redux';
-
 import { initialFetch } from '../redux/reducers/InitialLoad';
-import {starRating} from '../assets/GenerateStarRating';
+
+import { Splash } from "../Components/Loaders/Splash";
+import { Col, Row, Grid } from "react-native-easy-grid";
+import HomeNavBar from "../Components/HomeNavBar";
+import StarRating from "../Components/StarRating";
 import {
   Container,
   Content,
@@ -18,13 +21,7 @@ import {
   Thumbnail,
   Text,
 } from "native-base";
-import { Col, Row, Grid } from "react-native-easy-grid";
 import styles from "../assets/styling";
-import Loader from "../Components/Loader";
-// // import BubbleLoader from "../Components/BubbleLoader";
-import HomeNavBar from "../Components/HomeNavBar";
-
-
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -46,8 +43,6 @@ class HomeScreen extends Component {
       this.props.initialFetch();
     }
   }
-
-
 
   render() {
     const { initialLoad } = this.props;
@@ -81,8 +76,7 @@ class HomeScreen extends Component {
 
             <CardItem bordered footer>
               <Left>
-              {starRating(item.customerReviews.averageScore)}
-              
+                <StarRating num={item.customerReviews.averageScore} />
               </Left>
               <Body />
               <Right>
@@ -127,7 +121,7 @@ class HomeScreen extends Component {
             </CardItem>
             <CardItem bordered footer>
               <Left>
-              {starRating(item.customerReviews.averageScore)}
+                <StarRating num={item.customerReviews.averageScore} />
               </Left>
               <Body>
                 <Text note style={{ textDecorationLine: "line-through" }}>
@@ -149,9 +143,9 @@ class HomeScreen extends Component {
         );
       });
     };
-    
+
     return (
-      !initialLoad.allItemsReady ? <Loader/> :
+      !initialLoad.allItemsReady ? <Splash /> :
         <Container style={styles.container}>
           <Content
             refreshControl={
@@ -177,7 +171,7 @@ class HomeScreen extends Component {
                 />
               </Row>
               <Row>
-                <Col style={styles.content}>
+                <Col>
                   <ScrollView horizontal={true} bounces>
                     {trendCards}
                   </ScrollView>

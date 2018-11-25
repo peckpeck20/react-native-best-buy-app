@@ -17,7 +17,7 @@ import {
 import styles from "../assets/styling";
 import { bestBuyKey } from "../assets/constants";
 import HeaderBack from "../Components/HeaderBack";
-import LottieView from 'lottie-react-native';
+import SpaceLoader from "../Components/Loaders/SpaceLoader";
 
 class ResultScreen extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class ResultScreen extends Component {
     };
     //use this word inside function
     this.fetchItem = this.fetchItem.bind(this);
-    this.fetchItemsByCategory = this.fetchItemsByCategory.bind(this);
+    // this.fetchItemsByCategory = this.fetchItemsByCategory.bind(this);
   }
 
   componentDidMount() {
@@ -119,8 +119,8 @@ class ResultScreen extends Component {
   }
 
   render() {
-    // const cardContent = this.state.searchData;
     const { isReady, searchData } = this.state
+    // // const cardContent = this.state.searchData;
     // //get params as props from home screen search
     // // const { params } = this.props.navigation.state;
 
@@ -176,18 +176,14 @@ class ResultScreen extends Component {
     });
 
     return (
-      <Container style={styles.container}>
-        <HeaderBack
-          title="Search Result"
-          nav={this.props.navigation}
-        />
-        {!isReady ? <LottieView
-          source={require('../assets/animation/cart.json')}
-          autoPlay
-          loop
-          style={styles.background}
-        /> : <Content>{itemCards}</Content>}
-      </Container>
+      !isReady ? <SpaceLoader /> :
+        <Container style={styles.container}>
+          <HeaderBack
+            title="Search Result"
+            goBack={() => this.props.navigation.goBack()}
+          />
+          <Content>{itemCards}</Content>
+        </Container>
     );
   }
 }

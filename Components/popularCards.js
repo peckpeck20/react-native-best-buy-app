@@ -1,4 +1,5 @@
 import React from 'react';
+import StarRating from './StarRating';
 
 rc
 
@@ -49,7 +50,9 @@ export default popularCards;
             <Right />
           </CardItem>
           <CardItem bordered footer>
-            <Left>{this.starRating(item.customerReviews.averageScore)}</Left>
+            <Left>
+              <StarRating num={item.customerReviews.averageScore}/>
+            </Left>
             <Body>
               <Text note style={{ textDecorationLine: "line-through" }}>
                 MSRP $ {item.prices.regular}
