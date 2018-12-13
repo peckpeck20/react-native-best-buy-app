@@ -36,9 +36,9 @@ class ResultScreen extends Component {
   componentDidMount() {
     //get params as props from home screen search
     const { params } = this.props.navigation.state;
-    console.log(params)
-    
-    // this.fetchItem(params.searchQuery);
+    //console.log(params)
+
+    this.fetchItem(params.searchQuery);
   }
 
 
@@ -59,7 +59,7 @@ class ResultScreen extends Component {
           totalPages: response.data.totalPages,
           isReady: true
         });
-        console.log("items by cat fetched");
+        console.log("search query success");
       })
       .catch(error => {
         console.log(error);

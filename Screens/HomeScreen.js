@@ -3,7 +3,7 @@ import { ScrollView, Image, RefreshControl } from "react-native";
 import { connect } from 'react-redux';
 import { initialFetch } from '../redux/reducers/InitialLoad';
 
-import { Splash } from "../Components/Loaders/Splash";
+import Splash from "../Components/Loaders/Splash";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import HomeNavBar from "../Components/HomeNavBar";
 import StarRating from "../Components/StarRating";
@@ -146,6 +146,7 @@ class HomeScreen extends Component {
 
     return (
       !initialLoad.allItemsReady ? <Splash /> :
+
         <Container style={styles.container}>
           <Content
             refreshControl={
