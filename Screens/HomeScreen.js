@@ -22,6 +22,7 @@ import {
   Text,
 } from "native-base";
 import styles from "../assets/styling";
+import CoolCards from "../Components/CoolCards";
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -173,9 +174,10 @@ class HomeScreen extends Component {
               </Row>
               <Row>
                 <Col>
-                  <ScrollView horizontal={true} bounces>
+                  {/* <ScrollView horizontal={true} bounces>
                     {trendCards}
-                  </ScrollView>
+                  </ScrollView> */}
+                  <CoolCards data={initialLoad.trendItems} navigation={this.props.navigation} />
                 </Col>
               </Row>
               <Row>

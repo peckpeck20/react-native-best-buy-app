@@ -20,7 +20,6 @@
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
     "axios": "^0.18.0",
-    "bestbuy": "^2.1.3",
     "expo": "^25.0.0",
     "firebase": "^4.12.0",
     "lottie-react-native": "^2.5.10",
@@ -31,6 +30,7 @@
     "react-native-elements": "^0.19.1",
     "react-native-loader": "^1.2.1",
     "react-native-search-header": "^0.2.6",
+    "react-native-snap-carousel": "^3.7.5",
     "react-navigation": "^1.5.11",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
