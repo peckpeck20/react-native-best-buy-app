@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, Image, RefreshControl } from "react-native";
+import { Image, RefreshControl } from "react-native";
 import { connect } from 'react-redux';
 import { initialFetch } from '../redux/reducers/InitialLoad';
 
@@ -39,7 +39,7 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    //if items haven't been fetch then run fetch otherwise do nothing
+    //if items haven't been fetch then run fetch
     if (this.props.initialLoad.allItemsReady != true) {
       this.props.initialFetch();
     }
