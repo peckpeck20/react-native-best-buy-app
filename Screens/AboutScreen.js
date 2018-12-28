@@ -31,7 +31,7 @@ class AboutScreen extends Component {
               "short": "Stream your favorite TV shows, movies to the TV4K Ultra HD and HDR enabledDual-band 802.11ac wirelessAndroid, Apple iOS, Chrome, Mac and Windows Compatible"
             },
             "images": {
-              "standard": "https://img.bbystatic.com/BestBuy_US/images/products/5578/5578628_sa.jpg"
+              "standard": null
             },
             "names": {
               "title": "Google - Chromecast Ultra 4K Streaming Media Player - Black"

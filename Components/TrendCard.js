@@ -10,7 +10,7 @@ import {
   CardItem,
   Text,
 } from "native-base";
-
+import ImageLoad from 'react-native-image-placeholder';
 
 class TrendCard extends Component {
 
@@ -26,17 +26,27 @@ class TrendCard extends Component {
             serialNumber: data.sku
           })}
         >
-          <Left>
-            <Image source={{ uri: data.images.standard }} style={{ height: 120, width: null, flex: 1 }}
-              resizeMode="contain" />
-          </Left>
-          <Body />
-          <Right>
+          {/* <Left>
+             <Image source={{ uri: data.images.standard }} style={{ height: 120, width: null, flex: 1 }}
+              resizeMode="contain" /> 
+          </Left> */}
+          <Body>
+            <ImageLoad
+              style={{ width: 250, height: 250 }}
+              loadingStyle={{ size: 'large', color: 'blue' }}
+              source={{ uri: data.images.standard }}
+              resizeMode={'center'}
+            />
+
+            {/* <Image source={{ uri: data.images.standard }} style={{ height: 120, width: null, flex: 1 }}
+              resizeMode="contain" /> */}
+          </Body>
+          {/* <Right>
             <Text style={{ color: "red" }}>Now $ {data.prices.current} </Text>
             <Text note style={{ textDecorationLine: "line-through" }}>
               MSRP $ {data.prices.regular}
             </Text>
-          </Right>
+          </Right> */}
         </CardItem>
 
         <CardItem bordered footer>
@@ -45,7 +55,7 @@ class TrendCard extends Component {
           </Left>
           <Body />
           <Right>
-            <Text>Orders {data.customerReviews.count}</Text>
+            <Text> $ {data.prices.current} </Text>
           </Right>
         </CardItem>
       </Card>

@@ -21,6 +21,7 @@ import {
   Thumbnail,
   Text,
 } from "native-base";
+import ImageLoad from 'react-native-image-placeholder';
 import styles from "../assets/styling";
 import CoolCards from "../Components/CoolCards";
 
@@ -50,43 +51,43 @@ class HomeScreen extends Component {
 
     if (initialLoad.allItemsReady === true) {
 
-      var trendCards = initialLoad.trendItems.map((item, i) => {
-        return (
-          <Card key={i} style={{ flex: 0 }}>
-            <CardItem
-              bordered
-              button
-              onPress={() =>
-                this.props.navigation.navigate("ShowCaseScreen", {
-                  serialNumber: item.sku
-                  // item: item
-                })
-              }
-            >
-              <Left>
-                <Thumbnail square source={{ uri: item.images.standard }} />
-              </Left>
-              <Body />
-              <Right>
-                <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
-                <Text note style={{ textDecorationLine: "line-through" }}>
-                  MSRP $ {item.prices.regular}
-                </Text>
-              </Right>
-            </CardItem>
+      // var trendCards = initialLoad.trendItems.map((item, i) => {
+      //   return (
+      //     <Card key={i} style={{ flex: 0 }}>
+      //       <CardItem
+      //         bordered
+      //         button
+      //         onPress={() =>
+      //           this.props.navigation.navigate("ShowCaseScreen", {
+      //             serialNumber: item.sku
+      //             // item: item
+      //           })
+      //         }
+      //       >
+      //         <Left>
+      //           <Thumbnail square source={{ uri: item.images.standard }} />
+      //         </Left>
+      //         <Body />
+      //         <Right>
+      //           <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
+      //           <Text note style={{ textDecorationLine: "line-through" }}>
+      //             MSRP $ {item.prices.regular}
+      //           </Text>
+      //         </Right>
+      //       </CardItem>
 
-            <CardItem bordered footer>
-              <Left>
-                <StarRating num={item.customerReviews.averageScore} />
-              </Left>
-              <Body />
-              <Right>
-                <Text>Orders {item.customerReviews.count}</Text>
-              </Right>
-            </CardItem>
-          </Card>
-        );
-      });
+      //       <CardItem bordered footer>
+      //         <Left>
+      //           <StarRating num={item.customerReviews.averageScore} />
+      //         </Left>
+      //         <Body />
+      //         <Right>
+      //           <Text>Orders {item.customerReviews.count}</Text>
+      //         </Right>
+      //       </CardItem>
+      //     </Card>
+      //   );
+      // });
 
       var popularCards = initialLoad.popularItems.map((item, i) => {
         return (
@@ -96,10 +97,16 @@ class HomeScreen extends Component {
             </CardItem>
 
             <CardItem cardBody bordered>
-              <Image
+              {/* <Image
                 source={{ uri: item.images.standard }}
                 style={{ height: 250, width: null, flex: 1 }}
                 resizeMode="contain"
+              /> */}
+              <ImageLoad
+                style={{ height: 250, width: 250, flex: 1 }}
+                loadingStyle={{ size: 'large', color: 'blue' }}
+                source={{ uri: item.images.standard }}
+                resizeMode={'contain'}
               />
             </CardItem>
             <CardItem bordered>
