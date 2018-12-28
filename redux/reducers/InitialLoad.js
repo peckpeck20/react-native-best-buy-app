@@ -1,12 +1,12 @@
 import axios from 'axios';
-import {bestBuyKey} from '../../assets/constants';
+import { bestBuyKey } from '../../assets/constants';
 // Initial state
 const initialState = {
   trendItems: '',
   popularItems: '',
   allItemsReady: false,
-  itemsLoading : false,
-  error : null
+  itemsLoading: false,
+  error: null
 };
 
 //Actions
@@ -19,7 +19,7 @@ export const getInitialData = () => ({
   type: GET_ALL_DATA_INIT
 });
 
-export const getAllDataSuccess = (trendData,popularData) => ({
+export const getAllDataSuccess = (trendData, popularData) => ({
   type: GET_ALL_DATA_SUCCESS,
   trendData: trendData,
   popularData: popularData
@@ -36,7 +36,7 @@ export const initialFetch = () => {
   const popularPath = `https://api.bestbuy.com/beta/products/mostViewed?apiKey=${bestBuyKey}`;
 
   const getTrendItems = async () => (
-   await axios.get(trendingPath)
+    await axios.get(trendingPath)
   );
 
   const getPopularItems = async () => (
@@ -46,15 +46,19 @@ export const initialFetch = () => {
   return (dispatch) => {
     dispatch(getInitialData());
     //2 api resquest in 1
-    axios.all([getTrendItems(),getPopularItems()])
-    .then(axios.spread((trendResult,popularResult) => {
-      let trends = trendResult.data.results;
-      let populars = popularResult.data.results;
-      dispatch(getAllDataSuccess(trends,populars));
-    }))
-    .catch((error) =>{
-      dispatch(getAllDataFail(error));
-    });
+    axios.all([getTrendItems(), getPopularItems()])
+      .then(axios.spread((trendResult, popularResult) => {
+        let trends = trendResult.data.results;
+        //take 1st 5 entries of the array only
+        let trendsHalf = trends.slice(0, 5);
+        //console.log(removed);
+
+        let populars = popularResult.data.results;
+        dispatch(getAllDataSuccess(trendsHalf, populars));
+      }))
+      .catch((error) => {
+        dispatch(getAllDataFail(error));
+      });
   }
 }
 
@@ -69,16 +73,16 @@ const initialLoad = (state = initialState, action) => {
       return {
         ...state,
         trendItems: action.trendData,
-        popularItems : action.popularData,
+        popularItems: action.popularData,
         itemsLoading: false,
-        allItemsReady : true
+        allItemsReady: true
       };
     case GET_ALL_DATA_FAIL:
       return {
         ...state,
         itemsLoading: false,
-        allItemsReady : false,
-        error : action.payload
+        allItemsReady: false,
+        error: action.payload
       };
     default:
       return state;

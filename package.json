@@ -1,7 +1,7 @@
 {
   "name": "best-buy-app",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "devDependencies": {
     "jest-expo": "25.0.0",
     "react-test-renderer": "16.2.0"
