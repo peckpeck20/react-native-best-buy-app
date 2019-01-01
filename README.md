@@ -2,6 +2,29 @@
 
 E-Commerce mobile application for Android and iOS
 
+## Features :white_check_mark:
+- [X] user can sign up and login with Facebook, Google or e-mail
+- [X] view most popular and trending items in the store
+- [X] view items by category
+- [X] predictive universal search
+- [X] add to items to cart
+
+### Upcoming features :memo:
+- [ ] Stripe payment service
+- [ ] Recommend items based on search history
+- [ ] Show recently watched & opened items in search screen
+- [ ] Messagging service between users
+- [ ] Search query with an image
+- [ ] Export web portal using React.JS
+
+
+
+### Tech stack :computer:
+- Firebase
+- React Native
+- Redux
+- Best Buy API
+
 ## Demo
 
 to run the application on your device , install the Expo app and scan the QR code in this link below
@@ -23,6 +46,9 @@ Want to run this project in your own enviroment ?
 ```
 git clone https://github.com/peckpeck20/react-native-best-buy-app.git
 ```
+```
+Replace values in config folder with your own instance keys,etc.
+```
 
 ```
 yarn install OR npm install
@@ -35,6 +61,6 @@ yarn start OR npm start
 
 ## Author
 
-* **Jose Zapata** - *Lead Developer* 
+* **Jose Zapata** 
 
 
