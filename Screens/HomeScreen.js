@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, RefreshControl } from "react-native";
+import { RefreshControl } from "react-native";
 import { connect } from 'react-redux';
 import { initialFetch } from '../redux/reducers/InitialLoad';
 
@@ -18,7 +18,6 @@ import {
   Right,
   Body,
   CardItem,
-  Thumbnail,
   Text,
 } from "native-base";
 import ImageLoad from 'react-native-image-placeholder';

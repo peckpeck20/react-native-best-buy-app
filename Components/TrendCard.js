@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Image } from "react-native";
 
 import StarRating from "./StarRating";
 import {
@@ -11,6 +10,7 @@ import {
   Text,
 } from "native-base";
 import ImageLoad from 'react-native-image-placeholder';
+import styles from '../styles/styles';
 
 class TrendCard extends Component {
 
@@ -18,7 +18,7 @@ class TrendCard extends Component {
   render() {
     const { data, navigation, index } = this.props;
     return (
-      <Card key={index} style={{ flex: 0 }}>
+      <Card key={index} style={styles.roundedCard}>
         <CardItem
           bordered
           button

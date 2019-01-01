@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { KeyboardAvoidingView } from "react-native";
 import {
   Container,
@@ -23,15 +24,7 @@ import { Avatar } from "react-native-elements";
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
 
-export default class ProfileScreen extends Component {
-  // componentDidMount() {
-  //   //get params as props from home screen search
-  //   const { params } = this.props.navigation.state.user;
-  //   console.log("====================================");
-  //   console.log(params);
-  //   console.log("====================================");
-  // }
-
+class ProfileScreen extends Component {
   signOut() {
     firebase
       .auth()
@@ -41,15 +34,15 @@ export default class ProfileScreen extends Component {
           console.log("Signed Out succesfully");
           // this.setState({ user: {} });
         },
-        function(error) {
+        function (error) {
           console.error("Sign Out Error", error);
         }
       );
   }
   render() {
-    /* 2. Read the params from the navigation state */
-    const { params } = this.props.navigation.state;
-    // const userDetails = params.loggedIn;
+
+    const { user } = this.props.user;
+
 
     return (
       <Container style={styles.container}>
@@ -65,11 +58,11 @@ export default class ProfileScreen extends Component {
                   <ListItem avatar>
                     <Left>
                       <Thumbnail
-                        source={{ uri: params.user.providerData[0].photoURL }}
+                        source={{ uri: user.providerData[0].photoURL }}
                       />
                     </Left>
                     <Body>
-                      <Text>{params.user.displayName}</Text>
+                      <Text>{user.displayName}</Text>
                     </Body>
                   </ListItem>
                   <ListItem icon>
@@ -77,7 +70,7 @@ export default class ProfileScreen extends Component {
                       <Icon name="sign-in" type="FontAwesome" />
                     </Left>
                     <Text>
-                      Signed up via : {params.user.providerData[0].providerId}{" "}
+                      Signed up via : {user.providerData[0].providerId}{" "}
                     </Text>
                   </ListItem>
 
@@ -134,3 +127,7 @@ export default class ProfileScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({ user: state.user });
+
+export default connect(mapStateToProps, {})(ProfileScreen);

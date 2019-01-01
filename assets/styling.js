@@ -5,14 +5,14 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 24
   },
-  content : {
+  content: {
     padding: 10
   },
   title: {
     padding: 15
   },
   background: {
-    backgroundColor : '#00ffff',
+    backgroundColor: "#5127C6",
   }
 });
 

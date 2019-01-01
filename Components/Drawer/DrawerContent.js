@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Image } from "react-native";
 
 import { connect } from 'react-redux';
-import {logout} from '../../redux/reducers/userModule';
+import { logout } from '../../redux/reducers/userModule';
 import * as firebase from "firebase";
 
 import {
@@ -22,6 +22,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 import GuestOptions from "./GuestOptions";
 import UserOptions from "./UserOptions";
+import styles from "../../styles/styles";
 
 class DrawerContent extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class DrawerContent extends Component {
 
     return (
       <Container style={{ paddingTop: 24 }}>
-        <Header span style={{ paddingTop: 15 }}>
+        <Header span style={[styles.main, { paddingTop: 15 }]}>
           <Image
             source={require("../../assets/Images/logo.jpg")}
             style={{
@@ -180,4 +181,4 @@ class DrawerContent extends Component {
 
 const mapStateToProps = state => ({ user: state.user });
 
-export default connect(mapStateToProps,{logout})(DrawerContent);
+export default connect(mapStateToProps, { logout })(DrawerContent);

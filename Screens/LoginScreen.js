@@ -106,7 +106,7 @@ class LoginScreen extends Component {
           result.idToken,
           result.accessToken
         );
-        // console.log(credential);
+        console.log(credential);
         firebase
           .auth()
           .signInWithCredential(credential)

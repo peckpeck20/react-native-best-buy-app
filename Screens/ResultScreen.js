@@ -69,9 +69,9 @@ class ResultScreen extends Component {
   async fetchItemsByCategory(query) {
     const pageCount = this.state.pageCount;
     const path = `https://api.bestbuy.com/v1/products((categoryPath.id=${query}))?apiKey=${bestBuyKey}&sort=customerReviewCount.dsc&show=name,image,customerReviewAverage,customerReviewCount,bestSellingRank,manufacturer,modelNumber,regularPrice,salePrice,mobileUrl,percentSavings,inStoreAvailability,freeShipping,sku,shippingCost&pageSize=30&page=${pageCount}&format=json`;
-    console.log("====================================");
-    console.log("category path" + path);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log("category path" + path);
+    // console.log("====================================");
 
     await axios
       .get(path)
@@ -80,7 +80,7 @@ class ResultScreen extends Component {
           searchData: response.data.products,
           totalPages: response.data.totalPages
         });
-        console.log(response);
+        // console.log(response);
       })
       .catch(error => {
         console.log(error);
@@ -121,10 +121,9 @@ class ResultScreen extends Component {
   }
 
   render() {
-    const { isReady, searchData } = this.state
-    // // const cardContent = this.state.searchData;
-    // //get params as props from home screen search
-    // // const { params } = this.props.navigation.state;
+    const { isReady, searchData } = this.state;
+    //get params as props from home screen search
+    const { params } = this.props.navigation.state;
 
     const itemCards = searchData.map((item, i) => {
       return (
@@ -181,7 +180,7 @@ class ResultScreen extends Component {
       !isReady ? <SpaceLoader /> :
         <Container style={styles.container}>
           <HeaderBack
-            title="Search Result"
+            title={`searched for ${params.searchQuery}`}
             goBack={() => this.props.navigation.goBack()}
           />
           <Content>{itemCards}</Content>
