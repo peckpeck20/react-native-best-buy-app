@@ -1,0 +1,14 @@
+//Private key info ..
+export const fbKey = "";
+
+export const iosID =
+  ";
+
+export const androidID =
+  ";
+
+export const bestBuyKey = "";
+
+export const firebaseKey = "";
+
+export const mLabKey = "";

@@ -8,7 +8,7 @@ import { Dimensions } from "react-native";
 import { firebaseKey } from "./assets/constants";
 import ParentProvider from "./redux/ParentProvider";
 import store from './redux/store';
-import {loginSuccess} from './redux/reducers/userModule';
+import { loginSuccess } from './redux/reducers/userModule';
 
 
 export const { width, height } = Dimensions.get("screen");
@@ -60,7 +60,7 @@ export default class App extends React.Component {
     if (!this.state.appReady) {
       return <Expo.AppLoading />;
     }
-    return <ParentProvider/>
+    return <ParentProvider />
   }
 }
 
