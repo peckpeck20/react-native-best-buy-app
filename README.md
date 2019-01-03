@@ -29,9 +29,7 @@ E-Commerce mobile application for Android and iOS
 
 to run the application on your device , install the Expo app available in Google's play store & Apple's store. Open the link in your mobile or scan the QR code in this link below
 
-```
-https://expo.io/@peckpeck20/best-buy-app  
-```
+https://expo.io/@peckpeck20/best-buy-app 
 
 ## Getting Started
 
