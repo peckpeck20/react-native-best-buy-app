@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import * as Expo from "expo";
 //packages
 import * as firebase from "firebase";
@@ -28,7 +27,6 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       appReady: false,
-      // user:'',
     };
   }
 
@@ -64,131 +62,3 @@ export default class App extends React.Component {
   }
 }
 
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  drawerHeader: {
-    height: 150,
-    backgroundColor: "white",
-    paddingTop: 20
-  },
-  drawerImage: {
-    height: 100,
-    width: 100,
-    borderRadius: 75,
-    left: "25%"
-  }
-});
-
-// signUpUser = (email, password) => {
-//   try {
-//     if (this.state.password.length < 6) {
-//       alert("Password is too short");
-//       return;
-//     }
-
-//     firebase.auth().createUserWithEmailAndPassword(email, password);
-//     console.log("sign up complete");
-//   } catch (error) {
-//     console.log(error.toString());
-//   }
-// };
-
-// logInUser = (email, password) => {
-//   try {
-//     if (this.state.password.length < 6) {
-//       alert("Password is too short");
-//       return;
-//     }
-
-//     firebase
-//       .auth()
-//       .signInWithEmailAndPassword(email, password)
-//       .then(user => {
-//         this.setState({ user });
-//         // console.log(user);
-//       });
-//     console.log("logged in with email");
-//   } catch (error) {
-//     console.log(error.toString());
-//   }
-// };
-
-// signOut() {
-//   firebase
-//     .auth()
-//     .signOut()
-//     .then(
-//       () => {
-//         console.log("Signed Out");
-//         this.setState({ user: {} });
-//       },
-//       function(error) {
-//         console.error("Sign Out Error", error);
-//       }
-//     );
-// }
-
-// async loginWithFacebook() {
-//   //ENTER YOUR APP ID
-//   const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
-//     fbKey,
-//     { permissions: ["public_profile"] }
-//   );
-
-//   if (type == "success") {
-//     const credential = firebase.auth.FacebookAuthProvider.credential(token);
-
-//     firebase
-//       .auth()
-//       .signInWithCredential(credential)
-//       .then(user => {
-//         this.setState({ user });
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//   }
-// }
-
-// async signInWithGoogleAsync() {
-//   try {
-//     const result = await Expo.Google.logInAsync({
-//       androidClientId: androidID,
-//       iosClientId: iosID,
-//       scopes: ["profile", "email"]
-//     });
-
-//     if (result.type === "success") {
-//       const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken);
-//       console.log(credential)
-//       firebase
-//         .auth()
-//         .signInWithCredential(credential)
-//       //   .then(data => {
-//       //     console.log("G-login - SUCCESS", data);
-//       //   })
-//       //   .catch(error => {
-//       //     console.log("ERROR", error);
-//       //   });
-//       // return result.accessToken;
-//     } else {
-//       Alert.alert("Login not sucessfull, try again :(")
-//     }
-//   } catch (e) {
-//     console.log(e.toString());
-//   }
-// }
-
-// componentDidMount() {
-//   // Listen for authentication state to change.
-//   // firebase.auth().onAuthStateChanged(user => {
-//   //   if (user != null) {
-//   //     console.log("We are authenticated now!");
-//   //   }
-//   //   // Do other things
-//   // });
-// }

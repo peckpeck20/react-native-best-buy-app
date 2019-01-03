@@ -65,8 +65,8 @@ class LoginScreen extends Component {
 
       firebase
         .auth()
-        .signInWithCredential(credential)
-        .then(user => this.props.loginSuccess(user))
+        .signInAndRetrieveDataWithCredential(credential)
+        // .then(user => this.props.loginSuccess(user))
         .catch(error => {
           this.props.loginFail(error);
         });
@@ -85,7 +85,7 @@ class LoginScreen extends Component {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
-        .then(user => this.props.loginSuccess(user));
+      // .then(user => this.props.loginSuccess(user));
       navigate("Home");
     } catch (error) {
       this.props.loginFail(error.toString());
@@ -93,6 +93,7 @@ class LoginScreen extends Component {
   };
 
   async signInWithGoogleAsync() {
+    this.props.requestLogin();
     try {
       const { navigate } = this.props.navigation;
       const result = await Expo.Google.logInAsync({
@@ -100,26 +101,30 @@ class LoginScreen extends Component {
         iosClientId: iosID,
         scopes: ["profile", "email"]
       });
+      console.log(result);
 
       if (result.type === "success") {
         const credential = firebase.auth.GoogleAuthProvider.credential(
           result.idToken,
           result.accessToken
         );
-        console.log(credential);
+        //console.log(credential);
         firebase
           .auth()
-          .signInWithCredential(credential)
-          .then(user => {
-            this.props.loginSuccess(user);
-          })
+          .signInAndRetrieveDataWithCredential(credential)
+          // .then(user => {
+          //   this.props.loginSuccess(user);
+          // })
           .catch(error => {
-            console.log(error);
+            this.props.loginFail(error.toString());
           });
         navigate("Home");
       } else {
         Alert.alert("Login not sucessfull, try again.");
       }
+      // if (this.props.user.auth === true) {
+      //   () => navigate("Home");
+      // }
     } catch (e) {
       console.log(e.toString());
     }

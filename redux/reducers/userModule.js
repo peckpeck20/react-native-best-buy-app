@@ -7,7 +7,7 @@ import { fbKey, androidID, iosID } from "../../assets/constants";
 const initialState = {
   auth: false,
   loggingIn: false,
-  user: '',
+  user: {},
   error: null
 };
 
@@ -31,7 +31,7 @@ export const loginSuccess = (user) => ({
 
 export const loginFail = (error) => ({
   type: LOGIN_FAIL,
-  error:error
+  error: error
 });
 
 export const logout = () => ({
@@ -77,11 +77,17 @@ export default function UserStateReducer(state = initialState, action = {}) {
       return {
         ...state,
         loggingIn: false,
-        error : action.error
+        error: action.error
       };
 
     case LOGOUT:
-      return initialState
+      return {
+        ...state,
+        auth: false,
+        loggingIn: false,
+        user: {},
+        error: null
+      }
 
     default:
       return state;

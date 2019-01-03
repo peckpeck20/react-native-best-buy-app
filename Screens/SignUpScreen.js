@@ -85,7 +85,7 @@ class SignUpScreen extends Component {
             loggedIn: false
           });
         },
-        function(error) {
+        function (error) {
           console.error("Sign Out Error", error);
         }
       );
@@ -102,7 +102,7 @@ class SignUpScreen extends Component {
 
       firebase
         .auth()
-        .signInWithCredential(credential)
+        .signInAndRetrieveDataWithCredential(credential)
         .then(user => {
           this.setState({
             user,
@@ -129,7 +129,7 @@ class SignUpScreen extends Component {
           result.accessToken
         );
         console.log(credential);
-        firebase.auth().signInWithCredential(credential);
+        firebase.auth().signInAndRetrieveDataWithCredential(credential);
 
         this.setState({
           loggedIn: true
