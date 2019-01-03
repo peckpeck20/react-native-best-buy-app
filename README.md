@@ -10,11 +10,11 @@ E-Commerce mobile application for Android and iOS
 - [X] add to items to cart
 
 ### Upcoming features :memo:
+- [ ] Search items with an image 
 - [ ] Stripe payment service
 - [ ] Recommend items based on search history
 - [ ] Show recently watched & opened items in search screen
 - [ ] Messagging service between users
-- [ ] Search query with an image
 - [ ] Export web portal using React.JS
 
 
