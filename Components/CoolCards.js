@@ -41,6 +41,7 @@ class CoolCards extends Component {
         loop={true}
         autoplay={true}
         layoutCardOffset={18}
+        autoplayDelay={2000}
       />
     );
   }
