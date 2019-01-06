@@ -103,7 +103,7 @@ class SignUpScreen extends Component {
         iosClientId: iosID,
         scopes: ["profile", "email"]
       });
-      console.log(result);
+      //console.log(result);
 
       if (result.type === "success") {
         const credential = firebase.auth.GoogleAuthProvider.credential(

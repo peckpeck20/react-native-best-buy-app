@@ -23,9 +23,7 @@ const SocialMediaButtons = (props) => {
           block
           iconLeft
           danger
-          onPress={
-            () => props.google()
-          }
+          onPress={() => props.google()}
         >
           <Icon type="FontAwesome" name="google-plus" />
           <Text>Google Login</Text>

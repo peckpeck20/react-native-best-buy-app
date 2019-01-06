@@ -15,8 +15,7 @@ import {
   Form,
   Item,
   Label,
-  Input,
-
+  Input
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -99,7 +98,7 @@ class LoginScreen extends Component {
         iosClientId: iosID,
         scopes: ["profile", "email"]
       });
-      console.log(result);
+      //console.log(result);
 
       if (result.type === "success") {
         const credential = firebase.auth.GoogleAuthProvider.credential(
