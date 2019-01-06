@@ -9,10 +9,11 @@ import {
   Text,
   Button
 } from "native-base";
+import styles from "../assets/styling";
 class HeaderBack extends Component {
   render() {
     return (
-      <Header>
+      <Header style={styles.background}>
         <Left>
           <Button transparent onPress={() => this.props.goBack()}>
             <Icon name="arrow-back" type="MaterialIcons" />

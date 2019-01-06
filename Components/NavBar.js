@@ -7,11 +7,12 @@ import {
   Body,
   Title
 } from "native-base";
+import styles from "../assets/styling";
 
 class NavBar extends Component {
   render() {
     return (
-      <Header>
+      <Header style={styles.background}>
         <Left>
           <Icon name="ios-menu" onPress={() => this.props.drawerOpen()} />
         </Left>
