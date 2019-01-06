@@ -20,9 +20,9 @@ import {
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
+import SocialMediaButtons from "../Components/SocialMediaButtons";
 
 
 
@@ -34,8 +34,6 @@ class LoginScreen extends Component {
       password: ""
     };
   }
-
-
 
   signOut = () => {
     firebase
@@ -130,11 +128,6 @@ class LoginScreen extends Component {
     }
   }
 
-
-
-
-
-
   render() {
     return (
       <Container style={styles.container}>
@@ -191,8 +184,9 @@ class LoginScreen extends Component {
               </Col>
               <Col size={1} />
             </Row>
+            <SocialMediaButtons />
 
-            <Row size={1}>
+            {/* <Row size={1}>
               <Col size={1} />
               <Col size={2}>
                 <H1 style={{ padding: 30 }}>One Click</H1>
@@ -213,19 +207,9 @@ class LoginScreen extends Component {
                   <Icon type="FontAwesome" name="google-plus" />
                   <Text>Google Login</Text>
                 </Button>
-
-                <Button
-                  success
-                  block
-                  onPress={() => {
-                    this.signOut();
-                  }}
-                >
-                  <Text>Signout</Text>
-                </Button>
               </Col>
               <Col size={1} />
-            </Row>
+            </Row> */}
           </Grid>
         </Content>
       </Container>
@@ -234,3 +218,13 @@ class LoginScreen extends Component {
 }
 const mapStateToProps = state => ({ user: state.user });
 export default connect(mapStateToProps, { requestLogin, loginSuccess, loginFail })(LoginScreen);
+
+{/* <Button
+                  success
+                  block
+                  onPress={() => {
+                    this.signOut();
+                  }}
+                >
+                  <Text>Signout</Text>
+                </Button> */}

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+
 import { Alert } from "react-native";
 import * as firebase from "firebase";
 import {
@@ -20,6 +22,8 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import { fbKey, androidID, iosID } from "../assets/constants";
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
+import { requestLogin, loginSuccess, loginFail } from '../redux/reducers/userModule';
+import SocialMediaButtons from "../Components/SocialMediaButtons";
 
 class SignUpScreen extends Component {
   constructor(props) {
@@ -91,7 +95,48 @@ class SignUpScreen extends Component {
       );
   }
 
+  async signInWithGoogleAsync() {
+    this.props.requestLogin();
+    try {
+      const { navigate } = this.props.navigation;
+      const result = await Expo.Google.logInAsync({
+        androidClientId: androidID,
+        iosClientId: iosID,
+        scopes: ["profile", "email"]
+      });
+      console.log(result);
+
+      if (result.type === "success") {
+        const credential = firebase.auth.GoogleAuthProvider.credential(
+          result.idToken,
+          result.accessToken
+        );
+        //console.log(credential);
+        firebase
+          .auth()
+          .signInAndRetrieveDataWithCredential(credential)
+          // .then(user => {
+          //   this.props.loginSuccess(user);
+          // })
+          .catch(error => {
+            this.props.loginFail(error.toString());
+          });
+        navigate("Home");
+      } else {
+        Alert.alert("Login not sucessfull, try again.");
+      }
+      // if (this.props.user.auth === true) {
+      //   () => navigate("Home");
+      // }
+    } catch (e) {
+      console.log(e.toString());
+    }
+  }
+
   async loginWithFacebook() {
+    this.props.requestLogin();
+
+    const { navigate } = this.props.navigation;
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
       fbKey,
       { permissions: ["public_profile"] }
@@ -103,51 +148,71 @@ class SignUpScreen extends Component {
       firebase
         .auth()
         .signInAndRetrieveDataWithCredential(credential)
-        .then(user => {
-          this.setState({
-            user,
-            loggedIn: true
-          });
-        })
+        // .then(user => this.props.loginSuccess(user))
         .catch(error => {
-          console.log(error);
+          this.props.loginFail(error);
         });
+      navigate("Home");
     }
   }
 
-  async signInWithGoogleAsync() {
-    try {
-      const result = await Expo.Google.logInAsync({
-        androidClientId: androidID,
-        iosClientId: iosID,
-        scopes: ["profile", "email"]
-      });
+  // async loginWithFacebook() {
+  //   const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
+  //     fbKey,
+  //     { permissions: ["public_profile"] }
+  //   );
 
-      if (result.type === "success") {
-        const credential = firebase.auth.GoogleAuthProvider.credential(
-          result.idToken,
-          result.accessToken
-        );
-        console.log(credential);
-        firebase.auth().signInAndRetrieveDataWithCredential(credential);
+  //   if (type == "success") {
+  //     const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
-        this.setState({
-          loggedIn: true
-        });
-        //   .then(data => {
-        //     console.log("G-login - SUCCESS", data);
-        //   })
-        //   .catch(error => {
-        //     console.log("ERROR", error);
-        //   });
-        // return result.accessToken;
-      } else {
-        Alert.alert("Login not sucessfull, try again :(");
-      }
-    } catch (e) {
-      console.log(e.toString());
-    }
-  }
+  //     firebase
+  //       .auth()
+  //       .signInAndRetrieveDataWithCredential(credential)
+  //       .then(user => {
+  //         this.setState({
+  //           user,
+  //           loggedIn: true
+  //         });
+  //       })
+  //       .catch(error => {
+  //         console.log(error);
+  //       });
+  //   }
+  // }
+
+  // async signInWithGoogleAsync() {
+  //   try {
+  //     const result = await Expo.Google.logInAsync({
+  //       androidClientId: androidID,
+  //       iosClientId: iosID,
+  //       scopes: ["profile", "email"]
+  //     });
+
+  //     if (result.type === "success") {
+  //       const credential = firebase.auth.GoogleAuthProvider.credential(
+  //         result.idToken,
+  //         result.accessToken
+  //       );
+  //       console.log(credential);
+  //       firebase.auth().signInAndRetrieveDataWithCredential(credential);
+
+  //       this.setState({
+  //         loggedIn: true
+  //       });
+  //       //   .then(data => {
+  //       //     console.log("G-login - SUCCESS", data);
+  //       //   })
+  //       //   .catch(error => {
+  //       //     console.log("ERROR", error);
+  //       //   });
+  //       // return result.accessToken;
+  //     } else {
+  //       Alert.alert("Login not sucessfull, try again :(");
+  //     }
+  //   } catch (e) {
+  //     console.log(e.toString());
+  //   }
+  // }
 
   render() {
     // const loggedIn = this.state.loggedIn;
@@ -236,36 +301,19 @@ class SignUpScreen extends Component {
                 </Row>
               </Col>
             </Row>
-
-            <Row size={1}>
-              <Col size={1} />
-              <Col size={2}>
-                <H1 style={{ padding: 30 }}>One Click</H1>
-
-                <Button block iconLeft onPress={() => this.loginWithFacebook()}>
-                  <Icon type="FontAwesome" name="facebook-official" />
-                  <Text>Facebook Login</Text>
-                </Button>
-                <H1 style={{ padding: 20 }} />
-                <Button
-                  block
-                  iconLeft
-                  danger
-                  onPress={() => {
-                    this.signInWithGoogleAsync();
-                  }}
-                >
-                  <Icon type="FontAwesome" name="google-plus" />
-                  <Text>Google Login</Text>
-                </Button>
-              </Col>
-              <Col size={1} />
-            </Row>
+            <SocialMediaButtons facebook={() => this.loginWithFacebook()} google={() => this.signInWithGoogleAsync()} />
+            {/* <Button
+              success
+              block
+              onPress={this.signOut}
+            >
+              <Text>Signout</Text>
+            </Button> */}
           </Grid>
         </Content>
       </Container>
     );
   }
 }
-
-export default SignUpScreen;
+const mapStateToProps = state => ({ user: state.user });
+export default connect(mapStateToProps, { requestLogin, loginSuccess, loginFail })(SignUpScreen);
