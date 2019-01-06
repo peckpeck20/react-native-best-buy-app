@@ -47,48 +47,10 @@ class HomeScreen extends Component {
 
   render() {
     const { initialLoad } = this.props;
+    let popularCards = [];
 
     if (initialLoad.allItemsReady === true) {
-
-      // var trendCards = initialLoad.trendItems.map((item, i) => {
-      //   return (
-      //     <Card key={i} style={{ flex: 0 }}>
-      //       <CardItem
-      //         bordered
-      //         button
-      //         onPress={() =>
-      //           this.props.navigation.navigate("ShowCaseScreen", {
-      //             serialNumber: item.sku
-      //             // item: item
-      //           })
-      //         }
-      //       >
-      //         <Left>
-      //           <Thumbnail square source={{ uri: item.images.standard }} />
-      //         </Left>
-      //         <Body />
-      //         <Right>
-      //           <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
-      //           <Text note style={{ textDecorationLine: "line-through" }}>
-      //             MSRP $ {item.prices.regular}
-      //           </Text>
-      //         </Right>
-      //       </CardItem>
-
-      //       <CardItem bordered footer>
-      //         <Left>
-      //           <StarRating num={item.customerReviews.averageScore} />
-      //         </Left>
-      //         <Body />
-      //         <Right>
-      //           <Text>Orders {item.customerReviews.count}</Text>
-      //         </Right>
-      //       </CardItem>
-      //     </Card>
-      //   );
-      // });
-
-      var popularCards = initialLoad.popularItems.map((item, i) => {
+      popularCards = initialLoad.popularItems.map((item, i) => {
         return (
           <Card key={i} style={{ flex: 0 }}>
             <CardItem header bordered>
@@ -134,13 +96,6 @@ class HomeScreen extends Component {
                 <Text note style={{ textDecorationLine: "line-through" }}>
                   MSRP $ {item.prices.regular}
                 </Text>
-                {/* <Button transparent onPress={() => alert(item.sku)}>
-                <Icon
-                  style={{ fontSize: 40 }}
-                  type="SimpleLineIcons"
-                  name="info"
-                />
-              </Button> */}
               </Body>
               <Right>
                 <Text style={{ color: "red" }}>Now $ {item.prices.current} </Text>
