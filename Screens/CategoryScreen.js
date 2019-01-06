@@ -51,7 +51,7 @@ export default class CategoryScreen extends Component {
       .catch(error => {
         console.log(error);
       });
- 
+
   }
 
   render() {
@@ -63,7 +63,8 @@ export default class CategoryScreen extends Component {
             button
             onPress={() =>
               this.props.navigation.navigate("ResultScreen", {
-                categoryQuery: item.id
+                categoryQuery: item.id,
+                categoryName: item.name
               })
             }
           >

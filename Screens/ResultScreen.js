@@ -34,11 +34,16 @@ class ResultScreen extends Component {
   }
 
   componentDidMount() {
-    //get params as props from home screen search
+    //get props passed from search screens
     const { params } = this.props.navigation.state;
-    //console.log(params)
+    if (params.searchQuery) {
+      this.fetchItem(params.searchQuery);
+    }
+    if (params.categoryQuery) {
+      this.fetchItemsByCategory(params.categoryQuery);
+    }
 
-    this.fetchItem(params.searchQuery);
+
   }
 
 
@@ -78,7 +83,8 @@ class ResultScreen extends Component {
       .then(response => {
         this.setState({
           searchData: response.data.products,
-          totalPages: response.data.totalPages
+          totalPages: response.data.totalPages,
+          isReady: true
         });
         // console.log(response);
       })
@@ -180,7 +186,7 @@ class ResultScreen extends Component {
       !isReady ? <SpaceLoader /> :
         <Container style={styles.container}>
           <HeaderBack
-            title={`searched for ${params.searchQuery}`}
+            title={`${params.searchQuery ? params.searchQuery : params.categoryName}`}
             goBack={() => this.props.navigation.goBack()}
           />
           <Content>{itemCards}</Content>
