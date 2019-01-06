@@ -14,5 +14,8 @@ export default styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#5127C6',
     overflow: 'hidden'
+  },
+  iconSize: {
+    fontSize: 21
   }
 });

@@ -84,7 +84,7 @@ class DrawerContent extends Component {
                 <List>
                   <ListItem icon onPress={() => navigation.navigate("Home")}>
                     <Left>
-                      <Icon type="Octicons" name="home" />
+                      <Icon type="Octicons" name="home" style={styles.iconSize} />
                     </Left>
                     <Body>
                       <Text>Home</Text>
@@ -99,7 +99,7 @@ class DrawerContent extends Component {
                     onPress={() => navigation.navigate("Category")}
                   >
                     <Left>
-                      <Icon type="FontAwesome" name="th-list" />
+                      <Icon type="FontAwesome" name="th-list" style={styles.iconSize} />
                     </Left>
                     <Body>
                       <Text>Categories</Text>
@@ -129,7 +129,7 @@ class DrawerContent extends Component {
                     onPress={() => navigation.navigate("ShoppingCart")}
                   >
                     <Left>
-                      <Icon type="Feather" name="shopping-cart" />
+                      <Icon type="Feather" name="shopping-cart" style={styles.iconSize} />
                     </Left>
                     <Body>
                       <Text>My Cart</Text>
@@ -141,7 +141,7 @@ class DrawerContent extends Component {
 
                   <ListItem icon onPress={() => navigation.navigate("About")}>
                     <Left>
-                      <Icon type="Octicons" name="info" />
+                      <Icon type="Octicons" name="info" style={styles.iconSize} />
                     </Left>
                     <Body>
                       <Text>About</Text>
