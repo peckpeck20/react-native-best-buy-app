@@ -16,7 +16,7 @@ import {
   Item,
   Label,
   Input,
-  H1,
+
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
@@ -184,7 +184,7 @@ class LoginScreen extends Component {
               </Col>
               <Col size={1} />
             </Row>
-            <SocialMediaButtons />
+            <SocialMediaButtons facebook={() => this.loginWithFacebook()} google={() => this.signInWithGoogleAsync()} />
 
             {/* <Row size={1}>
               <Col size={1} />
