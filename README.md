@@ -14,6 +14,8 @@ E-Commerce mobile application for Android and iOS
 - [ ] Stripe payment service
 - [ ] Recommend items based on search history
 - [ ] Show recently watched & opened items in search screen
+- [ ] Sorting and filtering items
+- [ ] Set quantity and view total in shopping cart
 - [ ] Messagging service between users
 - [ ] Export web portal using React.JS
 
