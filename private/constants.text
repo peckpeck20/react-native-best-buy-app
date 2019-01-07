@@ -1,4 +1,4 @@
-//Private key info ..
+//Replace with your own private keys
 export const fbKey = "";
 
 export const iosID =
