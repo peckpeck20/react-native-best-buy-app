@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { bestBuyKey } from '../../assets/constants';
+import { bestBuyKey } from '../../private/constants';
 // Initial state
 const initialState = {
   trendItems: '',

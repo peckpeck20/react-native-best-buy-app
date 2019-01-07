@@ -11,7 +11,7 @@ import {
 
 import NavBar from "../Components/NavBar";
 import styles from "../assets/styling";
-import { bestBuyKey } from "../assets/constants";
+import { bestBuyKey } from "../private/constants";
 import SpinBubble from "../Components/Loaders/SpinBubble";
 
 // import { allCategories } from "../assets/categories";

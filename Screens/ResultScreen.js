@@ -15,7 +15,7 @@ import {
   Right,
 } from "native-base";
 import styles from "../assets/styling";
-import { bestBuyKey } from "../assets/constants";
+import { bestBuyKey } from "../private/constants";
 import HeaderBack from "../Components/HeaderBack";
 import SpaceLoader from "../Components/Loaders/SpaceLoader";
 

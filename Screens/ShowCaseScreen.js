@@ -13,10 +13,10 @@ import {
   Left,
   Right,
 } from "native-base";
-import { mLabKey } from "../assets/constants";
+import { mLabKey } from "../private/constants";
 
 import styles from "../assets/styling";
-import { bestBuyKey } from "../assets/constants";
+import { bestBuyKey } from "../private/constants";
 import HeaderBack from "../Components/HeaderBack";
 import SpinBubble from "../Components/Loaders/SpinBubble";
 
@@ -43,7 +43,7 @@ class ShowCaseScreen extends Component {
       .then(response => {
         this.setState({
           searchData: response.data.products[0],
-          isReady : true
+          isReady: true
         });
         // console.log(response);
       })

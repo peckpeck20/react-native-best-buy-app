@@ -4,7 +4,7 @@ import * as Expo from "expo";
 import * as firebase from "firebase";
 import { Dimensions } from "react-native";
 
-import { firebaseKey } from "./assets/constants";
+import { firebaseKey } from "./private/constants";
 import ParentProvider from "./redux/ParentProvider";
 import store from './redux/store';
 import { loginSuccess } from './redux/reducers/userModule';

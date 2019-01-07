@@ -6,7 +6,7 @@ import NavBar from "../Components/NavBar";
 import SearchBar from "../Components/SearchBar";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import axios from "axios";
-import { mLabKey } from "../assets/constants";
+import { mLabKey } from "../private/constants";
 export default class WatchListScreen extends Component {
   // static NavigationOptions = {
   //   drawerIcon: (
@@ -47,7 +47,7 @@ export default class WatchListScreen extends Component {
       `https://api.mlab.com/api/1/databases/e-sell-mobile/collections/e-sell-mobile?apiKey=${mLabKey}`
     );
   }
-  componentDidMount() {}
+  componentDidMount() { }
   render() {
     return (
       <Container style={styles.container}>

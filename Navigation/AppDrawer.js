@@ -4,17 +4,17 @@ import { DrawerNavigator } from "react-navigation";
 //custom
 const { width, height } = Dimensions.get("screen");
 import DrawerContent from "../Components/Drawer/DrawerContent";
-import HomeScreen from "../Screens/HomeScreen";
-import LoginScreen from "../Screens/LoginScreen";
-import SignUpScreen from "../Screens/SignUpScreen";
-import ProfileScreen from "../Screens/ProfileScreen";
-import CategoryScreen from "../Screens/CategoryScreen";
-import WatchListScreen from "../Screens/WatchListScreen";
-import ResultScreen from "../Screens/ResultScreen";
-import ShowCaseScreen from "../Screens/ShowCaseScreen";
-import SearchScreen from "../Screens/SearchScreen";
-import AboutScreen from "../Screens/AboutScreen";
-import ShoppingCartScreen from "../Screens/ShoppingCartScreen";
+import HomeScreen from "../screens/HomeScreen";
+import LoginScreen from "../screens/LoginScreen";
+import SignUpScreen from "../screens/SignUpScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import CategoryScreen from "../screens/CategoryScreen";
+import WatchListScreen from "../screens/WatchListScreen";
+import ResultScreen from "../screens/ResultScreen";
+import ShowCaseScreen from "../screens/ShowCaseScreen";
+import SearchScreen from "../screens/SearchScreen";
+import AboutScreen from "../screens/AboutScreen";
+import ShoppingCartScreen from "../screens/ShoppingCartScreen";
 export const AppDrawer = DrawerNavigator(
   {
     Home: {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Alert } from "react-native";
 import { connect } from 'react-redux';
 import Expo from 'expo';
-import { fbKey, androidID, iosID } from "../assets/constants";
+import { fbKey, androidID, iosID } from "../private/constants";
 import * as firebase from "firebase";
 import { requestLogin, loginSuccess, loginFail } from '../redux/reducers/userModule';
 

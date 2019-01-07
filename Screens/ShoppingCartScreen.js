@@ -19,7 +19,7 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
-import { mLabKey } from "../assets/constants";
+import { mLabKey } from "../private/constants";
 
 class ShoppingCartScreen extends Component {
   constructor(props) {
@@ -68,13 +68,13 @@ class ShoppingCartScreen extends Component {
         <Card key={i} style={{ flex: 0 }}>
           <CardItem
             bordered
-            // button
-            // onPress={() =>
-            //   this.props.navigation.navigate("ShowCaseScreen", {
-            //     serialNumber: item.sku,
-            //      item: item
-            //   })
-            // }
+          // button
+          // onPress={() =>
+          //   this.props.navigation.navigate("ShowCaseScreen", {
+          //     serialNumber: item.sku,
+          //      item: item
+          //   })
+          // }
           >
             <Left>
               <Thumbnail square source={{ uri: item.picture }} />

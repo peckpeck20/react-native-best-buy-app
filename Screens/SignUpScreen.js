@@ -18,7 +18,7 @@ import {
 } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-import { fbKey, androidID, iosID } from "../assets/constants";
+import { fbKey, androidID, iosID } from "../private/constants";
 import styles from "../assets/styling";
 import NavBar from "../Components/NavBar";
 import { requestLogin, loginSuccess, loginFail } from '../redux/reducers/userModule';

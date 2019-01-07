@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import axios from 'axios';
-import { bestBuyKey } from '../../assets/constants';
-import { fbKey, androidID, iosID } from "../../assets/constants";
+import { bestBuyKey } from '../../private/constants';
+import { fbKey, androidID, iosID } from "../../private/constants";
 
 // Initial state
 const initialState = {
