@@ -1,13 +1,17 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0",
+    "sdkVersion": "32.0.0",
     "name": "best-buy-app",
     "slug": "best-buy-app",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "React Native eCommerce app",
     "privacy": "public",
     "orientation": "portrait",
     "githubUrl": "https://github.com/peckpeck20/react-native-best-buy-app",
-    "primaryColor": "#5127C6"
+    "primaryColor": "#5127C6",
+    "platforms": [
+      "android",
+      "ios"
+    ]
   }
 }
