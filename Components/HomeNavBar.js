@@ -6,7 +6,7 @@ import {
   Item,
   Input,
 } from "native-base";
-import { width, height } from "../App";
+ import { width, height } from "../styles/constant-properties";
 import styles from '../styles/styles';
 
 
@@ -50,7 +50,8 @@ const HomeNavBar = props => {
         </Item>
         <TouchableOpacity onPress={() => props.handleNav.navigate('ShoppingCart')}>
           <Icon
-            name="ios-cart-outline"
+            name="shoppingcart"
+            type={'AntDesign'}
             style={styles.mainIcons}
           />
         </TouchableOpacity>
