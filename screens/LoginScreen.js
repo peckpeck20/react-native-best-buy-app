@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Alert } from "react-native";
 import { connect } from 'react-redux';
-import Expo from 'expo';
+import * as Google from 'expo-google-app-auth';
+import * as Facebook from 'expo-facebook';
 import { fbKey, androidID, iosID } from "../private/constants";
 import * as firebase from "firebase";
 import { requestLogin, loginSuccess, loginFail } from '../redux/reducers/userModule';
@@ -52,12 +53,12 @@ class LoginScreen extends Component {
     this.props.requestLogin();
 
     const { navigate } = this.props.navigation;
-    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync(
       fbKey,
       { permissions: ["public_profile"] }
     );
 
-    if (type == "success") {
+    if (type === "success") {
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
 
       firebase
@@ -93,7 +94,7 @@ class LoginScreen extends Component {
     this.props.requestLogin();
     try {
       const { navigate } = this.props.navigation;
-      const result = await Expo.Google.logInAsync({
+      const result = await Google.logInAsync({
         androidClientId: androidID,
         iosClientId: iosID,
         scopes: ["profile", "email"]

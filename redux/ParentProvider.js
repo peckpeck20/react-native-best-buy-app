@@ -7,6 +7,6 @@ const ParentProvider = () => (
   <Provider store={store}>
     <AppDrawer />
   </Provider>
-)
+);
 
 export default ParentProvider;

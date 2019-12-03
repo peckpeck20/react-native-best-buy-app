@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": false,
   "devDependencies": {
-    "jest-expo": "25.0.0",
+    "jest-expo": "^34.0.0",
     "react-test-renderer": "16.2.0"
   },
   "main": "node_modules/expo/AppEntry.js",
@@ -18,15 +18,17 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "^9.0.0",
+    "@expo/vector-icons": "^10.0.6",
     "axios": "^0.18.0",
-    "expo": "^33.0.0",
-    "expo-font": "~5.0.1",
+    "expo": "^34.0.0",
+    "expo-facebook": "~6.0.0",
+    "expo-font": "~6.0.1",
+    "expo-google-app-auth": "^7.0.0",
     "firebase": "^5.7.2",
-    "lottie-react-native": "^2.5.10",
+    "lottie-react-native": "~2.6.1",
     "native-base": "^2.13.8",
     "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.2.tar.gz",
     "react-native-easy-grid": "^0.2.1",
     "react-native-elements": "^0.19.1",
     "react-native-image-placeholder": "^1.0.14",

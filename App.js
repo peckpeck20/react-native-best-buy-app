@@ -1,5 +1,6 @@
 import React from "react";
-import * as Expo from "expo";
+import * as Font from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
 //packages
 import * as firebase from "firebase";
 import { Dimensions } from "react-native";
@@ -30,33 +31,30 @@ export default class App extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.loadFonts();
+  async componentDidMount() {
+    await Font.loadAsync({
+      'Roboto': require('native-base/Fonts/Roboto.ttf'),
+      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+      ...Ionicons.font,
+    });
+    this.setState({ appReady: true });
     firebase.initializeApp(firebaseConfig);
     // Listen for authentication state to change.
     firebase.auth().onAuthStateChanged(user => {
       if (user != null) {
         store.dispatch(loginSuccess(user));
-        console.log("User is authentificated!");
+        console.log("User is authenticated!");
       } else {
         console.log("Guest online");
       }
     });
-    console.log("App started succesfully");
-  }
-
-  async loadFonts() {
-    await Expo.Font.loadAsync({
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
-    });
-    this.setState({ appReady: true });
+    console.log("App started successfully");
   }
 
   render() {
     if (!this.state.appReady) {
-      return <Expo.AppLoading />;
+      return null;
+      // return <Expo.AppLoading />;
     }
     return <ParentProvider />
   }
