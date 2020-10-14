@@ -12,13 +12,14 @@
     "eject": "expo eject",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "test": "jest"
+    "test": "jest",
+    "resetEnv": "watchman watch-del-all && rm -rf node_modules && yarn"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "^10.0.0",
+    "@expo/vector-icons": "^10.2.1",
     "axios": "^0.18.0",
     "expo": "^39.0.0",
     "expo-facebook": "~9.0.0",
@@ -26,7 +27,7 @@
     "expo-google-app-auth": "^7.0.0",
     "firebase": "7.9.0",
     "lottie-react-native": "~2.6.1",
-    "native-base": "2.13.8",
+    "native-base": "^2.13.14",
     "react": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
     "react-native-easy-grid": "^0.2.2",
