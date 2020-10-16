@@ -5942,11 +5942,6 @@ lodash.isstring@^4.0.1:
   resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
   integrity sha1-1SfftUVuynzJu5XV2ur4i6VKVFE=
 
-lodash.merge@>=4.6.x:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
-  integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
-
 lodash.omit@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
@@ -7460,7 +7455,7 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-native-animatable@>=1.3.x:
+react-native-animatable@^1.3.2:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.3.tgz#a13a4af8258e3bb14d0a9d839917e9bb9274ec8a"
   integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
@@ -7537,13 +7532,13 @@ react-native-safe-module@^1.1.0:
   dependencies:
     dedent "^0.6.0"
 
-react-native-search-header@^0.2.6:
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/react-native-search-header/-/react-native-search-header-0.2.9.tgz#7f25de24b12b8717965f64bf9598a1c340edf940"
-  integrity sha512-RdK5V4xHbVhUrHJkse/ozZJrWwBdZFgNHIjx/xauwDfkNUulQLo51QOApWNRio8jCZJV2rU6R4mBkye/6vCjAQ==
+react-native-search-header@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/react-native-search-header/-/react-native-search-header-0.3.5.tgz#7720beeef391df9073ddc7d6c385f75439b450b5"
+  integrity sha512-gh4Z10aVVmANsz4UOMTLoZsHo7C6jcMLlP72acuaNr9oGnwpsNUbTqybvddlOWFhv93ywv1eA5nGhcwP+rSr/A==
   dependencies:
-    lodash.merge ">=4.6.x"
-    react-native-animatable ">=1.3.x"
+    react-native-animatable "^1.3.2"
+    semver "^6.3.0"
 
 react-native-snap-carousel@^3.9.1:
   version "3.9.1"
