@@ -4,7 +4,8 @@
   "private": false,
   "devDependencies": {
     "jest-expo": "^39.0.0",
-    "react-test-renderer": "16.2.0"
+    "react-test-renderer": "16.2.0",
+    "@babel/core": "~7.9.0"
   },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
