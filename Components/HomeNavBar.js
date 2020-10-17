@@ -1,7 +1,7 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 
-import { Row, Icon, Input } from "native-base";
+import { Row, Icon } from "native-base";
 import { width, height } from "../styles/constant-properties";
 import styles from "../styles/styles";
 
@@ -24,12 +24,12 @@ const HomeNavBar = (props) => {
             padding: 10,
             backgroundColor: "white",
             flexDirection: "row",
-            justifyContent: "center",
+            justifyContent: "space-between",
             alignItems: "center",
             borderRadius: 30,
           }}
         >
-          <Input placeholder="I'm looking for.." disabled />
+          <Text style={{ paddingLeft: "5%" }}>I'm looking for..</Text>
           <Icon active name="search" />
         </TouchableOpacity>
         <TouchableOpacity

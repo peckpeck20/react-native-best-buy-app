@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Header,
   Title,
@@ -7,26 +7,25 @@ import {
   Body,
   Icon,
   Text,
-  Button
+  Button,
 } from "native-base";
 import styles from "../assets/styling";
-class HeaderBack extends Component {
-  render() {
-    return (
-      <Header style={styles.background}>
-        <Left>
-          <Button transparent onPress={() => this.props.goBack()}>
-            <Icon name="arrow-back" type="MaterialIcons" />
-            <Text />
-          </Button>
-        </Left>
-        <Body>
-          <Title>{this.props.title}</Title>
-        </Body>
-        <Right />
-      </Header>
-    );
-  }
-}
 
-export default HeaderBack;
+export default ({ goBack, title }) => (
+  <Header style={styles.background}>
+    <Left>
+      <Button transparent onPress={goBack}>
+        <Icon
+          name="arrow-back"
+          type="MaterialIcons"
+          style={styles.titleColor}
+        />
+        <Text />
+      </Button>
+    </Left>
+    <Body>
+      <Title style={styles.titleColor}>{title}</Title>
+    </Body>
+    <Right />
+  </Header>
+);
