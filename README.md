@@ -51,12 +51,9 @@ navigate to the Private folder, rename constants.text to constants.js and replac
 ```
 
 ```
-yarn install OR npm install
+yarn && yarn start
 ```
 
-```
-yarn start OR npm start
-```
 
 
 ## Author
