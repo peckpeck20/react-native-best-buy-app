@@ -52,7 +52,8 @@ class HomeScreen extends Component {
   }
 
   render() {
-    const { initialLoad } = this.props;
+    const { initialLoad, navigation } = this.props;
+
     let popularCards = [];
 
     if (initialLoad.allItemsReady === true) {
@@ -60,7 +61,7 @@ class HomeScreen extends Component {
         return (
           <TouchableOpacity
             onPress={() =>
-              this.props.navigation.navigate("ShowCaseScreen", {
+              navigation.navigate("ShowCaseScreen", {
                 serialNumber: item.sku,
               })
             }
@@ -123,7 +124,7 @@ class HomeScreen extends Component {
             }
           >
             <Grid>
-              <HomeNavBar handleNav={this.props.navigation} />
+              <HomeNavBar handleNav={navigation.toggleDrawer} />
 
               <Row>
                 <H1 style={styles.title}>Trending now</H1>
@@ -141,7 +142,7 @@ class HomeScreen extends Component {
                 <Col>
                   <CoolCards
                     data={initialLoad.trendItems}
-                    navigation={this.props.navigation}
+                    navigation={navigation}
                   />
                 </Col>
               </Row>

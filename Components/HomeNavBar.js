@@ -10,13 +10,9 @@ const HomeNavBar = (props) => {
   return (
     <Row style={[styles.main, { padding: 5 }]}>
       <Row>
-        <Icon
-          name="menu"
-          onPress={() => props.handleNav.navigate("DrawerToggle")}
-          style={styles.mainIcons}
-        />
+        <Icon name="menu" onPress={props.handleNav} style={styles.mainIcons} />
         <TouchableOpacity
-          onPress={() => props.handleNav.navigate("SearchScreen")}
+          onPress={() => {} /*props.handleNav.navigate("SearchScreen")*/}
           rounded
           style={{
             width: calculatedWidth,
@@ -33,7 +29,7 @@ const HomeNavBar = (props) => {
           <Icon active name="search" />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => props.handleNav.navigate("ShoppingCart")}
+          onPress={() => {} /*props.handleNav.navigate("ShoppingCart")*/}
         >
           <Icon
             name="shoppingcart"
