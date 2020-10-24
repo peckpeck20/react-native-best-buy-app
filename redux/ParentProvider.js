@@ -4,10 +4,12 @@ import { Provider } from "react-redux";
 import store from "./store";
 import Navigation from "../navigation/Navigation";
 
-const ParentProvider = () => (
-  <Provider store={store}>
-    <Navigation />
-  </Provider>
-);
+const ParentProvider = ({ toggleAppReady }) => {
+  return (
+    <Provider store={store}>
+      <Navigation toggleAppReady={toggleAppReady} />
+    </Provider>
+  );
+};
 
 export default ParentProvider;

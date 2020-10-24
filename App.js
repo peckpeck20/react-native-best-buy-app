@@ -1,62 +1,43 @@
-import React from "react";
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
-//packages
-import * as firebase from "firebase";
-import { Dimensions } from "react-native";
+import React, { useEffect, useState } from "react";
 
-import { firebaseKey } from "./private/constants";
+import { useFonts } from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
+
 import ParentProvider from "./redux/ParentProvider";
-import store from './redux/store';
-import { loginSuccess } from './redux/reducers/userModule';
+import firebaseApp from "./utils/firebase";
+// import store from "./redux/store";
+// import { loginSuccess } from "./redux/reducers/userModule";
 
+import Splash from "./Components/Loaders/Splash";
 
-export const { width, height } = Dimensions.get("screen");
+const App = () => {
+  const [appReady, setAppReady] = useState(false);
 
-//init firebase
-const firebaseConfig = {
-  apiKey: firebaseKey,
-  authDomain: "react-native-db-69e1b.firebaseapp.com",
-  databaseURL: "https://react-native-db-69e1b.firebaseio.com",
-  projectId: "react-native-db-69e1b",
-  storageBucket: "react-native-db-69e1b.appspot.com"
-  // messagingSenderId: "420654183697"
-};
+  const toggleAppReady = () => {
+    setAppReady(!appReady);
+  };
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      appReady: false,
-    };
-  }
+  let [fontsLoaded] = useFonts({
+    Roboto: require("native-base/Fonts/Roboto.ttf"),
+    Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+    ...Ionicons.font,
+  });
 
-  async componentDidMount() {
-    await Font.loadAsync({
-      'Roboto': require('native-base/Fonts/Roboto.ttf'),
-      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-      ...Ionicons.font,
-    });
-    this.setState({ appReady: true });
-    firebase.initializeApp(firebaseConfig);
-    // Listen for authentication state to change.
-    firebase.auth().onAuthStateChanged(user => {
-      if (user != null) {
-        store.dispatch(loginSuccess(user));
-        console.log("User is authenticated!");
+  useEffect(() => {
+    firebaseApp.auth().onAuthStateChanged((user) => {
+      if (user) {
+        //TODO check if theres a better way to do this - adding listener somewhere else ?
+        // store.dispatch(loginSuccess(user));
+        console.log("firebase - auth user!");
       } else {
-        console.log("Guest online");
+        console.log("firebase - guest user");
       }
     });
-    console.log("App started successfully");
-  }
+  }, []);
 
-  render() {
-    if (!this.state.appReady) {
-      return null;
-      // return <Expo.AppLoading />;
-    }
-    return <ParentProvider />
-  }
-}
+  if (!appReady && !fontsLoaded) return <Splash />;
 
+  return <ParentProvider toggleAppReady={toggleAppReady} />;
+};
+
+export default App;

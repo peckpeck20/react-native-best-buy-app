@@ -14,7 +14,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "test": "jest",
-    "resetEnv": "watchman watch-del-all && rm -rf node_modules && yarn && yarn"
+    "reset": "watchman watch-del-all && rm -rf node_modules && yarn && yarn && yarn run start"
   },
   "jest": {
     "preset": "jest-expo"

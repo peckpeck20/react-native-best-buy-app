@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -18,12 +18,17 @@ import AboutScreen from "../screens/AboutScreen";
 
 const Drawer = createDrawerNavigator();
 
-export default () => (
-  <NavigationContainer>
-    <Drawer.Navigator initialRouteName="About">
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Login" component={LoginScreen} />
-      <Drawer.Screen name="About" component={AboutScreen} />
-    </Drawer.Navigator>
-  </NavigationContainer>
-);
+export default (props) => {
+  useEffect(() => {
+    props.toggleAppReady();
+  }, []);
+
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="About">
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="About" component={AboutScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+};
