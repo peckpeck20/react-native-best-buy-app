@@ -9,7 +9,6 @@ import {
 import { connect } from "react-redux";
 import { initialFetch } from "../redux/reducers/InitialLoad";
 
-import Splash from "../Components/Loaders/Splash";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import HomeNavBar from "../Components/HomeNavBar";
 import StarRating from "../Components/StarRating";
@@ -38,88 +37,28 @@ class HomeScreen extends Component {
     };
   }
 
-  _onRefresh = () => {
+  onRefresh = () => {
     this.setState({ refreshing: true });
     this.props.initialFetch();
-    this.setState({ refreshing: false });
-  };
 
-  componentDidMount() {
-    //if items haven't been fetch then run fetch
-    if (this.props.initialLoad.allItemsReady != true) {
-      this.props.initialFetch();
+    if (!this.props.initialLoad.itemsLoading) {
+      this.setState({ refreshing: false });
     }
-  }
+  };
 
   render() {
     const { initialLoad, navigation } = this.props;
+    const { refreshing } = this.state;
 
-    let popularCards = [];
-
-    if (initialLoad.allItemsReady === true) {
-      popularCards = initialLoad.popularItems.map((item, i) => {
-        return (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("ShowCaseScreen", {
-                serialNumber: item.sku,
-              })
-            }
-            key={item.sku}
-          >
-            <Card style={{ flex: 0 }}>
-              <CardItem header bordered>
-                <Text>{item.names.title}</Text>
-              </CardItem>
-              <CardItem cardBody bordered>
-                <ImageLoad
-                  style={{ height: 250, width: 250, flex: 1 }}
-                  loadingStyle={{ size: "large", color: "blue" }}
-                  source={{ uri: item.images.standard }}
-                  resizeMode={"contain"}
-                />
-              </CardItem>
-              <CardItem bordered>
-                <Left />
-                <Body>
-                  <Button full rounded>
-                    <Text>Info</Text>
-                  </Button>
-                </Body>
-                <Right />
-              </CardItem>
-              <CardItem bordered footer>
-                <Left>
-                  <StarRating num={item.customerReviews.averageScore} />
-                </Left>
-                <Body>
-                  <Text note style={{ textDecorationLine: "line-through" }}>
-                    MSRP $ {item.prices.regular}
-                  </Text>
-                </Body>
-                <Right>
-                  <Text style={{ color: "red" }}>
-                    Now $ {item.prices.current}{" "}
-                  </Text>
-                </Right>
-              </CardItem>
-            </Card>
-          </TouchableOpacity>
-        );
-      });
-    }
-
-    return !initialLoad.allItemsReady ? (
-      <Splash />
-    ) : (
+    return (
       <SafeAreaView style={[styles.container, styles.background]}>
-        <StatusBar setBackgroundColor={"red"} />
+        <StatusBar />
         <Container>
           <Content
             refreshControl={
               <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh}
+                refreshing={refreshing}
+                onRefresh={this.onRefresh}
               />
             }
           >
@@ -159,7 +98,63 @@ class HomeScreen extends Component {
                 />
               </Row>
               <Row style={styles.content}>
-                <Col>{popularCards}</Col>
+                <Col>
+                  {initialLoad.popularItems.map((item, i) => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate("ShowCaseScreen", {
+                            serialNumber: item.sku,
+                          })
+                        }
+                        key={item.sku}
+                      >
+                        <Card style={{ flex: 0 }}>
+                          <CardItem header bordered>
+                            <Text>{item.names.title}</Text>
+                          </CardItem>
+                          <CardItem cardBody bordered>
+                            <ImageLoad
+                              style={{ height: 250, width: 250, flex: 1 }}
+                              loadingStyle={{ size: "large", color: "blue" }}
+                              source={{ uri: item.images.standard }}
+                              resizeMode={"contain"}
+                            />
+                          </CardItem>
+                          <CardItem bordered>
+                            <Left />
+                            <Body>
+                              <Button full rounded>
+                                <Text>Info</Text>
+                              </Button>
+                            </Body>
+                            <Right />
+                          </CardItem>
+                          <CardItem bordered footer>
+                            <Left>
+                              <StarRating
+                                num={item.customerReviews.averageScore}
+                              />
+                            </Left>
+                            <Body>
+                              <Text
+                                note
+                                style={{ textDecorationLine: "line-through" }}
+                              >
+                                MSRP $ {item.prices.regular}
+                              </Text>
+                            </Body>
+                            <Right>
+                              <Text style={{ color: "red" }}>
+                                Now $ {item.prices.current}{" "}
+                              </Text>
+                            </Right>
+                          </CardItem>
+                        </Card>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </Col>
               </Row>
             </Grid>
           </Content>
