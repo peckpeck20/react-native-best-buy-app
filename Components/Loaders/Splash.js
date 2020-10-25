@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import LottieView from "lottie-react-native";
+import { connect } from "react-redux";
+import { initialFetch } from "../../redux/reducers/InitialLoad";
+import AppContext from "../../context/AppContext";
 
-const Splash = () => (
-  <LottieView
-    source={require("../../assets/animation/rocket_blue.json")}
-    autoPlay
-    loop
-  />
-);
+const Splash = (props) => {
+  const { initialLoad } = props;
+  const context = useContext(AppContext);
 
-export default Splash;
+  useEffect(() => {
+    if (initialLoad.allItemsReady) {
+      context.toggleAppReady();
+    }
+  }, [initialLoad.allItemsReady]);
+
+  return (
+    <LottieView
+      source={require("../../assets/animation/rocket_blue.json")}
+      autoPlay
+      loop
+    />
+  );
+};
+
+const mapStateToProps = (state) => ({ initialLoad: state.initialLoad });
+
+export default connect(mapStateToProps, { initialFetch })(Splash);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -16,19 +16,23 @@ import LoginScreen from "../screens/LoginScreen";
 import AboutScreen from "../screens/AboutScreen";
 // import ShoppingCartScreen from "../screens/ShoppingCartScreen";
 
+// import { initialFetch } from "../redux/reducers/InitialLoad";
+import { connect } from "react-redux";
+
 const Drawer = createDrawerNavigator();
 
-export default (props) => {
-  useEffect(() => {
-    props.toggleAppReady();
-  }, []);
-
+const Navigation = (props) => {
+  // console.log(props.user);
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="About">
+      <Drawer.Navigator initialRouteName="HomeScreen">
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="About" component={AboutScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
+
+const mapStateToProps = (state) => ({ user: state.user });
+
+export default connect(mapStateToProps, undefined)(Navigation);
