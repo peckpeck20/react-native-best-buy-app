@@ -4,14 +4,7 @@ import { useWindowDimensions } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import TrendCard from "./TrendCard";
 
-const CoolCards = (props) => {
-  const renderItem = ({ item, index }) => (
-    <TrendCard data={item} navigation={props.navigation} index={index} />
-  );
-
-  const viewportWidth = useWindowDimensions().width;
-  const viewportHeight = useWindowDimensions().height;
-
+const calculateWidth = (viewportWidth) => {
   function wp(percentage) {
     const value = (percentage * viewportWidth) / 100;
     return Math.round(value);
@@ -22,6 +15,17 @@ const CoolCards = (props) => {
 
   const sliderWidth = viewportWidth;
   const itemWidth = slideWidth + itemHorizontalMargin * 2;
+
+  return { sliderWidth, itemWidth };
+};
+
+const CoolCards = (props) => {
+  const renderItem = ({ item, index }) => (
+    <TrendCard data={item} navigation={props.navigation} index={index} />
+  );
+
+  const viewportWidth = useWindowDimensions().width;
+  const { sliderWidth, itemWidth } = calculateWidth(viewportWidth);
 
   return (
     <Carousel

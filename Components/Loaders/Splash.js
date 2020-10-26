@@ -19,6 +19,7 @@ const Splash = (props) => {
       source={require("../../assets/animation/rocket_blue.json")}
       autoPlay
       loop
+      cacheStrategy={"strong"}
     />
   );
 };

@@ -22,7 +22,6 @@ import { connect } from "react-redux";
 const Drawer = createDrawerNavigator();
 
 const Navigation = (props) => {
-  // console.log(props.user);
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="HomeScreen">
