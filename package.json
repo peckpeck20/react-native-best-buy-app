@@ -39,7 +39,7 @@
     "react-native-gesture-handler": "~1.7.0",
     "react-native-image-placeholder": "^1.0.14",
     "react-native-loader": "^1.3.1",
-    "react-native-reanimated": "~1.13.0",
+    "react-native-reanimated": "~2.10.0",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
     "react-native-search-header": "^0.3.5",
